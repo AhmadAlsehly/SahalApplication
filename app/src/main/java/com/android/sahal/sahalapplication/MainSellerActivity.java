@@ -3,6 +3,7 @@ package com.android.sahal.sahalapplication;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ public class MainSellerActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
@@ -28,7 +30,10 @@ public class MainSellerActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.navigation_profile:
-                    //   mTextMessage.setText(R.string.title_notifications);
+                    /*getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.container1,new SignupBuyer(),"SignupBuyer()")
+                            .commit();*/
                     return true;
             }
             return false;
