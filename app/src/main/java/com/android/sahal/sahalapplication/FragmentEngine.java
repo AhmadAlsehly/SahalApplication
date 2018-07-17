@@ -4,8 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +12,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link sellerHome.OnFragmentInteractionListener} interface
+ * {@link FragmentEngine.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link sellerHome#newInstance} factory method to
+ * Use the {@link FragmentEngine#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class sellerHome extends Fragment implements FragmentEngine.OnFragmentInteractionListener {
+public class FragmentEngine extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +29,7 @@ public class sellerHome extends Fragment implements FragmentEngine.OnFragmentInt
 
     private OnFragmentInteractionListener mListener;
 
-    public sellerHome() {
+    public FragmentEngine() {
         // Required empty public constructor
     }
 
@@ -41,11 +39,11 @@ public class sellerHome extends Fragment implements FragmentEngine.OnFragmentInt
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment sellerHome.
+     * @return A new instance of fragment FragmentEngine.
      */
     // TODO: Rename and change types and number of parameters
-    public static sellerHome newInstance(String param1, String param2) {
-        sellerHome fragment = new sellerHome();
+    public static FragmentEngine newInstance(String param1, String param2) {
+        FragmentEngine fragment = new FragmentEngine();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,27 +64,31 @@ public class sellerHome extends Fragment implements FragmentEngine.OnFragmentInt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_seller_home, container, false);
+        return inflater.inflate(R.layout.fragment_fragment_engine, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-
             mListener.onFragmentInteraction(uri);
         }
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     /**
@@ -102,35 +104,5 @@ public class sellerHome extends Fragment implements FragmentEngine.OnFragmentInt
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-           Fragment fragment = null ;
-
-            switch (position) {
-                case   0 :
-                        fragment= new FragmentEngine();
-
-                        break;
-//                case 1 :
-//                    fragment=new FragmentElectric();
-//                case 2 :
-//                    fragment=new FragmentBody();
-
-            }
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 0;
-        }
     }
 }
