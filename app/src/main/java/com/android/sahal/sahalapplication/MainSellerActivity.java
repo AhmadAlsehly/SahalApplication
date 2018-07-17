@@ -20,7 +20,7 @@ public class MainSellerActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+
                     return true;
                 case R.id.navigation_money:
                   //  mTextMessage.setText(R.string.title_dashboard);
@@ -30,10 +30,10 @@ public class MainSellerActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.navigation_profile:
-                    /*getSupportFragmentManager()
+                    getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.container1,new SignupBuyer(),"SignupBuyer()")
-                            .commit();*/
+                            .replace(R.id.container1,new SellerProfile(),"SellerProfile()")
+                            .commit();
                     return true;
             }
             return false;
