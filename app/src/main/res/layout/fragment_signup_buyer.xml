@@ -14,9 +14,9 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         android:ems="10"
-        android:hint="Name"
+        android:hint=""
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -33,12 +33,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:ems="10"
-        android:hint="Password"
+        android:hint=""
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNameb" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEmailb" />
 
     <EditText
         android:id="@+id/txtEmailb"
@@ -50,12 +50,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:ems="10"
-        android:hint="E-mail"
+        android:hint=""
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPasswordb" />
+        app:layout_constraintTop_toBottomOf="@+id/txtNameb" />
 
     <EditText
         android:id="@+id/txtPhoneb"
@@ -67,12 +67,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:ems="10"
-        android:hint="Phone Number"
+        android:hint=""
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmailb" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPasswordb" />
 
     <Button
         android:id="@+id/button3"
@@ -83,9 +83,72 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
-        android:text="Sign Up"
+        android:text="إنشاء حساب"
         android:onClick="onClick"
+        android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPhoneb" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="86dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:text="إسم المستخدم"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtNameb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="79dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="كلمة المرور"
+        app:layout_constraintBottom_toTopOf="@+id/txtPasswordb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.737"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="98dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:text="البريد الإلكتروني"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtEmailb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.718"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="79dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="رقم الهاتف"
+        app:layout_constraintBottom_toTopOf="@+id/txtPhoneb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.737"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

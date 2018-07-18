@@ -70,14 +70,14 @@
     <Button
         android:id="@+id/prsonalData"
         android:layout_width="265dp"
-        android:drawableLeft="@drawable/ic_profile"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="68dp"
         android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_profile"
         android:gravity="center_vertical"
         android:text="بياناتي الشخصية"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,37 +86,20 @@
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
     <Button
-        android:id="@+id/setting"
-        android:gravity="center_vertical"
-        android:drawableLeft="@drawable/ic_profile"
-        android:layout_width="265dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:background="@android:color/transparent"
-        android:text="الاعدادات"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prsonalData" />
-
-    <Button
         android:id="@+id/signOut"
-        android:drawableLeft="@drawable/ic_profile"
         android:layout_width="265dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_profile"
         android:gravity="center_vertical"
         android:text="تسجيل خروج"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setting" />
+        app:layout_constraintTop_toBottomOf="@+id/prsonalData" />
 </android.support.constraint.ConstraintLayout>
