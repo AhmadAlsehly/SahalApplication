@@ -32,7 +32,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count;
+        public TextView title, count,desc;
         public ImageView thumbnail, overflow;
 
         public MyViewHolder(View view) {
@@ -41,6 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             count = (TextView) view.findViewById(R.id.count);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             overflow = (ImageView) view.findViewById(R.id.overflow);
+            desc= (TextView) view.findViewById(R.id.desc);
         }
     }
 
@@ -70,6 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         ModuleItem item = itemList.get(position);
         holder.title.setText(item.getName());
+        holder.desc.setText(item.getDescription());
         holder.count.setText(item.getPrice() + " SR");
 
         // loading album cover using Glide library
