@@ -20,24 +20,34 @@ public class MainSellerActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.container1,new SellerHome(),"SellerHome()")
+                            .commit();
+
+
                     return true;
                 case R.id.navigation_money:
                   //  mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_add:
+<<<<<<< HEAD
                     getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.container1,new SellerAddItem(),"SellerAddItem()")
                         .commit();
+=======
+
+>>>>>>> c0aa5f04af6d8127f66d094e657bbfbb7a91fc24
                  //   mTextMessage.setText(R.string.title_notifications);
                     return true;
 
                 case R.id.navigation_profile:
-                    /*getSupportFragmentManager()
+                    getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.container1,new SignupBuyer(),"SignupBuyer()")
-                            .commit();*/
+                            .replace(R.id.container1,new SellerProfile(),"SellerProfile()")
+                            .commit();
+
                     return true;
             }
             return false;
