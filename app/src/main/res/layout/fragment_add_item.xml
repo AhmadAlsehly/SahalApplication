@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBack"
+    android:paddingTop="50dp"
+    android:gravity="center_horizontal"
+    >
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        >
+
+        <TextView
+            android:id="@+id/itemName_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="اسم القطعة"
+            tools:layout_editor_absoluteX="291dp"
+            tools:layout_editor_absoluteY="44dp" />
+
+        <EditText
+            android:id="@+id/itemName_input"
+            android:layout_width="292dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:hint="اسم القطعة المدخلة "
+            android:inputType="text"
+            android:textSize="16sp"
+            tools:ignore="DuplicateIds"
+            tools:layout_editor_absoluteX="56dp"
+            tools:layout_editor_absoluteY="63dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/relativeLayout"
+        android:id="@+id/relativeLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/itemPrice_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/itemName_input"
+            android:text="السعر"
+            tools:ignore="DuplicateIds"
+            tools:layout_editor_absoluteX="321dp" />
+
+        <EditText
+            android:id="@+id/itemPrice_input"
+            android:layout_width="292dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:hint="السعر"
+            android:inputType="number"
+            android:textSize="16sp"
+            tools:ignore="DuplicateIds"
+            tools:layout_editor_absoluteX="56dp"
+            tools:layout_editor_absoluteY="135dp" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_below="@+id/relativeLayout3"
+        android:id="@+id/relativeLayoutw"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="8dp">
+
+        <EditText
+            android:id="@+id/itemDescr_input"
+            android:layout_width="293dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/itemDescr_view"
+            android:hint="الوصف"
+            android:inputType="text"
+            android:textSize="16sp"
+            tools:layout_editor_absoluteX="56dp"
+            tools:layout_editor_absoluteY="209dp" />
+
+        <TextView
+            android:id="@+id/itemDescr_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="وصف القطعة"
+            tools:layout_editor_absoluteX="286dp"
+            tools:layout_editor_absoluteY="190dp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/relativeLayoutw"
+        android:id="@+id/relativeComp"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:id="@+id/itemComp_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="الماركة" />
+
+        <Spinner
+            android:id="@+id/itemComp_input"
+            android:layout_width="132dp"
+            android:layout_height="32dp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/itemComp_view" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+android:layout_toRightOf="@id/relativeComp"
+        android:layout_below="@id/relativeLayoutw"
+        android:id="@+id/relativeLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:id="@+id/itemModel_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="النوع" />
+
+        <Spinner
+            android:id="@+id/itemModel_input"
+            android:layout_width="150dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/itemModel_view" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_below="@id/relativeComp"
+        android:id="@+id/relativeLayout4"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/itemYear_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="الموديل"
+            tools:layout_editor_absoluteX="317dp"
+            tools:layout_editor_absoluteY="344dp" />
+
+        <Spinner
+            android:id="@+id/itemYear_input"
+            android:layout_width="87dp"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            tools:layout_editor_absoluteX="267dp"
+            tools:layout_editor_absoluteY="363dp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/relativeComp"
+        android:layout_toRightOf="@id/relativeLayout4"
+        android:id="@+id/relativeLayout5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:id="@+id/itemCatg_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="الصنف" />
+
+        <Spinner
+            android:id="@+id/itemCatg_input"
+            android:layout_width="177dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/itemCatg_view" />
+
+    </RelativeLayout>
+
+<RelativeLayout
+
+    android:layout_below="@id/relativeLayout4"
+    android:id="@+id/relativeAdd"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+
+        android:id="@+id/linearLayout2"
+        android:layout_width="290dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/btnImage4"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="btnImage4"
+            android:text="+"
+            tools:layout_editor_absoluteX="217dp"
+            tools:layout_editor_absoluteY="444dp" />
+
+        <TextView
+            android:id="@+id/btnImage3"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="btnImage3"
+            android:text="+"
+            tools:layout_editor_absoluteX="284dp"
+            tools:layout_editor_absoluteY="444dp" />
+
+        <TextView
+            android:id="@+id/btnImage2"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="btnImage2"
+            android:text="+"
+            tools:layout_editor_absoluteX="342dp"
+            tools:layout_editor_absoluteY="444dp" />
+
+        <TextView
+            android:id="@+id/btnImage1"
+            android:layout_width="11dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="btnImage1"
+            android:text="+"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="444dp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+    <Button
+        android:id="@+id/butnDone"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeAdd"
+        android:background="@color/colorPrimaryDark"
+        android:text="اضف القطعة"
+        android:textColor="#ffffff" />
+
+    <android.support.constraint.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

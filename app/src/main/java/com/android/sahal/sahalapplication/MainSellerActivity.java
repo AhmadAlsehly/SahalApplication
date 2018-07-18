@@ -26,6 +26,10 @@ public class MainSellerActivity extends AppCompatActivity {
                   //  mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_add:
+                    getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container1,new SellerAddItem(),"SellerAddItem()")
+                        .commit();
                  //   mTextMessage.setText(R.string.title_notifications);
                     return true;
 
