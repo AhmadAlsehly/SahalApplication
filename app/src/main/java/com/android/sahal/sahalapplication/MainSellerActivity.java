@@ -22,7 +22,7 @@ public class MainSellerActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.container1,new sellerHome(),"SellerHome()")
+                            .replace(R.id.container1,new SellerHome(),"SellerHome()")
                             .commit();
 
 
