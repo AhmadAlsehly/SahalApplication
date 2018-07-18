@@ -1,6 +1,7 @@
 package com.android.sahal.sahalapplication;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import com.android.sahal.sahalapplication.Model.Item;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 import static android.app.Activity.RESULT_OK;
@@ -49,16 +52,83 @@ btnDone=view.findViewById(R.id.butnDone);
         itemDescr = view.findViewById(R.id.itemDescr_input);
         itemPrice = view.findViewById(R.id.itemPrice_input);
 
-
-        // Spinners
-
         itemCompan = (Spinner) view.findViewById(R.id.itemComp_input);
 
         String [] comapanys =
-                {"TOYOTA","HYUANDAY","HONDA"};
-        ArrayAdapter<String> adapterCompany = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, comapanys);
-        adapterCompany.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        itemCompan.setAdapter(adapterCompany);
+                {"الشركة","TOYOTA","HYUANDAY","HONDA"};
+
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this.getActivity(),R.layout.spinner_item,comapanys){
+            @Override
+            public boolean isEnabled(int position){
+                if(position == 0)
+                {
+                    // Disable the first item from Spinner
+                    // First item will be use for hint
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position == 0){
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        itemCompan.setAdapter(spinnerArrayAdapter);
+
+
+        itemCompan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+                String userActivity = selectedItemText;
+                // If user change the default selection
+                // First item is disable and it is used for hint
+                if(position > 0){
+                    // Notify the selected item text
+                    Toast.makeText
+                            (getContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+        // Initializing an ArrayAdapter
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        // Spinners
+
+
 
         itemModel = view.findViewById(R.id.itemModel_input);
 
@@ -87,6 +157,14 @@ btnDone=view.findViewById(R.id.butnDone);
                 else if (itemSelectedSring.equals("HONDA")) {
                     String [] models =
                             {"CIVIC","ACORD","CARNAVAL"};
+                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
+                    adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                    itemModel.setAdapter(adapterModel);
+                }
+
+                else {
+                    String [] models = {""} ;
+
                     ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
                     adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     itemModel.setAdapter(adapterModel);

@@ -31,14 +31,11 @@ public class MainSellerActivity extends AppCompatActivity {
                   //  mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_add:
-<<<<<<< HEAD
                     getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.container1,new SellerAddItem(),"SellerAddItem()")
                         .commit();
-=======
 
->>>>>>> c0aa5f04af6d8127f66d094e657bbfbb7a91fc24
                  //   mTextMessage.setText(R.string.title_notifications);
                     return true;
 
