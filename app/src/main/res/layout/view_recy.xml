@@ -4,6 +4,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -16,7 +17,7 @@
         android:elevation="3dp"
         card_view:cardCornerRadius="@dimen/card_album_radius">
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -27,9 +28,14 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/title"
@@ -38,25 +44,36 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="32dp"
-                android:layout_marginStart="32dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
                 android:paddingLeft="@dimen/album_title_padding"
                 android:paddingRight="@dimen/album_title_padding"
                 android:paddingTop="@dimen/album_title_padding"
                 android:textColor="@color/album_title"
-                android:textSize="@dimen/album_title" />
+                android:textSize="@dimen/album_title"
+                card_view:layout_constraintEnd_toEndOf="@+id/count"
+                card_view:layout_constraintStart_toEndOf="@+id/overflow"
+                tools:layout_editor_absoluteY="0dp" />
 
             <TextView
                 android:id="@+id/count"
                 android:layout_width="274dp"
-                android:layout_height="42dp"
+                android:layout_height="38dp"
                 android:layout_below="@+id/title"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_toLeftOf="@+id/thumbnail"
                 android:layout_toStartOf="@+id/thumbnail"
                 android:paddingBottom="@dimen/songs_count_padding_bottom"
                 android:paddingLeft="@dimen/album_title_padding"
                 android:paddingRight="@dimen/album_title_padding"
-                android:textSize="@dimen/songs_count" />
+                android:textSize="@dimen/songs_count"
+                card_view:layout_constraintEnd_toStartOf="@+id/thumbnail"
+                card_view:layout_constraintHorizontal_bias="1.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/title" />
 
             <ImageView
                 android:id="@+id/overflow"
@@ -66,19 +83,33 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_dots" />
+                android:src="@drawable/ic_dots"
+                card_view:layout_constraintBottom_toTopOf="@+id/count"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="@+id/title" />
 
             <Button
                 android:id="@+id/button4"
                 android:layout_width="105dp"
-                android:layout_height="36dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/count"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
                 android:text="إضافة إلى العربة"
                 android:textSize="11sp"
-                android:layout_alignParentLeft="true" />
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="@+id/count"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/count"
+                card_view:layout_constraintVertical_bias="0.0" />
 
-        </RelativeLayout>
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
 
