@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class SellerProfile extends Fragment {
     Button pDButton = null;
-
+Button BtnLogOut ;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -23,11 +23,26 @@ public class SellerProfile extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+
+        // Do log out
+        //تسجيل خروج البائع
+        BtnLogOut = view.findViewById(R.id.btnSellerSignOut);
+        BtnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(),LoginActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
        pDButton = view.findViewById(R.id.prsonalData);
        pDButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                Intent i = new Intent((Activity)view.getContext(),SellerPersonalData.class);
+               startActivity(i);
+
 
             view.getContext().startActivity(i);
            }

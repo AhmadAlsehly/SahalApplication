@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+
+
+    tools:context=".LoginActivity"
+    android:background="@drawable/login_back"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sahal_logo"
+        android:layout_marginTop="40dp"/>
+
+
+    <!-- Login progress -->
+
+
+
+        <LinearLayout
+            android:gravity="right"
+
+            android:paddingTop="30dp"
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="الايميل"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+
+            <EditText
+
+                android:id="@+id/email_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/rounded_edittext"
+                android:ems="10"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+
+                android:maxLines="1"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+
+
+                android:paddingTop="10dp"
+                android:singleLine="true"
+
+
+                android:textColor="@color/colorAccent"
+
+                android:textSize="20sp"
+
+                />
+
+
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/doForgetPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="190dp"
+        android:paddingBottom="10dp"
+        android:text="نسيت كلمة المرور ؟ "
+        android:textColor="#48B0FF"
+        android:textSize="14sp" />
+    <TextView
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="كلمة المرور"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+</LinearLayout>
+
+
+            <EditText
+
+                android:id="@+id/password_input"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/rounded_edittext"
+
+                android:ems="10"
+                android:hint="@string/prompt_password"
+                android:imeActionId="6"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+
+
+                android:singleLine="true"
+
+                android:textColor="@color/colorAccent"
+
+                android:textSize="20sp" />
+
+
+
+            <Button
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/email_sign_in_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorPrimary"
+
+
+
+                android:textColor="@color/white"
+                android:text="دخول"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_gravity="center"
+
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginRight="10dp"
+            android:id="@+id/goSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="انشئ حساب الان"
+            android:textColor="#48B0FF"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="لا تمتلك حساب   ؟ "
+            android:textColor="@color/white"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
