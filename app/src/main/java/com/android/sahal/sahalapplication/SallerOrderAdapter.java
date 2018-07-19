@@ -1,14 +1,11 @@
 package com.android.sahal.sahalapplication;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.MutableDouble;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,11 +15,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
-;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class SallerOrderAdapter  extends RecyclerView.Adapter<SallerOrderAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<ModuleItem> itemList;
@@ -33,7 +26,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count,desc;
-        public ImageView thumbnail, overflow;
+        public ImageView thumbnail, overflow,review;
 
         public MyViewHolder(View view) {
             super(view);
@@ -42,19 +35,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             overflow = (ImageView) view.findViewById(R.id.overflow);
             desc= (TextView) view.findViewById(R.id.desc);
+
+
+            //TODO: add here review
+            //review=(TextView) view.findViewById(R.id.review)
+
         }
     }
 
 
-    public MyAdapter(Context mContext, List<ModuleItem> itemsList) {
+    public SallerOrderAdapter(Context mContext, List<ModuleItem> itemsList) {
         this.mContext = mContext;
         this.itemList = itemsList;
     }
+/*
 
-
-
-
-    @Override
+ @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.view_recy, parent, false);
@@ -64,11 +60,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
 
+*/
 
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.view_recy_review, parent, false);
+
+        return new MyViewHolder(itemView);
+    }
+
+//    @Override
+//    public void onBindViewHolder(MyViewHolder holder, int position) {
+//
+//    }
 
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final SallerOrderAdapter.MyViewHolder holder, int position) {
         ModuleItem item = itemList.get(position);
         holder.title.setText(item.getName());
         holder.desc.setText(item.getDescription());
@@ -84,8 +93,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             }
         });
     }
+/*
+
+ private void showPopupMenu(View view) {
+        // inflate menu
+        PopupMenu popup = new PopupMenu(mContext, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_album, popup.getMenu());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
+        popup.show();
+    }
 
 
+*/
 
     private void showPopupMenu(View view) {
         // inflate menu

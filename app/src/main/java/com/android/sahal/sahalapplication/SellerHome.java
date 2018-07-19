@@ -1,6 +1,5 @@
 package com.android.sahal.sahalapplication;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,25 +13,15 @@ import android.widget.SearchView;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class SellerHome extends Fragment implements MyAdapter.onItemClickListener, SearchView.OnQueryTextListener {
+public class SellerHome extends Fragment implements SallerHomeAdapter.onItemClickListener, SearchView.OnQueryTextListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -52,7 +41,7 @@ public class SellerHome extends Fragment implements MyAdapter.onItemClickListene
     //    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private MyAdapter myAdapter;
+    private SallerHomeAdapter sallerHomeAdapter;
     private List<ModuleItem> itemList;
 
 //____________________________________________
@@ -156,7 +145,7 @@ public class SellerHome extends Fragment implements MyAdapter.onItemClickListene
         a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[8]);
         itemList.add(a);
 
-        myAdapter.notifyDataSetChanged();
+        sallerHomeAdapter.notifyDataSetChanged();
     }
 
 //____________________________________________________________
@@ -165,7 +154,7 @@ public class SellerHome extends Fragment implements MyAdapter.onItemClickListene
         super.onViewCreated(view, savedInstanceState);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         itemList = new ArrayList<>();
-        myAdapter = new MyAdapter(this.getContext(), itemList);
+        sallerHomeAdapter = new SallerHomeAdapter(this.getContext(), itemList);
 
 
 
@@ -176,7 +165,7 @@ public class SellerHome extends Fragment implements MyAdapter.onItemClickListene
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(myAdapter);
+        recyclerView.setAdapter(sallerHomeAdapter);
 
         prepareAlbums();
 

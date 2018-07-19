@@ -24,8 +24,8 @@ public class SellerOprations extends Fragment implements SellerSoldItems.OnFragm
 
 
         TabLayout tabLayout = view.findViewById(R.id.tabs2);
+        tabLayout.addTab(tabLayout.newTab().setText("الطلبات"));
         tabLayout.addTab(tabLayout.newTab().setText("المباعة"));
-        tabLayout.addTab(tabLayout.newTab().setText("قيد التسليم"));
         tabLayout.setTabGravity( TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.container2);
