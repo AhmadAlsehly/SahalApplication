@@ -28,7 +28,12 @@ public class MainSellerActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_money:
-                  //  mTextMessage.setText(R.string.title_dashboard);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.container1,new SellerOprations(),"SellerOprations()")
+                            .commit();
+
+
                     return true;
                 case R.id.navigation_add:
                     getSupportFragmentManager()
@@ -59,7 +64,12 @@ public class MainSellerActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+<<<<<<< HEAD
 
          }
+=======
+        navigation.setSelectedItemId(R.id.navigation_home);
+    }
+>>>>>>> 390dc640303016c5b43443045885009ee5f651ec
 
 }

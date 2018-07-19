@@ -159,7 +159,7 @@ public class SellerHome extends Fragment implements MyAdapter.onItemClickListene
         myAdapter.notifyDataSetChanged();
     }
 
-
+//____________________________________________________________
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
