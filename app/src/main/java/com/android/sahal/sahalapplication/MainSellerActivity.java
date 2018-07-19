@@ -64,12 +64,8 @@ public class MainSellerActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-<<<<<<< HEAD
 
-         }
-=======
         navigation.setSelectedItemId(R.id.navigation_home);
     }
->>>>>>> 390dc640303016c5b43443045885009ee5f651ec
 
 }
