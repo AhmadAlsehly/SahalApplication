@@ -47,6 +47,7 @@ EditText itemName , itemDescr , itemPrice ;
         super.onViewCreated(view, savedInstanceState);
 
 btnDone=view.findViewById(R.id.butnDone);
+image1 = view.findViewById(R.id.image1);
 
         itemName = view.findViewById(R.id.itemName_input);
         itemDescr = view.findViewById(R.id.itemDescr_input);
@@ -291,8 +292,7 @@ btnDone=view.findViewById(R.id.butnDone);
 
         if (requestCode == 100 && resultCode==RESULT_OK) {
             Uri uri = data.getData();
-            image1.setImageResource(uri.getPort());
-
+image1.setImageURI(uri);
 
         }
         if (requestCode == 98 && resultCode==RESULT_OK) {

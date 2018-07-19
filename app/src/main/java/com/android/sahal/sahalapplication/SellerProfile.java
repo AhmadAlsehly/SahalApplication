@@ -30,7 +30,7 @@ Button BtnLogOut ;
         BtnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(),LoginActivity.class);
+                Intent intent = new Intent(v.getContext(),LoginFragment.class);
                 startActivity(intent);
 
 
@@ -40,7 +40,7 @@ Button BtnLogOut ;
        pDButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               Intent i = new Intent((Activity)view.getContext(),SellerPersonalData.class);
+               Intent i = new Intent((Activity)v.getContext(),SellerPersonalData.class);
                startActivity(i);
 
 
