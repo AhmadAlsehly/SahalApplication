@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.android.sahal.sahalapplication.MainBuyerActivity">
+    <item
+        android:id="@+id/navigation_buyer_dots"
+        android:icon="@drawable/dots"
+        android:title="مجهول" />
+    <item
+        android:id="@+id/navigation_buyer_cart"
+        android:icon="@drawable/money"
+        android:title="عربة التسوق" />
+
+    <item
+        android:id="@+id/navigation_buyer_home"
+        android:icon="@drawable/home"
+        android:title="الرئيسية" />
+
+    <item
+        android:id="@+id/navigation_buyer_search"
+        android:icon="@drawable/add"
+        android:title="البحث" />
+    <item
+        android:id="@+id/navigation_buyer_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="الملف الشخصي" />
+</menu>

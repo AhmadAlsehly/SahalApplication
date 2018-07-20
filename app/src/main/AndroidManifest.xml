@@ -19,7 +19,7 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainSellerActivity"
+            android:name=".MainBuyerActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,11 @@
         <activity android:name=".SellerPersonalData" />
         <activity
             android:name=".MainSignUpActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".MainSellerActivity"
+            android:label="@string/title_activity_main_buyer"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
