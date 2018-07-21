@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class LoginFragment extends Fragment {
 
@@ -42,8 +45,15 @@ public class LoginFragment extends Fragment {
         doLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),MainSellerActivity.class);
-                startActivity(intent);
+                // Write a message to the database
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("message");
+
+                myRef.setValue("Hello, World!");
+
+//                Intent intent = new Intent(v.getContext(),MainSellerActivity.class);
+//                startActivity(intent);
+
             }
         });
 
