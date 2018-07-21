@@ -4,24 +4,37 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class LoginFragment extends Fragment {
 
-    EditText email , password ;
-    TextView forgetPass , createAccount ;
-    Button doLogin ;
+    EditText email, password;
+    TextView forgetPass, createAccount;
+    Button doLogin;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -32,45 +45,115 @@ public class LoginFragment extends Fragment {
         createAccount = view.findViewById(R.id.goSignUp);
         doLogin = view.findViewById(R.id.email_sign_in_button);
 
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        createAccount.setOnClickListener(new View.OnClickListener()  {
+        createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),MainSignUpActivity.class);
+                Intent intent = new Intent(v.getContext(), MainSignUpActivity.class);
                 startActivity(intent);
 
             }
         });
 
+//        doLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
+//                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                if (task.isSuccessful()) {
+//                                    // Sign in success, update UI with the signed-in user's information
+//                                    final FirebaseUser user = mAuth.getCurrentUser();
+//                                    mDatabase.addValueEventListener(new ValueEventListener() {
+//                                        @Override
+//                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                            if (dataSnapshot.child("buyer").child("users").child(user.getUid()).exists()) {
+//
+//                                                Toast.makeText(getContext(), "done", Toast.LENGTH_SHORT).show();
+//                                            } else {
+//                                                Toast.makeText(getContext(), "dwdwdwdw", Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        }
+//
+//
+//                                        @Override
+//                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                                        }
+//                                    });
+//
+//                                } else {
+//                                    // If sign in fails, display a message to the user.
+//                                    Toast.makeText(getContext(), "كلمة السر او/و الايميل غير صحيح",
+//                                            Toast.LENGTH_SHORT).show();
+//
+//                                }
+//
+//                                // ...
+//                            }
+//                        });
+//
+//
+//
+//            }
+//        });
         doLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Write a message to the database
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("message");
+                mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
+                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    final FirebaseUser user = mAuth.getCurrentUser();
+                                   mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                       @Override
+                                       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                           if (dataSnapshot.child("buyer").child("users").child(user.getUid()).exists()) {
 
-                myRef.setValue("Hello, World!");
+                                               Intent i = new Intent(getContext(),MainBuyerActivity.class);
+                                               i.putExtra("UID",user.getUid());
+                                               startActivity(i);
+                                           } else {
+                                               Intent i = new Intent(getContext(),MainSellerActivity.class);
+                                               i.putExtra("UID",user.getUid());
+                                               startActivity(i);
+                                           }
+                                       }
 
-//                Intent intent = new Intent(v.getContext(),MainSellerActivity.class);
-//                startActivity(intent);
+                                       @Override
+                                       public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                       }
+                                   });
+
+
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Toast.makeText(getContext(), "كلمة السر او/و الايميل غير صحيح",
+                                            Toast.LENGTH_SHORT).show();
+
+                                }
+
+                                // ...
+                            }
+                        });
+
+
 
             }
         });
-
-
-
     }
 
 
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // return super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.activity_login,container,false);
-    }
-}
-
-
-
-
+            @Nullable
+            @Override
+            public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+                // return super.onCreateView(inflater, container, savedInstanceState);
+                return inflater.inflate(R.layout.activity_login, container, false);
+            }
+        }
