@@ -88,12 +88,12 @@ public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.My
             public void onClick(View view) {
                 Intent intent=new Intent(view.getContext(),ItemActivity.class);
 
-                intent.putExtra("ModuleItem",itemList.get(position));
+                intent.putExtra("ModuleItem",itemList.get(position).getClass());
                 view.getContext().startActivity(intent);
 //                Intent toItem=new Intent(view.getContext(),ItemActivity.class);
 //                view.getContext().startActivity(toItem);
 
-               // EventBus.getDefault().post(new ItemActivity());
+                // EventBus.getDefault().post(new ItemActivity());
             }
         });
 
