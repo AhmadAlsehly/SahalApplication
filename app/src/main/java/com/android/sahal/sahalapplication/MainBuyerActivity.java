@@ -42,7 +42,10 @@ public class MainBuyerActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_buyer_profile:
-
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.buyer_container,new LoginFragment(),"LoginFragment()")
+                            .commit();
 
                     //   mTextMessage.setText(R.string.title_notifications);
                     return true;

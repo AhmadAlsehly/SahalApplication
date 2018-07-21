@@ -30,7 +30,7 @@ public class MainSellerActivity extends AppCompatActivity {
                 case R.id.navigation_money:
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.container1,new LoginFragment(),"SellerOprations()")
+                            .replace(R.id.container1,new SellerOprations(),"SellerOprations()")
                             .commit();
 
 

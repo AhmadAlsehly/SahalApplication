@@ -75,8 +75,7 @@ public class SignupBuyer extends Fragment {
         btnSB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                final Buyer   buyer = new Buyer(name.getText().toString().trim() , number.getText().toString().trim(),
-                       false );
+                final Buyer   buyer = new Buyer(name.getText().toString().trim() , number.getText().toString().trim());
                 if (!email.getText().toString().isEmpty()&&
                         !pass.getText().toString().isEmpty()&&
                         !name.getText().toString().isEmpty()&&!
@@ -93,7 +92,7 @@ public class SignupBuyer extends Fragment {
                                         Log.d("test", "createUserWithEmail:success");
                                    //     FirebaseUser user = mAuth.g();
 
-                                        mDatabase.child("buyer").child("users").child(mAuth.getUid()).setValue(buyer);
+                                        mDatabase.child("buyer").child(mAuth.getUid()).setValue(buyer);
                                         Intent i = new Intent(getContext(),MainBuyerActivity.class);
                                         startActivity(i);
                                     } else {

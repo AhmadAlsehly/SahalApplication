@@ -82,7 +82,7 @@ public class SignupSeller extends Fragment {
               @Override
               public void onClick(final View v) {
                   final Seller seller = new Seller(bR.getText().toString().trim(),name.getText().toString().trim()
-                  ,number.getText().toString().trim(),true);
+                  ,number.getText().toString().trim());
                   if (!email.getText().toString().isEmpty()&&
                           !pass.getText().toString().isEmpty()&&
                           !name.getText().toString().isEmpty()&&!
