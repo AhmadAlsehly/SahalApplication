@@ -1,6 +1,7 @@
 package com.android.sahal.sahalapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,11 +15,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.sahal.sahalapplication.Model.Buyer;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupBuyer extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -27,7 +31,7 @@ public class SignupBuyer extends Fragment {
     private String mParam2;
     private OnFragmentInteractionListener mListener;
 
-
+    private DatabaseReference mDatabase;
     EditText email = null;
     EditText pass = null;
     EditText number = null;
@@ -66,17 +70,19 @@ public class SignupBuyer extends Fragment {
         number = view.findViewById(R.id.txtPhoneb) ;
         name = view.findViewById(R.id.txtNameb);
         btnSB = view.findViewById(R.id.button3);
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         btnSB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                final Buyer   buyer = new Buyer(name.getText().toString().trim() , number.getText().toString().trim(),
+                       false );
                 if (!email.getText().toString().isEmpty()&&
                         !pass.getText().toString().isEmpty()&&
                         !name.getText().toString().isEmpty()&&!
                         number.getText().toString().isEmpty()){
 
-                    String e = email.getText().toString().trim();
+                    final String e = email.getText().toString().trim();
                     String p = pass.getText().toString().trim();
                     mAuth.createUserWithEmailAndPassword(e, p)
                             .addOnCompleteListener((Activity) v.getContext(), new OnCompleteListener<AuthResult>() {
@@ -85,7 +91,11 @@ public class SignupBuyer extends Fragment {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d("test", "createUserWithEmail:success");
-                                        FirebaseUser user = mAuth.getCurrentUser();
+                                   //     FirebaseUser user = mAuth.g();
+
+                                        mDatabase.child("buyer").child("users").child(mAuth.getUid()).setValue(buyer);
+                                        Intent i = new Intent(getContext(),MainBuyerActivity.class);
+                                        startActivity(i);
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("test", "createUserWithEmail:failure", task.getException());
