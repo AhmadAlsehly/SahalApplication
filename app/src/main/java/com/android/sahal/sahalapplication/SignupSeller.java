@@ -1,6 +1,7 @@
 package com.android.sahal.sahalapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,12 +15,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.sahal.sahalapplication.Model.Seller;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupSeller extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -36,6 +40,8 @@ public class SignupSeller extends Fragment {
     EditText name = null;
     EditText bR = null;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
     Button btn = null;
     public static SignupSeller newInstance(String param1, String param2) {
         SignupSeller fragment = new SignupSeller();
@@ -62,6 +68,8 @@ public class SignupSeller extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         mAuth = FirebaseAuth.getInstance();
         email = view.findViewById(R.id.txtEmail);
         pass = view.findViewById(R.id.txtPass);
@@ -73,6 +81,8 @@ public class SignupSeller extends Fragment {
           btn.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(final View v) {
+                  final Seller seller = new Seller(bR.getText().toString().trim(),name.getText().toString().trim()
+                  ,number.getText().toString().trim(),true);
                   if (!email.getText().toString().isEmpty()&&
                           !pass.getText().toString().isEmpty()&&
                           !name.getText().toString().isEmpty()&&!
@@ -89,6 +99,9 @@ public class SignupSeller extends Fragment {
                                           // Sign in success, update UI with the signed-in user's information
                                           Log.d("test", "createUserWithEmail:success");
                                           FirebaseUser user = mAuth.getCurrentUser();
+                                          mDatabase.child("seller").child(mAuth.getUid()).setValue(seller);
+                                          Intent i = new Intent(getContext(),MainSellerActivity.class);
+                                          startActivity(i);
                                       } else {
                                           // If sign in fails, display a message to the user.
                                           Log.w("test", "createUserWithEmail:failure", task.getException());
