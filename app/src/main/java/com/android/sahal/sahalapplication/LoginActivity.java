@@ -31,6 +31,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText email , password ;
     TextView forgetPass , createAccount ;
     Button doLogin ;
+
 
 
     @Override
@@ -69,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
         doLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),MainSellerActivity.class);
-                startActivity(intent);
+
+
             }
         });
 
