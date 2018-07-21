@@ -6,6 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:layout_width="300dp"
+        android:layout_height="300dp" />
+
     <EditText
         android:id="@+id/txtNameb"
         android:layout_width="wrap_content"

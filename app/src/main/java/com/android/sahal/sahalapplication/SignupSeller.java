@@ -20,6 +20,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupSeller extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -36,6 +38,8 @@ public class SignupSeller extends Fragment {
     EditText name = null;
     EditText bR = null;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
     Button btn = null;
     public static SignupSeller newInstance(String param1, String param2) {
         SignupSeller fragment = new SignupSeller();
@@ -61,7 +65,12 @@ public class SignupSeller extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+
         super.onViewCreated(view, savedInstanceState);
+
+// ...
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         email = view.findViewById(R.id.txtEmail);
         pass = view.findViewById(R.id.txtPass);
