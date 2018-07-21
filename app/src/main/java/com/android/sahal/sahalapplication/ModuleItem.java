@@ -1,6 +1,8 @@
 package com.android.sahal.sahalapplication;
 
-public class ModuleItem {
+import java.io.Serializable;
+
+public class ModuleItem implements Serializable{
     String name,description,nameOfFactory,type,category,yearOfCreat;
     double price;
     int image1,image2,image3,image4;

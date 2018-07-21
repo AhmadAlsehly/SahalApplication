@@ -67,23 +67,30 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="4dp"
                 android:paddingLeft="@dimen/album_title_padding"
                 android:paddingRight="@dimen/album_title_padding"
                 android:paddingTop="@dimen/album_title_padding"
                 android:text="3.5/5"
                 android:textColor="@color/album_title"
                 android:textSize="14sp"
-                card_view:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="172dp" />
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 card_view:srcCompat="@android:drawable/btn_star_big_on"
-                tools:layout_editor_absoluteX="226dp"
-                tools:layout_editor_absoluteY="5dp" />
+                tools:layout_editor_absoluteX="54dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="username"
+                tools:layout_editor_absoluteX="198dp"
+                tools:layout_editor_absoluteY="9dp" />
 
         </android.support.constraint.ConstraintLayout>
 
