@@ -1,14 +1,18 @@
 package com.android.sahal.sahalapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +26,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.sahal.sahalapplication.Model.Item;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 
 import static android.app.Activity.RESULT_OK;
@@ -39,12 +54,22 @@ public class SellerAddItem extends Fragment {
     EditText itemName, itemDescr, itemPrice;
     Spinner itemCompan, itemModel, itemYear, itemCatgory;
     ImageView image1, image2, image3, image4;
+    Uri uri1 , uri2 , uri3 , uri4 ;
+    FirebaseStorage storage ;
+    DatabaseReference mDataRef ;
+    StorageReference mStorageRef;
+
 
     Button btnDone;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        storage = FirebaseStorage.getInstance();
+        mStorageRef = storage.getReference();
+        mDataRef= FirebaseDatabase.getInstance().getReference();
+
 
         btnDone = view.findViewById(R.id.butnDone);
         image1 = view.findViewById(R.id.image1);
@@ -60,6 +85,135 @@ public class SellerAddItem extends Fragment {
         itemPrice = view.findViewById(R.id.itemPrice_input);
 
         itemCompan = (Spinner) view.findViewById(R.id.itemComp_input);
+
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                uploadImage();
+
+                  Item item = new Item(itemName.getText().toString(),
+                        itemDescr.getText().toString(),
+                        Double.parseDouble(itemPrice.getText().toString()),
+                        itemCompan.getSelectedItem().toString(),
+                        itemModel.getSelectedItem().toString(),
+                        itemYear.getSelectedItem().toString(),
+                        itemCatgory.getSelectedItem().toString());
+
+                if (!itemName.getText().toString().isEmpty()
+                        || !itemPrice.getText().toString().isEmpty()
+                        || !itemDescr.getText().toString().isEmpty()) {
+                    mDataRef.child("items").child("item"+UUID.randomUUID()).setValue(item);
+
+                    Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "complete all fields pleas", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+
+            private void uploadImage() {
+
+                if(uri1!=null && uri2!=null & uri3!=null && uri4!=null) {
+                    final ProgressDialog progressDialog = new ProgressDialog(getContext()) ;
+                    progressDialog.setTitle("Uploading . . . ");
+                     progressDialog.show();
+
+                     StorageReference ref = storage.getReference().child("images"+ UUID.randomUUID().toString());
+                      ref.putFile(uri1)
+                              .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                  @Override
+                                  public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                      progressDialog.dismiss();
+                                      Toast.makeText(getContext(),"Upload",Toast.LENGTH_SHORT).show();
+                                  }
+                              }).addOnFailureListener(new OnFailureListener() {
+                          @Override
+                          public void onFailure(@NonNull Exception e) {
+                              progressDialog.dismiss();
+                              Toast.makeText(getContext(),"Faield"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                          }
+                      }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                          @Override
+                          public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                              double prog = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
+                              progressDialog.setMessage("Upload"+(int)prog+"%" );
+
+                          }
+                      });
+                    ref.putFile(uri2)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getContext(),"Upload",Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(),"Faield"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double prog = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
+                            progressDialog.setMessage("Upload"+(int)prog+"%" );
+
+                        }
+                    });
+                    ref.putFile(uri3)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getContext(),"Upload",Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(),"Faield"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double prog = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
+                            progressDialog.setMessage("Upload"+(int)prog+"%" );
+
+                        }
+                    });
+                    ref.putFile(uri4)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getContext(),"Upload",Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(),"Faield"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double prog = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
+                            progressDialog.setMessage("Upload"+(int)prog+"%" );
+
+                        }
+                    });
+                }
+
+            }
+        });
+
+
+
+
 
         String[] comapanys =
                 {"الشركة", "TOYOTA", "HYUANDAY", "HONDA"};
@@ -244,51 +398,59 @@ public class SellerAddItem extends Fragment {
         });
 
 
-        btnDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (!itemName.getText().toString().isEmpty()
-                        || !itemPrice.getText().toString().isEmpty()
-                        || !itemDescr.getText().toString().isEmpty()) {
-
-                    seller.add(new Item(itemName.getText().toString(),
-                            itemDescr.getText().toString(),
-                            Double.parseDouble(itemPrice.getText().toString()),
-                            itemCompan.getSelectedItem().toString(),
-                            itemModel.getSelectedItem().toString(),
-                            itemYear.getSelectedItem().toString(),
-                            itemCatgory.getSelectedItem().toString()));
-                    Toast.makeText(getContext(), "jkdfhiud", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "complete all fields pleas", Toast.LENGTH_SHORT).show();
-
-                }
-
-            }
-        });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 100 && resultCode == RESULT_OK) {
-            Uri uri = data.getData();
-            image1.setImageURI(uri);
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null && data.getData()!=null ) {
+             uri1 = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),uri1);
+                image1.setImageBitmap(bitmap);
+                String u=uri1.getPath();
+                Log.d("tesst",u);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
         if (requestCode == 98 && resultCode == RESULT_OK) {
-            Uri uri2 = data.getData();
-            image2.setImageURI(uri2);
+             uri2 = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),uri2);
+                image2.setImageBitmap(bitmap);
+                String u=uri2.getPath();
+                Log.d("tesst",u);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         if (requestCode == 96 && resultCode == RESULT_OK) {
-            Uri uri3 = data.getData();
-            image3.setImageURI(uri3);
+             uri3 = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),uri3);
+                image3.setImageBitmap(bitmap);
+                String u=uri3.getPath();
+                Log.d("tesst",u);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
         if (requestCode == 94 && resultCode == RESULT_OK) {
-            Uri uri4 = data.getData();
-            image4.setImageURI(uri4);
+             uri4 = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),uri4);
+                image4.setImageBitmap(bitmap);
+                String u=uri4.getPath();
+                Log.d("tesst",u);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

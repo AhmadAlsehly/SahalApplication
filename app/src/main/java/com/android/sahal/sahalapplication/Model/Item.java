@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import java.net.URI;
 import java.util.ArrayList;
 
-public class Item {
+public class  Item {
     public  String itemName;
     public  String itemDescr;
     public  Double itemPrice;

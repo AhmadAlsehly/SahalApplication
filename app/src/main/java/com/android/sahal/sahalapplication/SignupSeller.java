@@ -67,7 +67,10 @@ public class SignupSeller extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+
         super.onViewCreated(view, savedInstanceState);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mAuth = FirebaseAuth.getInstance();
