@@ -1,6 +1,8 @@
 package com.android.sahal.sahalapplication;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +17,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
-;
+;//import org.greenrobot.eventbus.EventBus;
 
 public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.MyViewHolder> {
 
@@ -29,7 +31,7 @@ public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count,desc;
         public ImageView thumbnail, overflow;
-
+        public CardView cardView;
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
@@ -37,6 +39,7 @@ public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.My
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             overflow = (ImageView) view.findViewById(R.id.overflow);
             desc= (TextView) view.findViewById(R.id.desc);
+            cardView=(CardView) view.findViewById(R.id.card_view);
         }
     }
 
@@ -63,7 +66,7 @@ public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.My
 
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         ModuleItem item = itemList.get(position);
         holder.title.setText(item.getName());
         holder.desc.setText(item.getDescription());
@@ -78,6 +81,23 @@ public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.My
                 showPopupMenu(holder.overflow);
             }
         });
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(view.getContext(),ItemActivity.class);
+
+                intent.putExtra("ModuleItem",itemList.get(position).getClass());
+                view.getContext().startActivity(intent);
+//                Intent toItem=new Intent(view.getContext(),ItemActivity.class);
+//                view.getContext().startActivity(toItem);
+
+                // EventBus.getDefault().post(new ItemActivity());
+            }
+        });
+
+
     }
 
 
