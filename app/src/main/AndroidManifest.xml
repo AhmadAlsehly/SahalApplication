@@ -37,7 +37,7 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".BuyerPersonalActivity" />
         <activity android:name=".MainBuyerActivity">
-           
+
         </activity>
     </application>
 
