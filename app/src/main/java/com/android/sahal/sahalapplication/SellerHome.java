@@ -115,7 +115,7 @@ public class SellerHome extends Fragment implements SallerHomeAdapter.onItemClic
                 R.drawable.album10,
                 R.drawable.album11};
 
-        ModuleItem a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[0]);
+        ModuleItem a = new ModuleItem("كرسي مكينة", "هذه الجمل هيا لتجربة الوصف وكيف سيظهر للمستخدم واحتاج لكتابة المزيد للجمل لكي ارى كيف سيظهر النص لذلك كثبت لك ماذا اريد لكي تزيد الجمل ", "Toyota", "Corola", "Body", "2017", 290.95,covers[0]);
         itemList.add(a);
 
         a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[0]);
@@ -142,7 +142,7 @@ public class SellerHome extends Fragment implements SallerHomeAdapter.onItemClic
         a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[7]);
         itemList.add(a);
 
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[8]);
+        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[2]);
         itemList.add(a);
 
         sallerHomeAdapter.notifyDataSetChanged();

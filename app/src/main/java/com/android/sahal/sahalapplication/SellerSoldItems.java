@@ -10,10 +10,12 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.StaticLayout;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class SellerSoldItems extends Fragment  implements SallerSoldItemsAdapter
 
     private SallerSoldItemsAdapter sallerSoldItemsAdapter;
     private List<ModuleItem> itemList;
+    ImageView imageView;
 
 
 
@@ -84,7 +87,7 @@ public class SellerSoldItems extends Fragment  implements SallerSoldItemsAdapter
 
 
     private void prepareAlbums() {
-        int[] covers = new int[]{
+         int[] covers = new int[]{
                 R.drawable.album1,
                 R.drawable.album2,
                 R.drawable.album3,
@@ -97,7 +100,7 @@ public class SellerSoldItems extends Fragment  implements SallerSoldItemsAdapter
                 R.drawable.album10,
                 R.drawable.album11};
 
-        ModuleItem a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[0]);
+        ModuleItem a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[9]);
         itemList.add(a);
 
         a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[0]);
@@ -124,7 +127,7 @@ public class SellerSoldItems extends Fragment  implements SallerSoldItemsAdapter
         a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[7]);
         itemList.add(a);
 
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[8]);
+        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[4]);
         itemList.add(a);
 
         sallerSoldItemsAdapter.notifyDataSetChanged();
