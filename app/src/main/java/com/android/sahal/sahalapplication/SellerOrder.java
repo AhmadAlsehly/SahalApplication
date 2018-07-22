@@ -134,7 +134,7 @@ public class SellerOrder extends Fragment implements SallerSoldItemsAdapter.onIt
         a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[7]);
         itemList.add(a);
 
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[8]);
+        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[4]);
         itemList.add(a);
 
         sallerOrderAdapter.notifyDataSetChanged();
