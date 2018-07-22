@@ -37,7 +37,7 @@ public class LoginFragment extends Fragment {
     private DatabaseReference mDatabase;
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         email = view.findViewById(R.id.email_input);
         password = view.findViewById(R.id.password_input);
@@ -103,6 +103,7 @@ public class LoginFragment extends Fragment {
         doLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!(email.getText().toString().isEmpty())&&!(password.getText().toString().isEmpty())){
                 mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                             @Override
@@ -113,15 +114,18 @@ public class LoginFragment extends Fragment {
                                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                                        @Override
                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                           if (dataSnapshot.child("buyer").child("users").child(user.getUid()).exists()) {
+                                           if (dataSnapshot.child("buyer").child(user.getUid()).exists()) {
 
                                                Intent i = new Intent(getContext(),MainBuyerActivity.class);
                                                i.putExtra("UID",user.getUid());
                                                startActivity(i);
+                                               getActivity().finish();
+
                                            } else {
                                                Intent i = new Intent(getContext(),MainSellerActivity.class);
                                                i.putExtra("UID",user.getUid());
                                                startActivity(i);
+                                               getActivity().finish();
                                            }
                                        }
 
@@ -145,8 +149,11 @@ public class LoginFragment extends Fragment {
 
 
 
-            }
-        });
+            }else {
+                    Toast.makeText(v.getContext(), "All field are required",
+                            Toast.LENGTH_SHORT).show();
+                }
+        }});
     }
 
 
@@ -154,6 +161,6 @@ public class LoginFragment extends Fragment {
             @Override
             public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
                 // return super.onCreateView(inflater, container, savedInstanceState);
-                return inflater.inflate(R.layout.activity_login, container, false);
+                return inflater.inflate(R.layout.fragment_login, container, false);
             }
         }

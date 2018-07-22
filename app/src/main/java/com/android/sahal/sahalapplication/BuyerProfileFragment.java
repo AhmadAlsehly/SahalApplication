@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class BuyerProfileFragment extends android.support.v4.app.Fragment {
 
         Button pDButton = null;
@@ -31,8 +33,13 @@ public class BuyerProfileFragment extends android.support.v4.app.Fragment {
             BtnLogOut.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(),LoginFragment.class);
+
+                    FirebaseAuth.getInstance().signOut();
+
+
+                    Intent intent = new Intent(v.getContext(),MainFirstActivity.class);
                     startActivity(intent);
+                    getActivity().finish();
 
 
                 }

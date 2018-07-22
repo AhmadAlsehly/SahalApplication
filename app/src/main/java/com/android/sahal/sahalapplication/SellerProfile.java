@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SellerProfile extends Fragment {
     Button pDButton = null;
 Button BtnLogOut ;
@@ -26,12 +28,17 @@ Button BtnLogOut ;
 
         // Do log out
         //تسجيل خروج البائع
+
         BtnLogOut = view.findViewById(R.id.btnSellerSignOut);
         BtnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),LoginFragment.class);
+
+                FirebaseAuth.getInstance().signOut();
+
+                Intent intent = new Intent(v.getContext(),MainFirstActivity.class);
                 startActivity(intent);
+                getActivity().finish();
 
 
             }

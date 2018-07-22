@@ -39,6 +39,7 @@ public class SignupSeller extends Fragment {
     EditText number = null;
     EditText name = null;
     EditText bR = null;
+    int first=0, second=0;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
@@ -105,6 +106,10 @@ public class SignupSeller extends Fragment {
                                           mDatabase.child("seller").child(mAuth.getUid()).setValue(seller);
                                           Intent i = new Intent(getContext(),MainSellerActivity.class);
                                           startActivity(i);
+
+                                          getActivity().finish();
+                                          MainBuyerActivity.bA.finish();
+
                                       } else {
                                           // If sign in fails, display a message to the user.
                                           Log.w("test", "createUserWithEmail:failure", task.getException());
