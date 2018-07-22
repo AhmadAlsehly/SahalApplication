@@ -71,7 +71,7 @@ public class SellerAddItem extends Fragment {
     Button btnDone;
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
 
@@ -109,14 +109,13 @@ public class SellerAddItem extends Fragment {
                 uploadImage3();
                 uploadImage4();
 
-
                 Item item = new Item(itemName.getText().toString(),
                         itemDescr.getText().toString(),
                         Double.parseDouble(itemPrice.getText().toString()),
                         itemCompan.getSelectedItem().toString(),
                         itemModel.getSelectedItem().toString(),
                         itemYear.getSelectedItem().toString(),
-                        itemCatgory.getSelectedItem().toString(),uploadedImages);
+                        itemCatgory.getSelectedItem().toString());
 
                 if (!itemName.getText().toString().isEmpty()
                         || !itemPrice.getText().toString().isEmpty()
@@ -131,40 +130,6 @@ public class SellerAddItem extends Fragment {
 
             }
 
-            private void uploadImage() {
-
-                if(uri1!=null) {
-                    final ProgressDialog progressDialog = new ProgressDialog(getContext()) ;
-                    progressDialog.setTitle("Uploading . . . ");
-                     progressDialog.show();
-
-                     StorageReference ref = storage.getReference().child("images"+ UUID.randomUUID().toString());
-                      ref.putFile(uri1)
-                              .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                  @Override
-                                  public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                      progressDialog.dismiss();
-                                      Toast.makeText(getContext(),"Upload",Toast.LENGTH_SHORT).show();
-                                  }
-                              }).addOnFailureListener(new OnFailureListener() {
-                          @Override
-                          public void onFailure(@NonNull Exception e) {
-                              progressDialog.dismiss();
-                              Toast.makeText(getContext(),"Faield"+e.getMessage(),Toast.LENGTH_SHORT).show();
-                          }
-                      }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                          @Override
-                          public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                              double prog = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
-                              progressDialog.setMessage("Upload"+(int)prog+"%" );
-
-                          }
-                      });
-
-
-                }
-
-            }
         });
 
 
@@ -429,6 +394,41 @@ public class SellerAddItem extends Fragment {
         return inflater.inflate(R.layout.fragment_add_item, container, false);
     }
 
+    private void uploadImage() {
+
+        if(uri1!=null) {
+            final ProgressDialog progressDialog = new ProgressDialog(getContext()) ;
+            progressDialog.setTitle("Uploading . . . ");
+            progressDialog.show();
+
+            StorageReference ref = storage.getReference().child("images"+ UUID.randomUUID().toString());
+            ref.putFile(uri1)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(),"Upload",Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(getContext(),"Faield"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double prog = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
+                    progressDialog.setMessage("Upload"+(int)prog+"%" );
+
+                }
+            });
+
+
+        }
+
+    }
+
     private void uploadImage2 () {
         if(uri2!=null) {
             final ProgressDialog progressDialog = new ProgressDialog(getContext()) ;
@@ -540,7 +540,7 @@ public class SellerAddItem extends Fragment {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            Toast.makeText(getContext(),"Upload",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),"تم رفع الصور",Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
