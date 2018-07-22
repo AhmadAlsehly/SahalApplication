@@ -14,9 +14,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainSellerActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-
+    public static Activity sA;
 
     private TextView mTextMessage;
+SellerProfile sellerProfile = new SellerProfile();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,6 +52,7 @@ public class MainSellerActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.navigation_profile:
+
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.container1,new SellerProfile(),"SellerProfile()")
@@ -74,6 +76,7 @@ public class MainSellerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_seller);
 
+        sA = this;
 
         mAuth = FirebaseAuth.getInstance();
 

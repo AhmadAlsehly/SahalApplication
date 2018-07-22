@@ -118,12 +118,14 @@ public class LoginFragment extends Fragment {
 
                                                Intent i = new Intent(getContext(),MainBuyerActivity.class);
                                                i.putExtra("UID",user.getUid());
+                                               Toast.makeText(getContext(),"Welcome",Toast.LENGTH_SHORT).show();
                                                startActivity(i);
                                                getActivity().finish();
 
                                            } else {
                                                Intent i = new Intent(getContext(),MainSellerActivity.class);
                                                i.putExtra("UID",user.getUid());
+                                               Toast.makeText(getContext(),"Welcome",Toast.LENGTH_SHORT).show();
                                                startActivity(i);
                                                getActivity().finish();
                                            }
