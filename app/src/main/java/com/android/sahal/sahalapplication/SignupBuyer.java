@@ -95,6 +95,8 @@ public class SignupBuyer extends Fragment {
                                         mDatabase.child("buyer").child(mAuth.getUid()).setValue(buyer);
                                         Intent i = new Intent(getContext(),MainBuyerActivity.class);
                                         startActivity(i);
+                                        getActivity().finish();
+                                        MainBuyerActivity.bA.finish();
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("test", "createUserWithEmail:failure", task.getException());
