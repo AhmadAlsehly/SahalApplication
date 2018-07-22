@@ -27,8 +27,8 @@ protected void onCreate(Bundle savedInstanceState) {
     setContentView(R.layout.activity_main_sign_up);
 
     TabLayout tabLayout = findViewById(R.id.tabs);
-    tabLayout.addTab(tabLayout.newTab().setText("التسجيل كمشتري"));
-    tabLayout.addTab(tabLayout.newTab().setText("التسجيل كبائع"));
+    tabLayout.addTab(tabLayout.newTab().setText("مشتري"));
+    tabLayout.addTab(tabLayout.newTab().setText("بائع"));
     tabLayout.setTabGravity( TabLayout.GRAVITY_FILL);
 
     final ViewPager viewPager = findViewById(R.id.container);

@@ -1,6 +1,8 @@
 package com.android.sahal.sahalapplication;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,7 @@ public class SallerOrderAdapter  extends RecyclerView.Adapter<SallerOrderAdapter
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count,desc;
         public ImageView thumbnail, overflow,review;
-
+        public CardView cardView;
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
@@ -35,6 +37,7 @@ public class SallerOrderAdapter  extends RecyclerView.Adapter<SallerOrderAdapter
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             overflow = (ImageView) view.findViewById(R.id.overflow);
             desc= (TextView) view.findViewById(R.id.desc);
+            cardView=(CardView) view.findViewById(R.id.card_view);
 
 
             //TODO: add here review
@@ -77,7 +80,7 @@ public class SallerOrderAdapter  extends RecyclerView.Adapter<SallerOrderAdapter
 
 
     @Override
-    public void onBindViewHolder(final SallerOrderAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(final SallerOrderAdapter.MyViewHolder holder, final int position) {
         ModuleItem item = itemList.get(position);
         holder.title.setText(item.getName());
         holder.desc.setText(item.getDescription());
@@ -92,6 +95,30 @@ public class SallerOrderAdapter  extends RecyclerView.Adapter<SallerOrderAdapter
                 showPopupMenu(holder.overflow);
             }
         });
+
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(view.getContext(),ItemActivity.class);
+
+                intent.putExtra("ModuleItem",itemList.get(position));
+
+                //TODO if the line before failed try this
+//                 intent.putExtra("Name",itemList.get(position).getName());
+//                                intent.putExtra("Category",itemList.get(position).getCategory());
+
+
+
+                view.getContext().startActivity(intent);
+//                Intent toItem=new Intent(view.getContext(),ItemActivity.class);
+//                view.getContext().startActivity(toItem);
+
+                // EventBus.getDefault().post(new ItemActivity());
+            }
+        });
+
     }
 /*
 
