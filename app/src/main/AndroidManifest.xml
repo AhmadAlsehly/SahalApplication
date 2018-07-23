@@ -40,6 +40,7 @@
         <activity android:name=".MainBuyerActivity">
 
         </activity>
+        <activity android:name=".BuyerPersonalData"></activity>
     </application>
 
 </manifest>

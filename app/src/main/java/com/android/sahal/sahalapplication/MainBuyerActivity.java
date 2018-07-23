@@ -46,7 +46,10 @@ public class MainBuyerActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_buyer_home:
-
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.buyer_container,new FragmentBuyerHome(),"FragmentBuyerHome()")
+                            .commit();
 
                     return true;
                 case R.id.navigation_buyer_search:

@@ -104,8 +104,6 @@ public class SellerProfile extends Fragment {
                Intent i = new Intent((Activity)v.getContext(),SellerPersonalData.class);
                startActivity(i);
 
-
-            view.getContext().startActivity(i);
            }
        });
     }

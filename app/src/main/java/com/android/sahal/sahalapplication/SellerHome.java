@@ -155,6 +155,7 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
 //                    sellerHomeAdapter.notifyDataSetChanged();
                 }
 
+
                 sellerHomeAdapter.notifyDataSetChanged();
             }
 
