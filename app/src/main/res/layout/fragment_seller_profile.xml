@@ -44,27 +44,13 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="28dp"
             android:gravity="center"
-            android:text="التوفير لقطع الغيار المستعملة"
+            android:text=""
             android:textSize="@dimen/activity_horizontal_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="84dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:text="twfir_99"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtProfileName" />
     </android.support.constraint.ConstraintLayout>
 
     <Button

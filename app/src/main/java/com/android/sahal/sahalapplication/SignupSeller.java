@@ -106,7 +106,7 @@ public class SignupSeller extends Fragment {
                                           mDatabase.child("seller").child(mAuth.getUid()).setValue(seller);
                                           Intent i = new Intent(getContext(),MainSellerActivity.class);
                                           startActivity(i);
-
+                                          Toast.makeText(getContext(),"Welcome",Toast.LENGTH_SHORT).show();
                                           getActivity().finish();
                                           MainBuyerActivity.bA.finish();
 

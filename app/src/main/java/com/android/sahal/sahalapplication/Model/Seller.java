@@ -12,4 +12,8 @@ public class Seller {
         this.number = number;
 
     }
+
+    public Seller() {
+
+    }
 }

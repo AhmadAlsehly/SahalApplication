@@ -9,5 +9,10 @@ public class Buyer {
         this.name = name;
         this.number = number;
 
-    }}
+    }
+
+    public Buyer() {
+
+    }
+}
 

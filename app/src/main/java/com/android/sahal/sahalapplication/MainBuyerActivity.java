@@ -95,6 +95,8 @@ public class MainBuyerActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         navigation.setSelectedItemId(R.id.navigation_buyer_home);
+
+
     }
 
 }
