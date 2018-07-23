@@ -103,7 +103,7 @@ public class SellerHome extends Fragment implements SallerHomeAdapter.onItemClic
 
     private void prepareAlbums() {
         int[] covers = new int[]{
-                R.drawable.album1,
+                R.drawable.album10,
                 R.drawable.album2,
                 R.drawable.album3,
                 R.drawable.album4,
@@ -112,7 +112,7 @@ public class SellerHome extends Fragment implements SallerHomeAdapter.onItemClic
                 R.drawable.album7,
                 R.drawable.album8,
                 R.drawable.album9,
-                R.drawable.album10,
+                R.drawable.album1,
                 R.drawable.album11};
 
         ModuleItem a = new ModuleItem("كرسي مكينة", "هذه الجمل هيا لتجربة الوصف وكيف سيظهر للمستخدم واحتاج لكتابة المزيد للجمل لكي ارى كيف سيظهر النص لذلك كثبت لك ماذا اريد لكي تزيد الجمل ", "Toyota", "Corola", "Body", "2017", 290.95,covers[0]);

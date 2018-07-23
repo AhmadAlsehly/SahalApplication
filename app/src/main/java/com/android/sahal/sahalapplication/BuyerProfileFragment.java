@@ -90,11 +90,9 @@ public class BuyerProfileFragment extends android.support.v4.app.Fragment {
             pDButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent((Activity)v.getContext(),SellerPersonalData.class);
+                    Intent i = new Intent(v.getContext(),BuyerPersonalData.class);
                     startActivity(i);
 
-
-                    view.getContext().startActivity(i);
                 }
             });
         }
