@@ -28,6 +28,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
 
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count,desc;
         public ImageView thumbnail, overflow;
@@ -73,7 +74,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
         holder.count.setText(item.getPrice() + " SR");
 
         // loading album cover using Glide library
-        Glide.with(mContext).load(item.getImage1()).into(holder.thumbnail);
+//        Glide.with(mContext).load(item.getImages().get(0)).into(holder.thumbnail);
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override

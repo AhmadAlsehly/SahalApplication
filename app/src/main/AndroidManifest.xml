@@ -36,6 +36,7 @@
             android:label="@string/title_activity_main_buyer"
             android:theme="@style/AppTheme" />
         <activity android:name=".BuyerPersonalActivity" />
+        <activity android:name=".ItemActivity" />
         <activity android:name=".MainBuyerActivity">
 
         </activity>

@@ -86,50 +86,50 @@ public class SellerSoldItems extends Fragment  implements SellerSoldItemsAdapter
 
 
     private void prepareAlbums() {
-         int[] covers = new int[]{
-                R.drawable.album1,
-                R.drawable.album2,
-                R.drawable.album3,
-                R.drawable.album4,
-                R.drawable.album5,
-                R.drawable.album6,
-                R.drawable.album7,
-                R.drawable.album8,
-                R.drawable.album9,
-                R.drawable.album10,
-                R.drawable.album11};
+        int[] covers = new int[]{
+                R.drawable.album11,
+                R.drawable.album21,
+                R.drawable.album31,
+                R.drawable.album41,
+                R.drawable.album51,
+                R.drawable.album61,
+                R.drawable.album71,
+                R.drawable.album81,
+                R.drawable.album41,
+                R.drawable.album101,
+                R.drawable.album111};
 
-        ModuleItem a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[9]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[0]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[1]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[2]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[3]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[4]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[5]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[6]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[7]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[4]);
-        itemList.add(a);
-
-        sellerSoldItemsAdapter.notifyDataSetChanged();
+//        ModuleItem a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[9]);
+//        itemList.add(a);
+//
+//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[0]);
+//        itemList.add(a);
+//
+//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[1]);
+//        itemList.add(a);
+//
+//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[2]);
+//        itemList.add(a);
+//
+//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[3]);
+//        itemList.add(a);
+//
+//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[4]);
+//        itemList.add(a);
+//
+//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[5]);
+//        itemList.add(a);
+//
+//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[6]);
+//        itemList.add(a);
+//
+//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[7]);
+//        itemList.add(a);
+//
+//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[4]);
+//        itemList.add(a);
+//
+//        sellerSoldItemsAdapter.notifyDataSetChanged();
     }
 
     //____________________________________________________________

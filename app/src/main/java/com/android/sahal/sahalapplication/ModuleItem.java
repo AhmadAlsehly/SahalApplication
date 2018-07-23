@@ -3,48 +3,20 @@ package com.android.sahal.sahalapplication;
 import android.widget.ImageView;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ModuleItem implements Serializable{
     String name,description,nameOfFactory,type,category,yearOfCreat;
     double price;
-    int image1,image2,image3,image4;
-//    public ImageView getImage1() {
-//        return image1;
-//    }
-//
-//    public void setImage1(ImageView image1) {
-//        this.image1 = image1;
-//    }
-//
-//    public ImageView getImage2() {
-//        return image2;
-//    }
-//
-//    public void setImage2(ImageView image2) {
-//        this.image2 = image2;
-//    }
-//
-//    public ImageView getImage3() {
-//        return image3;
-//    }
-//
-//    public void setImage3(ImageView image3) {
-//        this.image3 = image3;
-//    }
-//
-//    public ImageView getImage4() {
-//        return image4;
-//    }
-//
-//    public void setImage4(ImageView image4) {
-//        this.image4 = image4;
-//    }
+     List<String> images ;
+
+
 
 
 
 
     public ModuleItem(String name,String desc,String nameOfFactory,String type
-    ,String category,String yearOfCreat,double price,int image1){
+    ,String category,String yearOfCreat,double price,List<String> images){
 
         this.name=name;
         this.description=desc;
@@ -53,7 +25,11 @@ public class ModuleItem implements Serializable{
         this.category=category;
         this.yearOfCreat=yearOfCreat;
         this.price=price;
-        this.image1=image1;
+        this.images = images;
+
+    }
+
+    public ModuleItem() {
 
     }
 
@@ -113,39 +89,11 @@ public class ModuleItem implements Serializable{
         this.price = price;
     }
 
-    public int getImage1() {
-        return image1;
+    public List<String> getImages() {
+        return images;
     }
 
-    public void setImage1(int image1) {
-        this.image1 = image1;
+    public void setImages(List<String> images) {
+        this.images = images;
     }
-
-    public int getImage2() {
-        return image2;
-    }
-
-    public void setImage2(int image2) {
-        this.image2 = image2;
-    }
-
-    public int getImage3() {
-        return image3;
-    }
-
-    public void setImage3(int image3) {
-        this.image3 = image3;
-    }
-
-    public int getImage4() {
-        return image4;
-    }
-
-    public void setImage4(int image4) {
-        this.image4 = image4;
-    }
-
-
-
-
 }

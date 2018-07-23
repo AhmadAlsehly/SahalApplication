@@ -55,21 +55,21 @@ public class SellerAddItem extends Fragment {
     public ArrayList<Item> seller = new ArrayList<>();
 
 
-
     private List<String> mPhotos = new ArrayList<>();
 
     private FirebaseAuth mAuth;
 
-String itemPackage ;
+    String itemPackage;
     TextView btnImage1, btnImage2, btnImage3, btnImage4;
     EditText itemName, itemDescr, itemPrice;
     Spinner itemCompan, itemModel, itemYear, itemCatgory;
     ImageView image1, image2, image3, image4;
-    Uri uri1 , uri2 , uri3 , uri4 ;
-    FirebaseStorage storage ;
-    DatabaseReference mDataRef ;
+    Uri uri1, uri2, uri3, uri4;
+    FirebaseStorage storage;
+    DatabaseReference mDataRef;
     StorageReference mStorageRef;
-
+    int tryies = 0 ;
+int clearFirst = 0;
 
 
     Button btnDone;
@@ -79,11 +79,9 @@ String itemPackage ;
         super.onViewCreated(view, savedInstanceState);
 
 
-
         storage = FirebaseStorage.getInstance();
         mStorageRef = storage.getReference();
-        mDataRef= FirebaseDatabase.getInstance().getReference();
-
+        mDataRef = FirebaseDatabase.getInstance().getReference();
 
 
         btnDone = view.findViewById(R.id.butnDone);
@@ -106,41 +104,50 @@ String itemPackage ;
             @Override
             public void onClick(View v) {
 
-                itemPackage = "Items"+"/"+UUID.randomUUID().toString() ;
+                itemPackage = "Items" + "/" + UUID.randomUUID().toString();
 
-mPhotos.clear();
-                uploadImage();
-                uploadImage2();
-                uploadImage3();
-                uploadImage4();
+if(clearFirst==0) {
+    mPhotos.clear();
+    clearFirst++;
+}
+if (clearFirst==1) {
+    uploadImage();
+    uploadImage2();
+    uploadImage3();
+    uploadImage4();
+}
+                Log.d("looog",mPhotos.toString());
 
-                Item item = new Item(itemName.getText().toString(),
-                        itemDescr.getText().toString(),
-                        Double.parseDouble(itemPrice.getText().toString()),
-                        itemCompan.getSelectedItem().toString(),
-                        itemModel.getSelectedItem().toString(),
-                        itemYear.getSelectedItem().toString(),
-                        itemCatgory.getSelectedItem().toString(),mPhotos);
+                if (mPhotos!=null) {
+                    if (tryies==4) {
+                        ModuleItem moduleItem = new ModuleItem(itemName.getText().toString(),
+                                itemDescr.getText().toString(),
+                                itemCompan.getSelectedItem().toString(),
+                                itemModel.getSelectedItem().toString(),
+                                itemCatgory.getSelectedItem().toString(),
+                                itemYear.getSelectedItem().toString(),
+                                Double.parseDouble(itemPrice.getText().toString()), mPhotos);
 
-                if (!itemName.getText().toString().isEmpty()
-                        || !itemPrice.getText().toString().isEmpty()
-                        || !itemDescr.getText().toString().isEmpty()) {
-                    mDataRef.child("items").child("item"+UUID.randomUUID()).setValue(item);
+                        if (!itemName.getText().toString().isEmpty()
+                                || !itemPrice.getText().toString().isEmpty()
+                                || !itemDescr.getText().toString().isEmpty()) {
+                            mDataRef.child("items").child("item" + UUID.randomUUID()).setValue(moduleItem);
 
-                    Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "complete all fields pleas", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "complete all fields pleas", Toast.LENGTH_SHORT).show();
 
+                        }
                 }
+
+
+                };
+
+
 
             }
 
         });
-
-
-
-
-
 
 
         String[] comapanys =
@@ -326,63 +333,60 @@ mPhotos.clear();
         });
 
 
-
     }
-
-
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 100 && resultCode == RESULT_OK && data != null && data.getData()!=null ) {
-             uri1 = data.getData();
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            uri1 = data.getData();
 
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),uri1);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri1);
                 image1.setImageBitmap(bitmap);
-                String u=uri1.getPath();
+                String u = uri1.getPath();
 
-                Log.d("tesst",u);
+                Log.d("tesst", u);
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
         if (requestCode == 98 && resultCode == RESULT_OK) {
-             uri2 = data.getData();
+            uri2 = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),uri2);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri2);
                 image2.setImageBitmap(bitmap);
-                String u=uri2.getPath();
+                String u = uri2.getPath();
 
-                Log.d("tesst",u);
+                Log.d("tesst", u);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         if (requestCode == 96 && resultCode == RESULT_OK) {
-             uri3 = data.getData();
+            uri3 = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),uri3);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri3);
                 image3.setImageBitmap(bitmap);
-                String u=uri3.getPath();
+                String u = uri3.getPath();
 
-                Log.d("tesst",u);
+                Log.d("tesst", u);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         if (requestCode == 94 && resultCode == RESULT_OK) {
-             uri4 = data.getData();
+            uri4 = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),uri4);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri4);
                 image4.setImageBitmap(bitmap);
-                String u=uri4.getPath();
+                String u = uri4.getPath();
 
-                Log.d("tesst",u);
+                Log.d("tesst", u);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -398,32 +402,40 @@ mPhotos.clear();
 
     private void uploadImage() {
 
-        if(uri1!=null) {
-            final ProgressDialog progressDialog = new ProgressDialog(getContext()) ;
+        if (uri1 != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("Uploading . . . ");
             progressDialog.show();
 
-            StorageReference ref = storage.getReference().child(itemPackage+"1");
-            mPhotos.add("gs://sahalapp-25947.appspot.com/Items/"+itemPackage+"1");
+            StorageReference ref = storage.getReference().child(itemPackage + "1");
 
             ref.putFile(uri1)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            mPhotos.add(taskSnapshot.getUploadSessionUri().toString());
+                            Log.d("looog",taskSnapshot.getUploadSessionUri().toString());
+
+
                             progressDialog.dismiss();
-                            Toast.makeText(getContext(),"Upload",Toast.LENGTH_SHORT).show();
+                            tryies++;
+
+
+                            Toast.makeText(getContext(), "Upload", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(getContext(),"Faield"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Faield" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double prog = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
-                    progressDialog.setMessage("Upload"+(int)prog+"%" );
+                    double prog = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                    progressDialog.setMessage("Upload" + (int) prog + "%");
+
 
                 }
             });
@@ -433,33 +445,39 @@ mPhotos.clear();
 
     }
 
-    private void uploadImage2 () {
-        if(uri2!=null) {
-            final ProgressDialog progressDialog = new ProgressDialog(getContext()) ;
+    private void uploadImage2() {
+        if (uri2 != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("Uploading . . . ");
             progressDialog.show();
 
-            StorageReference ref = storage.getReference().child(itemPackage+"2");
-            mPhotos.add("gs://sahalapp-25947.appspot.com/Items/"+itemPackage+"2");
+            StorageReference ref = storage.getReference().child(itemPackage + "2");
 
             ref.putFile(uri2)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            mPhotos.add(taskSnapshot.getUploadSessionUri().toString());
+
                             progressDialog.dismiss();
-                            Toast.makeText(getContext(),"Upload",Toast.LENGTH_SHORT).show();
+                            tryies++;
+
+
+                            Toast.makeText(getContext(), "Upload", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(getContext(),"Faield"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Faield" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double prog = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
-                    progressDialog.setMessage("Upload"+(int)prog+"%" );
+                    double prog = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                    progressDialog.setMessage("Upload" + (int) prog + "%");
+
 
                 }
             });
@@ -468,33 +486,37 @@ mPhotos.clear();
         }
     }
 
-    private void uploadImage3 () {
-        if(uri3!=null) {
-            final ProgressDialog progressDialog = new ProgressDialog(getContext()) ;
+    private void uploadImage3() {
+        if (uri3 != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("Uploading . . . ");
             progressDialog.show();
 
-            StorageReference ref = storage.getReference().child(itemPackage+"3");
-            mPhotos.add("gs://sahalapp-25947.appspot.com/Items/"+itemPackage+"3");
+            StorageReference ref = storage.getReference().child(itemPackage + "3");
 
             ref.putFile(uri3)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            mPhotos.add(taskSnapshot.getUploadSessionUri().toString());
+                            tryies++;
+
                             progressDialog.dismiss();
-                            Toast.makeText(getContext(),"Upload",Toast.LENGTH_SHORT).show();
+
+                            Toast.makeText(getContext(), "Upload", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(getContext(),"Faield"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Faield" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double prog = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
-                    progressDialog.setMessage("Upload"+(int)prog+"%" );
+                    double prog = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                    progressDialog.setMessage("Upload" + (int) prog + "%");
+
 
                 }
             });
@@ -503,33 +525,38 @@ mPhotos.clear();
         }
     }
 
-    private void uploadImage4 () {
-        if(uri4!=null) {
-            final ProgressDialog progressDialog = new ProgressDialog(getContext()) ;
+    private void uploadImage4() {
+        if (uri4 != null) {
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("Uploading . . . ");
             progressDialog.show();
 
-            StorageReference ref = storage.getReference().child(itemPackage+"4");
-            mPhotos.add("gs://sahalapp-25947.appspot.com/Items/"+itemPackage+"4");
+            StorageReference ref = storage.getReference().child(itemPackage + "4");
 
-            ref.putFile(uri4)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getContext(),"Upload",Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
+            ref.putFile(uri4).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    mPhotos.add(taskSnapshot.getUploadSessionUri().toString());
+
+
+                    progressDialog.dismiss();
+                    Toast.makeText(getContext(), "Upload", Toast.LENGTH_SHORT).show();
+                    tryies++;
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(getContext(),"Faield"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Faield" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double prog = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
-                    progressDialog.setMessage("Upload"+(int)prog+"%" );
+                    double prog = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+
+                    progressDialog.setMessage("Upload" + (int) prog + "%");
 
                 }
             });
@@ -538,12 +565,9 @@ mPhotos.clear();
         }
     }
 
-    private void imageUploader () {
+    private void imageUploader() {
 
     }
-
-
-
 
 
 }

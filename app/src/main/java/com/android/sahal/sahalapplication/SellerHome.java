@@ -2,10 +2,12 @@ package com.android.sahal.sahalapplication;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.TypedValue;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+
 import java.util.ArrayList;
 
 public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClickListener, SearchView.OnQueryTextListener {
@@ -31,7 +41,16 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
     private String mParam1;
     private String mParam2;
 
+    List<ModuleItem> itemMoudelList;
+
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseStorage firebaseStorage;
+    final DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference().child("items");
+    ModuleItem moduleItem;
     private OnFragmentInteractionListener mListener;
+    private List<ModuleItem> itemList ;
+
+
 
 
 //--------------------------------------------------------------------------------
@@ -42,7 +61,7 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
     RecyclerView recyclerView;
 
     private SellerHomeAdapter sellerHomeAdapter;
-    private List<ModuleItem> itemList;
+
 
 //____________________________________________
 
@@ -50,11 +69,32 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
         return new SellerHome();
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        recyclerView = view.findViewById(R.id.recyclerView);
+        itemList = new ArrayList<>();
+        sellerHomeAdapter = new SellerHomeAdapter(this.getContext(),itemList);
+
+
+        LinearLayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 1);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(sellerHomeAdapter);
+
+        prepareAlbums();
+
+
+    }
+
 
     @Override
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
 
     }
 
@@ -102,75 +142,37 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
 
 
     private void prepareAlbums() {
-        int[] covers = new int[]{
-                R.drawable.album1,
-                R.drawable.album2,
-                R.drawable.album3,
-                R.drawable.album4,
-                R.drawable.album5,
-                R.drawable.album6,
-                R.drawable.album7,
-                R.drawable.album8,
-                R.drawable.album9,
-                R.drawable.album10,
-                R.drawable.album11};
+//        ModuleItem a = new ModuleItem("hcd","dfv","fdv","adsfv","sdfvd","jhgfd",9,null);
+//        itemList.add(a);
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange( DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    itemList.add(ds.getValue(ModuleItem.class));
+                    Log.d("tesst", "this is size :" + itemList.size());
+                    Log.d("tesst", "this is name :" + ds.toString());
 
-        ModuleItem a = new ModuleItem("كرسي مكينة", "هذه الجمل هيا لتجربة الوصف وكيف سيظهر للمستخدم واحتاج لكتابة المزيد للجمل لكي ارى كيف سيظهر النص لذلك كثبت لك ماذا اريد لكي تزيد الجمل ", "Toyota", "Corola", "Body", "2017", 290.95,covers[0]);
-        itemList.add(a);
+//                    sellerHomeAdapter.notifyDataSetChanged();
+                }
 
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[0]);
-        itemList.add(a);
+                sellerHomeAdapter.notifyDataSetChanged();
+            }
 
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[1]);
-        itemList.add(a);
+            @Override
+            public void onCancelled( DatabaseError databaseError) {
 
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[2]);
-        itemList.add(a);
+            }
+        };
+        databaseReference.addListenerForSingleValueEvent(valueEventListener);
 
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[3]);
-        itemList.add(a);
 
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[4]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[5]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[6]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[7]);
-        itemList.add(a);
-
-        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[2]);
-        itemList.add(a);
-
-        sellerHomeAdapter.notifyDataSetChanged();
+//
+//
+//
+//        sellerHomeAdapter.notifyDataSetChanged();
     }
 
 //____________________________________________________________
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        itemList = new ArrayList<>();
-        sellerHomeAdapter = new SellerHomeAdapter(this.getContext(), itemList);
-
-
-
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false);
-//        recyclerView.setLayoutManager(layoutManager);
-
-        LinearLayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 1);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(sellerHomeAdapter);
-
-        prepareAlbums();
-
-
-    }
 
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 

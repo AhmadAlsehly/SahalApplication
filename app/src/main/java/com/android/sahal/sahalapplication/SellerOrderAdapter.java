@@ -87,7 +87,7 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
         holder.count.setText(item.getPrice() + " SR");
 
         // loading album cover using Glide library
-        Glide.with(mContext).load(item.getImage1()).into(holder.thumbnail);
+       // Glide.with(mContext).load(item.getImage1()).into(holder.thumbnail);
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
