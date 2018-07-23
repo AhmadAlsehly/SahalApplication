@@ -112,6 +112,8 @@ public class LoginFragment extends Fragment {
                                     // Sign in success, update UI with the signed-in user's information
                                     final FirebaseUser user = mAuth.getCurrentUser();
                                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
                                        @Override
                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                            if (dataSnapshot.child("buyer").child(user.getUid()).exists()) {

@@ -17,9 +17,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
-;//import org.greenrobot.eventbus.EventBus;
-
-public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.MyViewHolder> {
+public class SellerSoldItemsAdapter extends RecyclerView.Adapter<SellerSoldItemsAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<ModuleItem> itemList;
@@ -32,6 +30,7 @@ public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.My
         public TextView title, count,desc;
         public ImageView thumbnail, overflow;
         public CardView cardView;
+
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
@@ -44,13 +43,23 @@ public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.My
     }
 
 
-    public SallerHomeAdapter(Context mContext, List<ModuleItem> itemsList) {
+    public SellerSoldItemsAdapter(Context mContext, List<ModuleItem> itemsList) {
         this.mContext = mContext;
         this.itemList = itemsList;
+    }
+/*
+
+ @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.view_recy, parent, false);
+
+        return new MyViewHolder(itemView);
     }
 
 
 
+*/
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -63,10 +72,8 @@ public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.My
 
 
 
-
-
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final SellerSoldItemsAdapter.MyViewHolder holder, final int position) {
         ModuleItem item = itemList.get(position);
         holder.title.setText(item.getName());
         holder.desc.setText(item.getDescription());
@@ -81,6 +88,7 @@ public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.My
                 showPopupMenu(holder.overflow);
             }
         });
+
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
 
@@ -104,10 +112,20 @@ public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.My
             }
         });
 
+    }
+/*
 
+ private void showPopupMenu(View view) {
+        // inflate menu
+        PopupMenu popup = new PopupMenu(mContext, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_album, popup.getMenu());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
+        popup.show();
     }
 
 
+*/
 
     private void showPopupMenu(View view) {
         // inflate menu
@@ -162,9 +180,6 @@ public class SallerHomeAdapter extends RecyclerView.Adapter<SallerHomeAdapter.My
 
     public interface onItemClickListener{
         public void itemDetailClick(ModuleItem item);
-
-
-
     }
 
 

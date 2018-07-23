@@ -10,7 +10,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.StaticLayout;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,7 @@ import android.widget.SearchView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SellerSoldItems extends Fragment  implements SallerSoldItemsAdapter.onItemClickListener, SearchView.OnQueryTextListener {
+public class SellerSoldItems extends Fragment  implements SellerSoldItemsAdapter.onItemClickListener, SearchView.OnQueryTextListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
@@ -32,7 +31,7 @@ public class SellerSoldItems extends Fragment  implements SallerSoldItemsAdapter
     //    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private SallerSoldItemsAdapter sallerSoldItemsAdapter;
+    private SellerSoldItemsAdapter sellerSoldItemsAdapter;
     private List<ModuleItem> itemList;
     ImageView imageView;
 
@@ -130,7 +129,7 @@ public class SellerSoldItems extends Fragment  implements SallerSoldItemsAdapter
         a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[4]);
         itemList.add(a);
 
-        sallerSoldItemsAdapter.notifyDataSetChanged();
+        sellerSoldItemsAdapter.notifyDataSetChanged();
     }
 
     //____________________________________________________________
@@ -141,7 +140,7 @@ public class SellerSoldItems extends Fragment  implements SallerSoldItemsAdapter
         super.onViewCreated(view, savedInstanceState);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewSold);
         itemList = new ArrayList<>();
-        sallerSoldItemsAdapter = new SallerSoldItemsAdapter(this.getContext(), itemList);
+        sellerSoldItemsAdapter = new SellerSoldItemsAdapter(this.getContext(), itemList);
 
 
 
@@ -152,7 +151,7 @@ public class SellerSoldItems extends Fragment  implements SallerSoldItemsAdapter
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(sallerSoldItemsAdapter);
+        recyclerView.setAdapter(sellerSoldItemsAdapter);
 
         prepareAlbums();
 
