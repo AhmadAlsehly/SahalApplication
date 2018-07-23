@@ -26,8 +26,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.sahal.sahalapplication.Model.Item;
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -54,9 +56,11 @@ public class SellerAddItem extends Fragment {
 
 
 
-    private List<String> mPhotos;
-    private List<Uri> uploadedImages = new ArrayList<>();
+    private List<String> mPhotos = new ArrayList<>();
 
+    private FirebaseAuth mAuth;
+
+String itemPackage ;
     TextView btnImage1, btnImage2, btnImage3, btnImage4;
     EditText itemName, itemDescr, itemPrice;
     Spinner itemCompan, itemModel, itemYear, itemCatgory;
@@ -81,6 +85,7 @@ public class SellerAddItem extends Fragment {
         mDataRef= FirebaseDatabase.getInstance().getReference();
 
 
+
         btnDone = view.findViewById(R.id.butnDone);
         image1 = view.findViewById(R.id.image1);
         image2 = view.findViewById(R.id.image2);
@@ -101,9 +106,9 @@ public class SellerAddItem extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Log.d("tesst",uploadedImages.toString());
+                itemPackage = "Items"+"/"+UUID.randomUUID().toString() ;
 
-
+mPhotos.clear();
                 uploadImage();
                 uploadImage2();
                 uploadImage3();
@@ -115,7 +120,7 @@ public class SellerAddItem extends Fragment {
                         itemCompan.getSelectedItem().toString(),
                         itemModel.getSelectedItem().toString(),
                         itemYear.getSelectedItem().toString(),
-                        itemCatgory.getSelectedItem().toString());
+                        itemCatgory.getSelectedItem().toString(),mPhotos);
 
                 if (!itemName.getText().toString().isEmpty()
                         || !itemPrice.getText().toString().isEmpty()
@@ -337,8 +342,8 @@ public class SellerAddItem extends Fragment {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),uri1);
                 image1.setImageBitmap(bitmap);
-                uploadedImages.add(uri1);
                 String u=uri1.getPath();
+
                 Log.d("tesst",u);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -351,7 +356,6 @@ public class SellerAddItem extends Fragment {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),uri2);
                 image2.setImageBitmap(bitmap);
                 String u=uri2.getPath();
-                uploadedImages.add(uri2);
 
                 Log.d("tesst",u);
             } catch (IOException e) {
@@ -364,7 +368,6 @@ public class SellerAddItem extends Fragment {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),uri3);
                 image3.setImageBitmap(bitmap);
                 String u=uri3.getPath();
-                uploadedImages.add(uri3);
 
                 Log.d("tesst",u);
             } catch (IOException e) {
@@ -378,7 +381,6 @@ public class SellerAddItem extends Fragment {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),uri4);
                 image4.setImageBitmap(bitmap);
                 String u=uri4.getPath();
-                uploadedImages.add(uri4);
 
                 Log.d("tesst",u);
             } catch (IOException e) {
@@ -401,7 +403,9 @@ public class SellerAddItem extends Fragment {
             progressDialog.setTitle("Uploading . . . ");
             progressDialog.show();
 
-            StorageReference ref = storage.getReference().child("images"+ UUID.randomUUID().toString());
+            StorageReference ref = storage.getReference().child(itemPackage+"1");
+            mPhotos.add("gs://sahalapp-25947.appspot.com/Items/"+itemPackage+"1");
+
             ref.putFile(uri1)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -435,7 +439,9 @@ public class SellerAddItem extends Fragment {
             progressDialog.setTitle("Uploading . . . ");
             progressDialog.show();
 
-            StorageReference ref = storage.getReference().child("images"+ UUID.randomUUID().toString());
+            StorageReference ref = storage.getReference().child(itemPackage+"2");
+            mPhotos.add("gs://sahalapp-25947.appspot.com/Items/"+itemPackage+"2");
+
             ref.putFile(uri2)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -468,7 +474,9 @@ public class SellerAddItem extends Fragment {
             progressDialog.setTitle("Uploading . . . ");
             progressDialog.show();
 
-            StorageReference ref = storage.getReference().child("images"+ UUID.randomUUID().toString());
+            StorageReference ref = storage.getReference().child(itemPackage+"3");
+            mPhotos.add("gs://sahalapp-25947.appspot.com/Items/"+itemPackage+"3");
+
             ref.putFile(uri3)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -501,7 +509,9 @@ public class SellerAddItem extends Fragment {
             progressDialog.setTitle("Uploading . . . ");
             progressDialog.show();
 
-            StorageReference ref = storage.getReference().child("images"+ UUID.randomUUID().toString());
+            StorageReference ref = storage.getReference().child(itemPackage+"4");
+            mPhotos.add("gs://sahalapp-25947.appspot.com/Items/"+itemPackage+"4");
+
             ref.putFile(uri4)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -529,36 +539,7 @@ public class SellerAddItem extends Fragment {
     }
 
     private void imageUploader () {
-        if(uri2!=null) {
-            final ProgressDialog progressDialog = new ProgressDialog(getContext()) ;
-            progressDialog.setTitle("Uploading . . . ");
-            progressDialog.show();
 
-            StorageReference ref = storage.getReference().child("images"+ UUID.randomUUID().toString());
-            ref.putFile(uri2)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getContext(),"تم رفع الصور",Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getContext(),"Faield"+e.getMessage(),Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double prog = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount() );
-                    progressDialog.setMessage("Upload"+(int)prog+"%" );
-
-                }
-            });
-
-
-        }
     }
 
 

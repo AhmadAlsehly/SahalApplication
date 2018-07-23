@@ -1,6 +1,5 @@
 package com.android.sahal.sahalapplication;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -29,7 +28,7 @@ import java.util.List;
  * Use the {@link SellerOrder#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SellerOrder extends Fragment implements SallerSoldItemsAdapter.onItemClickListener, SearchView.OnQueryTextListener {
+public class SellerOrder extends Fragment implements SellerSoldItemsAdapter.onItemClickListener, SearchView.OnQueryTextListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
@@ -40,7 +39,7 @@ public class SellerOrder extends Fragment implements SallerSoldItemsAdapter.onIt
     //    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private SallerOrderAdapter sallerOrderAdapter;
+    private SellerOrderAdapter sellerOrderAdapter;
     private List<ModuleItem> itemList;
 
 
@@ -137,7 +136,7 @@ public class SellerOrder extends Fragment implements SallerSoldItemsAdapter.onIt
         a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[4]);
         itemList.add(a);
 
-        sallerOrderAdapter.notifyDataSetChanged();
+        sellerOrderAdapter.notifyDataSetChanged();
     }
 
     //____________________________________________________________
@@ -148,7 +147,7 @@ public class SellerOrder extends Fragment implements SallerSoldItemsAdapter.onIt
         super.onViewCreated(view, savedInstanceState);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewSold);
         itemList = new ArrayList<>();
-        sallerOrderAdapter = new SallerOrderAdapter(this.getContext(), itemList);
+        sellerOrderAdapter = new SellerOrderAdapter(this.getContext(), itemList);
 
 
 
@@ -159,7 +158,7 @@ public class SellerOrder extends Fragment implements SallerSoldItemsAdapter.onIt
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(sallerOrderAdapter);
+        recyclerView.setAdapter(sellerOrderAdapter);
 
         prepareAlbums();
 

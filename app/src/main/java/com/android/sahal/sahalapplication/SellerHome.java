@@ -21,7 +21,7 @@ import android.util.TypedValue;
 
 import java.util.ArrayList;
 
-public class SellerHome extends Fragment implements SallerHomeAdapter.onItemClickListener, SearchView.OnQueryTextListener {
+public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClickListener, SearchView.OnQueryTextListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,7 +41,7 @@ public class SellerHome extends Fragment implements SallerHomeAdapter.onItemClic
     //    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private SallerHomeAdapter sallerHomeAdapter;
+    private SellerHomeAdapter sellerHomeAdapter;
     private List<ModuleItem> itemList;
 
 //____________________________________________
@@ -145,7 +145,7 @@ public class SellerHome extends Fragment implements SallerHomeAdapter.onItemClic
         a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[2]);
         itemList.add(a);
 
-        sallerHomeAdapter.notifyDataSetChanged();
+        sellerHomeAdapter.notifyDataSetChanged();
     }
 
 //____________________________________________________________
@@ -154,7 +154,7 @@ public class SellerHome extends Fragment implements SallerHomeAdapter.onItemClic
         super.onViewCreated(view, savedInstanceState);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         itemList = new ArrayList<>();
-        sallerHomeAdapter = new SallerHomeAdapter(this.getContext(), itemList);
+        sellerHomeAdapter = new SellerHomeAdapter(this.getContext(), itemList);
 
 
 
@@ -165,7 +165,7 @@ public class SellerHome extends Fragment implements SallerHomeAdapter.onItemClic
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(sallerHomeAdapter);
+        recyclerView.setAdapter(sellerHomeAdapter);
 
         prepareAlbums();
 

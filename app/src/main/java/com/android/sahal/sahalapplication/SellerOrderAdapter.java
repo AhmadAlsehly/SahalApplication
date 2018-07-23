@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
-public class SallerOrderAdapter  extends RecyclerView.Adapter<SallerOrderAdapter.MyViewHolder> {
+public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<ModuleItem> itemList;
@@ -47,7 +47,7 @@ public class SallerOrderAdapter  extends RecyclerView.Adapter<SallerOrderAdapter
     }
 
 
-    public SallerOrderAdapter(Context mContext, List<ModuleItem> itemsList) {
+    public SellerOrderAdapter(Context mContext, List<ModuleItem> itemsList) {
         this.mContext = mContext;
         this.itemList = itemsList;
     }
@@ -80,7 +80,7 @@ public class SallerOrderAdapter  extends RecyclerView.Adapter<SallerOrderAdapter
 
 
     @Override
-    public void onBindViewHolder(final SallerOrderAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final SellerOrderAdapter.MyViewHolder holder, final int position) {
         ModuleItem item = itemList.get(position);
         holder.title.setText(item.getName());
         holder.desc.setText(item.getDescription());

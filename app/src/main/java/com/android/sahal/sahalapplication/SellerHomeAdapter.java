@@ -17,7 +17,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
-public class SallerSoldItemsAdapter  extends RecyclerView.Adapter<SallerSoldItemsAdapter.MyViewHolder> {
+;//import org.greenrobot.eventbus.EventBus;
+
+public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<ModuleItem> itemList;
@@ -30,7 +32,6 @@ public class SallerSoldItemsAdapter  extends RecyclerView.Adapter<SallerSoldItem
         public TextView title, count,desc;
         public ImageView thumbnail, overflow;
         public CardView cardView;
-
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
@@ -43,23 +44,13 @@ public class SallerSoldItemsAdapter  extends RecyclerView.Adapter<SallerSoldItem
     }
 
 
-    public SallerSoldItemsAdapter(Context mContext, List<ModuleItem> itemsList) {
+    public SellerHomeAdapter(Context mContext, List<ModuleItem> itemsList) {
         this.mContext = mContext;
         this.itemList = itemsList;
     }
-/*
-
- @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_recy, parent, false);
-
-        return new MyViewHolder(itemView);
-    }
 
 
 
-*/
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -72,8 +63,10 @@ public class SallerSoldItemsAdapter  extends RecyclerView.Adapter<SallerSoldItem
 
 
 
+
+
     @Override
-    public void onBindViewHolder(final SallerSoldItemsAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         ModuleItem item = itemList.get(position);
         holder.title.setText(item.getName());
         holder.desc.setText(item.getDescription());
@@ -88,7 +81,6 @@ public class SallerSoldItemsAdapter  extends RecyclerView.Adapter<SallerSoldItem
                 showPopupMenu(holder.overflow);
             }
         });
-
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
 
@@ -112,20 +104,10 @@ public class SallerSoldItemsAdapter  extends RecyclerView.Adapter<SallerSoldItem
             }
         });
 
-    }
-/*
 
- private void showPopupMenu(View view) {
-        // inflate menu
-        PopupMenu popup = new PopupMenu(mContext, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_album, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
-        popup.show();
     }
 
 
-*/
 
     private void showPopupMenu(View view) {
         // inflate menu
@@ -180,6 +162,9 @@ public class SallerSoldItemsAdapter  extends RecyclerView.Adapter<SallerSoldItem
 
     public interface onItemClickListener{
         public void itemDetailClick(ModuleItem item);
+
+
+
     }
 
 
