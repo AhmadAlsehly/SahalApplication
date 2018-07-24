@@ -14,6 +14,7 @@ import com.android.sahal.sahalapplication.Buyer.Fragment.BuyerProfileFragment;
 import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentBuyerHome;
 import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentBuyerOprations;
 import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentBuyerSearch;
+import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentCart;
 import com.android.sahal.sahalapplication.LoginFragment;
 import com.android.sahal.sahalapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -69,7 +70,10 @@ public class MainBuyerActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.navigation_buyer_cart:
-
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.buyer_container,new FragmentCart(),"FragmentCart()")
+                            .commit();
 
                     return true;
                 case R.id.navigation_buyer_dots:

@@ -4,11 +4,11 @@
     tools:context="com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity">
     <item
         android:id="@+id/navigation_buyer_dots"
-        android:icon="@drawable/dots"
-        android:title="مجهول" />
+        android:icon="@drawable/money"
+        android:title="عملياتي" />
     <item
         android:id="@+id/navigation_buyer_cart"
-        android:icon="@drawable/money"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"
         android:title="عربة التسوق" />
 
     <item
