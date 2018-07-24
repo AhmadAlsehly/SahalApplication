@@ -1,4 +1,4 @@
-package com.android.sahal.sahalapplication;
+package com.android.sahal.sahalapplication.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,10 @@ import android.support.v7.widget.PopupMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-import com.bumptech.glide.Glide;
+
+import com.android.sahal.sahalapplication.ItemActivity;
+import com.android.sahal.sahalapplication.Model.ModuleItem;
+import com.android.sahal.sahalapplication.R;
 
 public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.MyViewHolder> {
 

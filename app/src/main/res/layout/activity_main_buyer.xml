@@ -5,7 +5,7 @@
     android:id="@+id/main_buyer_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainBuyerActivity">
+    tools:context=".Buyer.Activity.MainBuyerActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

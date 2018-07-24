@@ -1,4 +1,4 @@
-package com.android.sahal.sahalapplication;
+package com.android.sahal.sahalapplication.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,15 +15,15 @@ import android.support.v7.widget.PopupMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-import com.bumptech.glide.Glide;
 
-;//import org.greenrobot.eventbus.EventBus;
+import com.android.sahal.sahalapplication.ItemActivity;
+import com.android.sahal.sahalapplication.Model.ModuleItem;
+import com.android.sahal.sahalapplication.R;
 
-public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.MyViewHolder> {
+public class SellerSoldItemsAdapter extends RecyclerView.Adapter<SellerSoldItemsAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<ModuleItem> itemList;
-
 
 
 
@@ -33,6 +33,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
         public TextView title, count,desc;
         public ImageView thumbnail, overflow;
         public CardView cardView;
+
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
@@ -45,13 +46,23 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
     }
 
 
-    public SellerHomeAdapter(Context mContext, List<ModuleItem> itemsList) {
+    public SellerSoldItemsAdapter(Context mContext, List<ModuleItem> itemsList) {
         this.mContext = mContext;
         this.itemList = itemsList;
+    }
+/*
+
+ @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.view_recy, parent, false);
+
+        return new MyViewHolder(itemView);
     }
 
 
 
+*/
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -64,17 +75,15 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
 
 
-
-
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final SellerSoldItemsAdapter.MyViewHolder holder, final int position) {
         ModuleItem item = itemList.get(position);
         holder.title.setText(item.getName());
         holder.desc.setText(item.getDescription());
         holder.count.setText(item.getPrice() + " SR");
 
         // loading album cover using Glide library
-//        Glide.with(mContext).load(item.getImages().get(0)).into(holder.thumbnail);
+//        Glide.with(mContext).load(item.getImage1()).into(holder.thumbnail);
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +91,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
                 showPopupMenu(holder.overflow);
             }
         });
+
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
 
@@ -105,10 +115,20 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
             }
         });
 
+    }
+/*
 
+ private void showPopupMenu(View view) {
+        // inflate menu
+        PopupMenu popup = new PopupMenu(mContext, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_album, popup.getMenu());
+        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
+        popup.show();
     }
 
 
+*/
 
     private void showPopupMenu(View view) {
         // inflate menu
@@ -163,9 +183,6 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
     public interface onItemClickListener{
         public void itemDetailClick(ModuleItem item);
-
-
-
     }
 
 

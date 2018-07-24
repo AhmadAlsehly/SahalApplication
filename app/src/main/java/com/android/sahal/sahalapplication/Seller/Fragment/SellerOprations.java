@@ -1,6 +1,5 @@
-package com.android.sahal.sahalapplication;
+package com.android.sahal.sahalapplication.Seller.Fragment;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.sahal.sahalapplication.Adapters.OprationsPager;
+import com.android.sahal.sahalapplication.R;
 
 
 public class SellerOprations extends Fragment implements SellerSoldItems.OnFragmentInteractionListener,

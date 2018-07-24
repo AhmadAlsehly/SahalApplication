@@ -1,6 +1,5 @@
-package com.android.sahal.sahalapplication;
+package com.android.sahal.sahalapplication.Buyer.Fragment;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,16 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.sahal.sahalapplication.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentEngine.OnFragmentInteractionListener} interface
+ * {@link FragmentOutSidePart.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentEngine#newInstance} factory method to
+ * Use the {@link FragmentOutSidePart#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentEngine extends Fragment {
+public class FragmentOutSidePart extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +30,7 @@ public class FragmentEngine extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public FragmentEngine() {
+    public FragmentOutSidePart() {
         // Required empty public constructor
     }
 
@@ -39,11 +40,11 @@ public class FragmentEngine extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentEngine.
+     * @return A new instance of fragment FragmentOutSidePart.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentEngine newInstance(String param1, String param2) {
-        FragmentEngine fragment = new FragmentEngine();
+    public static FragmentOutSidePart newInstance(String param1, String param2) {
+        FragmentOutSidePart fragment = new FragmentOutSidePart();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,7 +65,7 @@ public class FragmentEngine extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_engine, container, false);
+        return inflater.inflate(R.layout.fragment_out_side_part, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

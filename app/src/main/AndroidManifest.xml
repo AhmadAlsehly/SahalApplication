@@ -27,20 +27,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SellerPersonalData" />
+        <activity android:name=".Seller.Fragment.SellerPersonalData" />
         <activity
             android:name=".MainSignUpActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".MainSellerActivity"
+            android:name=".Seller.Activity.MainSellerActivity"
             android:label="@string/title_activity_main_buyer"
             android:theme="@style/AppTheme" />
-        <activity android:name=".BuyerPersonalActivity" />
+        <activity android:name=".Buyer.Activity.BuyerPersonalActivity" />
         <activity android:name=".ItemActivity" />
-        <activity android:name=".MainBuyerActivity">
+        <activity android:name=".Buyer.Activity.MainBuyerActivity">
 
         </activity>
-        <activity android:name=".BuyerPersonalData"></activity>
+        <activity android:name=".Buyer.Activity.BuyerPersonalData"></activity>
     </application>
 
 </manifest>

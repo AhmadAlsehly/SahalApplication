@@ -1,4 +1,4 @@
-package com.android.sahal.sahalapplication;
+package com.android.sahal.sahalapplication.Seller.Fragment;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.sahal.sahalapplication.Seller.Activity.MainSellerActivity;
 import com.android.sahal.sahalapplication.Model.Seller;
+import com.android.sahal.sahalapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

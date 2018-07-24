@@ -1,4 +1,4 @@
-package com.android.sahal.sahalapplication;
+package com.android.sahal.sahalapplication.Model;
 
 import android.widget.ImageView;
 

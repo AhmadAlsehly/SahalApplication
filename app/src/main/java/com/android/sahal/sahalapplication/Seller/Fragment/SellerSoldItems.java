@@ -1,4 +1,4 @@
-package com.android.sahal.sahalapplication;
+package com.android.sahal.sahalapplication.Seller.Fragment;
 
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -14,21 +14,18 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SearchView;
+
+import com.android.sahal.sahalapplication.Adapters.SellerSoldItemsAdapter;
+import com.android.sahal.sahalapplication.Model.ModuleItem;
+import com.android.sahal.sahalapplication.R;
+import com.android.sahal.sahalapplication.Buyer.Fragment.SignupBuyer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link SellerOrder.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SellerOrder#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class SellerOrder extends Fragment implements SellerSoldItemsAdapter.onItemClickListener, SearchView.OnQueryTextListener {
+public class SellerSoldItems extends Fragment  implements SellerSoldItemsAdapter.onItemClickListener, SearchView.OnQueryTextListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
@@ -39,8 +36,9 @@ public class SellerOrder extends Fragment implements SellerSoldItemsAdapter.onIt
     //    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private SellerOrderAdapter sellerOrderAdapter;
+    private SellerSoldItemsAdapter sellerSoldItemsAdapter;
     private List<ModuleItem> itemList;
+    ImageView imageView;
 
 
 
@@ -60,7 +58,7 @@ public class SellerOrder extends Fragment implements SellerSoldItemsAdapter.onIt
     //_____________________________________________
 
 
-    public SellerOrder() {
+    public SellerSoldItems() {
         // Required empty public constructor
     }
 
@@ -105,8 +103,8 @@ public class SellerOrder extends Fragment implements SellerSoldItemsAdapter.onIt
                 R.drawable.album41,
                 R.drawable.album101,
                 R.drawable.album111};
-//
-//        ModuleItem a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[0]);
+
+//        ModuleItem a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[9]);
 //        itemList.add(a);
 //
 //        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[0]);
@@ -135,8 +133,8 @@ public class SellerOrder extends Fragment implements SellerSoldItemsAdapter.onIt
 //
 //        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[4]);
 //        itemList.add(a);
-
-        sellerOrderAdapter.notifyDataSetChanged();
+//
+//        sellerSoldItemsAdapter.notifyDataSetChanged();
     }
 
     //____________________________________________________________
@@ -147,7 +145,7 @@ public class SellerOrder extends Fragment implements SellerSoldItemsAdapter.onIt
         super.onViewCreated(view, savedInstanceState);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewSold);
         itemList = new ArrayList<>();
-        sellerOrderAdapter = new SellerOrderAdapter(this.getContext(), itemList);
+        sellerSoldItemsAdapter = new SellerSoldItemsAdapter(this.getContext(), itemList);
 
 
 
@@ -158,7 +156,7 @@ public class SellerOrder extends Fragment implements SellerSoldItemsAdapter.onIt
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(sellerOrderAdapter);
+        recyclerView.setAdapter(sellerSoldItemsAdapter);
 
         prepareAlbums();
 
@@ -206,7 +204,7 @@ public class SellerOrder extends Fragment implements SellerSoldItemsAdapter.onIt
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_seller_order , container,false);
+        return inflater.inflate(R.layout.fragment_seller_sold_items , container,false);
 
     }
 

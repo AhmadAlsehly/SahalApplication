@@ -1,16 +1,19 @@
-package com.android.sahal.sahalapplication;
+package com.android.sahal.sahalapplication.Seller.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.android.sahal.sahalapplication.R;
+import com.android.sahal.sahalapplication.Seller.Fragment.SellerAddItem;
+import com.android.sahal.sahalapplication.Seller.Fragment.SellerHome;
+import com.android.sahal.sahalapplication.Seller.Fragment.SellerOprations;
+import com.android.sahal.sahalapplication.Seller.Fragment.SellerProfile;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainSellerActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;

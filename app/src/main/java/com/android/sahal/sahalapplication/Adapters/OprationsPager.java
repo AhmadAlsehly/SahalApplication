@@ -1,12 +1,15 @@
-package com.android.sahal.sahalapplication;
+package com.android.sahal.sahalapplication.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class BuyerHomeAdapter extends FragmentStatePagerAdapter {
+import com.android.sahal.sahalapplication.Seller.Fragment.SellerOrder;
+import com.android.sahal.sahalapplication.Seller.Fragment.SellerSoldItems;
+
+public class OprationsPager extends FragmentStatePagerAdapter {
     int mNoOfTabs;
-    public BuyerHomeAdapter(FragmentManager fm, int NumberOfTabs) {
+    public OprationsPager(FragmentManager fm, int NumberOfTabs) {
         super(fm);
         this.mNoOfTabs = NumberOfTabs;
 
@@ -19,19 +22,13 @@ public class BuyerHomeAdapter extends FragmentStatePagerAdapter {
         {
 
             case 0:
-                FragmentBody tap1 = new FragmentBody();
+                SellerOrder tap1 = new SellerOrder();
                 return  tap1;
 
             case 1:
-                FragmentElectric tap2 = new FragmentElectric();
+                SellerSoldItems tap2 = new SellerSoldItems();
                 return tap2;
 
-            case 2:
-                FragmentEngine tap3 = new FragmentEngine();
-                return tap3;
-            case 3:
-                FragmentOutSidePart tap4 = new FragmentOutSidePart();
-                return tap4;
             default:
                 return null;
         }
@@ -43,5 +40,3 @@ public class BuyerHomeAdapter extends FragmentStatePagerAdapter {
         return mNoOfTabs;
     }
 }
-
-
