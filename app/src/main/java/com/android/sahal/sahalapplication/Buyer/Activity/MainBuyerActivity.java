@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.android.sahal.sahalapplication.Buyer.Fragment.BuyerProfileFragment;
 import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentBuyerHome;
+import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentBuyerOprations;
 import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentBuyerSearch;
 import com.android.sahal.sahalapplication.LoginFragment;
 import com.android.sahal.sahalapplication.R;
@@ -72,7 +73,10 @@ public class MainBuyerActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_buyer_dots:
-
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.buyer_container,new FragmentBuyerOprations(),"FragmentBuyerOprations()")
+                            .commit();
 
                     return true;
             }

@@ -62,7 +62,7 @@ public class SellerAddItem extends Fragment {
     DatabaseReference mDataRef;
     StorageReference mStorageRef;
     int tryies = 0 ;
-int clearFirst = 0;
+    int clearFirst = 0;
 
 
     Button btnDone;
