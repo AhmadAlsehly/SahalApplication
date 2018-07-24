@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;

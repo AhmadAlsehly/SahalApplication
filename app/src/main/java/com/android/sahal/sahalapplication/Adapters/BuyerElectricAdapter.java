@@ -3,26 +3,24 @@ package com.android.sahal.sahalapplication.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-import android.support.v7.widget.PopupMenu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.Toast;
-
 import com.android.sahal.sahalapplication.ItemActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 
-;//import org.greenrobot.eventbus.EventBus;
+import java.util.List;
 
-public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.MyViewHolder> {
+public class BuyerElectricAdapter extends RecyclerView.Adapter<BuyerElectricAdapter.MyViewHolder> {
+
 
     private Context mContext;
     private List<ModuleItem> itemList;
@@ -48,7 +46,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
     }
 
 
-    public SellerHomeAdapter(Context mContext, List<ModuleItem> itemsList) {
+    public BuyerElectricAdapter(Context mContext, List<ModuleItem> itemsList) {
         this.mContext = mContext;
         this.itemList = itemsList;
     }
@@ -59,7 +57,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.seller_view_recy, parent, false);
+                .inflate(R.layout.buyer_view_recy, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -131,21 +129,21 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
-                case R.id.action_edit:
-
-
-
-                    Toast.makeText(mContext, "تعديل", Toast.LENGTH_SHORT).show();
-                    return true;
-
-
-
-                case R.id.action_remove:
-
-
-                    Toast.makeText(mContext, "تمت الإزالة", Toast.LENGTH_SHORT).show();
-                    return true;
-                default:
+//                case R.id.action_edit:
+//
+//
+//
+//                    Toast.makeText(mContext, "تعديل", Toast.LENGTH_SHORT).show();
+//                    return true;
+//
+//
+//
+//                case R.id.action_remove:
+//
+//
+//                    Toast.makeText(mContext, "تمت الإزالة", Toast.LENGTH_SHORT).show();
+//                    return true;
+//                default:
 
 
             }
@@ -170,7 +168,6 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
 
     }
-
 
 
 
