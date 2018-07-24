@@ -108,8 +108,9 @@ if (clearFirst==1) {
     uploadImage2();
     uploadImage3();
     uploadImage4();
+    Log.d("looog",mPhotos.toString());
 }
-                Log.d("looog",mPhotos.toString());
+
 
                 if (mPhotos!=null) {
 
