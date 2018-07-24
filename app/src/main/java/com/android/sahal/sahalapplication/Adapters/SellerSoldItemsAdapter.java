@@ -55,7 +55,7 @@ public class SellerSoldItemsAdapter extends RecyclerView.Adapter<SellerSoldItems
  @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_recy, parent, false);
+                .inflate(R.layout.seller_view_recy, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -67,7 +67,7 @@ public class SellerSoldItemsAdapter extends RecyclerView.Adapter<SellerSoldItems
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_recy, parent, false);
+                .inflate(R.layout.seller_view_recy, parent, false);
 
         return new MyViewHolder(itemView);
     }
