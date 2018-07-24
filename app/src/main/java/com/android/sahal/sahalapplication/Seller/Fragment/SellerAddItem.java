@@ -29,6 +29,7 @@ import com.android.sahal.sahalapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -51,6 +52,7 @@ public class SellerAddItem extends Fragment {
     private List<String> mPhotos = new ArrayList<>();
 
     private FirebaseAuth mAuth;
+    int i = 0;
 
     String itemPackage;
     TextView btnImage1, btnImage2, btnImage3, btnImage4;
@@ -61,16 +63,19 @@ public class SellerAddItem extends Fragment {
     FirebaseStorage storage;
     DatabaseReference mDataRef;
     StorageReference mStorageRef;
-    int tryies = 0 ;
+    int tryies = 0;
     int clearFirst = 0;
+    String sellerId;
 
 
     Button btnDone;
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
+        int i = 0;
+
+        super.onViewCreated(view, savedInstanceState);
 
         storage = FirebaseStorage.getInstance();
         mStorageRef = storage.getReference();
@@ -97,46 +102,17 @@ public class SellerAddItem extends Fragment {
             @Override
             public void onClick(View v) {
 
+
                 itemPackage = "Items" + "/" + UUID.randomUUID().toString();
 
-if(clearFirst==0) {
-    mPhotos.clear();
-    clearFirst++;
-}
-if (clearFirst==1) {
-    uploadImage();
-    uploadImage2();
-    uploadImage3();
-    uploadImage4();
-    Log.d("looog",mPhotos.toString());
-}
+
+                uploadImage(uri1);
+                uploadImage(uri2);
+                uploadImage(uri3);
+                uploadImage(uri4);
 
 
-                if (mPhotos!=null) {
-
-                        ModuleItem moduleItem = new ModuleItem(itemName.getText().toString(),
-                                itemDescr.getText().toString(),
-                                itemCompan.getSelectedItem().toString(),
-                                itemModel.getSelectedItem().toString(),
-                                itemCatgory.getSelectedItem().toString(),
-                                itemYear.getSelectedItem().toString(),
-                                Double.parseDouble(itemPrice.getText().toString()), mPhotos);
-
-                        if (!itemName.getText().toString().isEmpty()
-                                || !itemPrice.getText().toString().isEmpty()
-                                || !itemDescr.getText().toString().isEmpty()) {
-                            mDataRef.child("items").child("item" + UUID.randomUUID()).setValue(moduleItem);
-
-                            Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), "complete all fields pleas", Toast.LENGTH_SHORT).show();
-
-
-                }
-
-
-                };
-
+                Log.d("looog", mPhotos.toString());
 
 
             }
@@ -394,29 +370,51 @@ if (clearFirst==1) {
         return inflater.inflate(R.layout.fragment_add_item, container, false);
     }
 
-    private void uploadImage() {
 
-        if (uri1 != null) {
+    private void uploadImage(Uri uri) {
+
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (uri != null) {
             final ProgressDialog progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("Uploading . . . ");
             progressDialog.show();
-
+StorageReference storageReference = storage.getReference();
             StorageReference ref = storage.getReference().child(itemPackage + "1");
 
-            ref.putFile(uri1)
+            ref.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            mPhotos.add(taskSnapshot.getStorage().getDownloadUrl().toString());
-                            Log.d("looog",taskSnapshot.getUploadSessionUri().toString());
-
-
-                            progressDialog.dismiss();
-                            tryies++;
-
-
+                            mPhotos.add(taskSnapshot.getUploadSessionUri().toString());
+                             progressDialog.dismiss();
                             Toast.makeText(getContext(), "Upload", Toast.LENGTH_SHORT).show();
+                            i++;
+                            if (i == 4) {
+                                ModuleItem moduleItem = new ModuleItem(itemName.getText().toString(),
+                                        itemDescr.getText().toString(),
+                                        itemCompan.getSelectedItem().toString(),
+                                        itemModel.getSelectedItem().toString(),
+                                        itemCatgory.getSelectedItem().toString(),
+                                        itemYear.getSelectedItem().toString(),
+                                        Double.parseDouble(itemPrice.getText().toString()), mPhotos, currentUser.getUid(), 0);
+
+                                if (!itemName.getText().toString().isEmpty()
+                                        || !itemPrice.getText().toString().isEmpty()
+                                        || !itemDescr.getText().toString().isEmpty()) {
+                                    mDataRef.child("items").child("item" + UUID.randomUUID()).setValue(moduleItem);
+
+                                    Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getContext(), "complete all fields pleas", Toast.LENGTH_SHORT).show();
+
+
+                                }
+
+                            }
+
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -436,128 +434,6 @@ if (clearFirst==1) {
 
 
         }
-
-    }
-
-    private void uploadImage2() {
-        if (uri2 != null) {
-            final ProgressDialog progressDialog = new ProgressDialog(getContext());
-            progressDialog.setTitle("Uploading . . . ");
-            progressDialog.show();
-
-            StorageReference ref = storage.getReference().child(itemPackage + "2");
-
-            ref.putFile(uri2)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            mPhotos.add(taskSnapshot.getStorage().getDownloadUrl().toString());
-                            progressDialog.dismiss();
-                            //tryies++;
-
-
-                            Toast.makeText(getContext(), "Upload", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getContext(), "Faield" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double prog = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Upload" + (int) prog + "%");
-
-
-                }
-            });
-
-
-        }
-    }
-
-    private void uploadImage3() {
-        if (uri3 != null) {
-            final ProgressDialog progressDialog = new ProgressDialog(getContext());
-            progressDialog.setTitle("Uploading . . . ");
-            progressDialog.show();
-
-            StorageReference ref = storage.getReference().child(itemPackage + "3");
-
-            ref.putFile(uri3)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            mPhotos.add(taskSnapshot.getStorage().getDownloadUrl().toString());
-                          //  tryies++;
-
-                            progressDialog.dismiss();
-
-                            Toast.makeText(getContext(), "Upload", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getContext(), "Faield" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double prog = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Upload" + (int) prog + "%");
-
-
-                }
-            });
-
-
-        }
-    }
-
-    private void uploadImage4() {
-        if (uri4 != null) {
-            final ProgressDialog progressDialog = new ProgressDialog(getContext());
-            progressDialog.setTitle("Uploading . . . ");
-            progressDialog.show();
-
-            StorageReference ref = storage.getReference().child(itemPackage + "4");
-
-            ref.putFile(uri4).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                    mPhotos.add(taskSnapshot.getStorage().getDownloadUrl().toString());
-
-                    progressDialog.dismiss();
-                    Toast.makeText(getContext(), "Upload", Toast.LENGTH_SHORT).show();
-                   // tryies++;
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getContext(), "Faield" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double prog = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-
-                    progressDialog.setMessage("Upload" + (int) prog + "%");
-
-                }
-            });
-
-
-        }
-    }
-
-    private void imageUploader() {
 
     }
 

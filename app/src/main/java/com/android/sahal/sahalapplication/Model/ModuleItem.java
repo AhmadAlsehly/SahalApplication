@@ -9,6 +9,8 @@ public class ModuleItem implements Serializable{
     String name,description,nameOfFactory,type,category,yearOfCreat;
     double price;
      List<String> images ;
+     String sellerId ;
+     Integer status ;
 
 
 
@@ -16,7 +18,7 @@ public class ModuleItem implements Serializable{
 
 
     public ModuleItem(String name,String desc,String nameOfFactory,String type
-    ,String category,String yearOfCreat,double price,List<String> images){
+    ,String category,String yearOfCreat,double price,List<String> images , String sellerId , Integer status){
 
         this.name=name;
         this.description=desc;
@@ -26,11 +28,30 @@ public class ModuleItem implements Serializable{
         this.yearOfCreat=yearOfCreat;
         this.price=price;
         this.images = images;
+        this.sellerId = sellerId ;
+        this.status = status ;
+
 
     }
 
     public ModuleItem() {
 
+    }
+
+    public String getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getName() {
