@@ -112,7 +112,7 @@ if (clearFirst==1) {
                 Log.d("looog",mPhotos.toString());
 
                 if (mPhotos!=null) {
-                    if (tryies==4) {
+
                         ModuleItem moduleItem = new ModuleItem(itemName.getText().toString(),
                                 itemDescr.getText().toString(),
                                 itemCompan.getSelectedItem().toString(),
@@ -130,7 +130,7 @@ if (clearFirst==1) {
                         } else {
                             Toast.makeText(getContext(), "complete all fields pleas", Toast.LENGTH_SHORT).show();
 
-                        }
+
                 }
 
 
@@ -407,7 +407,7 @@ if (clearFirst==1) {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            mPhotos.add(taskSnapshot.getUploadSessionUri().toString());
+                            mPhotos.add(taskSnapshot.getStorage().getDownloadUrl().toString());
                             Log.d("looog",taskSnapshot.getUploadSessionUri().toString());
 
 
@@ -451,10 +451,9 @@ if (clearFirst==1) {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            mPhotos.add(taskSnapshot.getUploadSessionUri().toString());
-
+                            mPhotos.add(taskSnapshot.getStorage().getDownloadUrl().toString());
                             progressDialog.dismiss();
-                            tryies++;
+                            //tryies++;
 
 
                             Toast.makeText(getContext(), "Upload", Toast.LENGTH_SHORT).show();
@@ -491,8 +490,8 @@ if (clearFirst==1) {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            mPhotos.add(taskSnapshot.getUploadSessionUri().toString());
-                            tryies++;
+                            mPhotos.add(taskSnapshot.getStorage().getDownloadUrl().toString());
+                          //  tryies++;
 
                             progressDialog.dismiss();
 
@@ -530,12 +529,11 @@ if (clearFirst==1) {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    mPhotos.add(taskSnapshot.getUploadSessionUri().toString());
-
+                    mPhotos.add(taskSnapshot.getStorage().getDownloadUrl().toString());
 
                     progressDialog.dismiss();
                     Toast.makeText(getContext(), "Upload", Toast.LENGTH_SHORT).show();
-                    tryies++;
+                   // tryies++;
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
