@@ -1,7 +1,10 @@
 package com.android.sahal.sahalapplication.Seller.Fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -88,13 +91,35 @@ public class SellerProfile extends Fragment {
         BtnLogOut = view.findViewById(R.id.btnSellerSignOut);
         BtnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
-                FirebaseAuth.getInstance().signOut();
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(getContext());
+                }
+                builder.setTitle("تسجيل خروج ؟")
+                        .setMessage("")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                FirebaseAuth.getInstance().signOut();
 
-                Intent intent = new Intent(v.getContext(),MainFirstActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+
+                                Intent intent = new Intent(v.getContext(),MainFirstActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
 
 
             }

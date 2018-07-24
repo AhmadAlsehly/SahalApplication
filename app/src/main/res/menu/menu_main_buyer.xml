@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/navigation_buyer_search"
-        android:icon="@drawable/add"
+        android:icon="@drawable/search"
         android:title="البحث" />
     <item
         android:id="@+id/navigation_buyer_profile"
