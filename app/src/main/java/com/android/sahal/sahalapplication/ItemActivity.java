@@ -75,10 +75,10 @@ public class ItemActivity extends AppCompatActivity {
 
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-Log.d("test",moduleItem.getImages().get(0).toString());
+Log.d("test",moduleItem.getItemImages().get(0).toString());
         Glide.with(ItemActivity.this)
                 .using(new FirebaseImageLoader())
-                .load(storage.getReferenceFromUrl( moduleItem.getImages().get(0).toString()))
+                .load(storage.getReferenceFromUrl( moduleItem.getItemImages().get(0).toString()))
                 .into(imageView);
 
 
@@ -88,8 +88,8 @@ Log.d("test",moduleItem.getImages().get(0).toString());
         name.setText(moduleItem.getName());
         desc.setText(moduleItem.getDescription());
         price.setText(Double.toString(moduleItem.getPrice()));
-        nameOfFactory.setText(moduleItem.getNameOfFactory());
-        yearOfCreat.setText(moduleItem.getYearOfCreat());
+        nameOfFactory.setText(moduleItem.getFactoryName());
+        yearOfCreat.setText(moduleItem.getYear());
         carName.setText(moduleItem.getType());
        // imageView.setImage(httpsReference);
 
