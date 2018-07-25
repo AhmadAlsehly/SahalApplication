@@ -79,7 +79,7 @@ public class FragmentOutSidePart extends Fragment implements BuyerPartsAdapter.o
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = view.findViewById(R.id.electric_recyclerView);
+        recyclerView = view.findViewById(R.id.parts_recyclerView);
         itemList = new ArrayList<>();
         buyerPartsAdapter = new BuyerPartsAdapter(this.getContext(), itemList);
 
