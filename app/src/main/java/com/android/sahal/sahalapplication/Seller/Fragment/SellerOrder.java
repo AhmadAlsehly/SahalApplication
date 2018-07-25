@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,14 @@ import com.android.sahal.sahalapplication.Adapters.SellerSoldItemsAdapter;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.android.sahal.sahalapplication.Buyer.Fragment.SignupBuyer;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +49,12 @@ public class SellerOrder extends Fragment implements SellerSoldItemsAdapter.onIt
     private String mParam1;
     private String mParam2;
     private SignupBuyer.OnFragmentInteractionListener mListener;
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseStorage firebaseStorage;
+    final DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference().child("items");
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = mAuth.getCurrentUser();
+
 
     ModuleItem item;
     //    @BindView(R.id.recyclerView)
@@ -96,54 +111,45 @@ public class SellerOrder extends Fragment implements SellerSoldItemsAdapter.onIt
         setHasOptionsMenu(true);
     }
 //____________________________________________________
+private void prepareAlbums() {
+//        ModuleItem a = new ModuleItem("hcd","dfv","fdv","adsfv","sdfvd","jhgfd",9,null);
+//        itemList.add(a);
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            // final FirebaseUser user = mAuth.getCurrentUser();
+            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                if(ds.child("sellerId").getValue().equals(currentUser.getUid())){
+                    //user instead of none
+                    if(ds.child("status").getValue().equals("1")) {
+                        itemList.add(ds.getValue(ModuleItem.class));
+                        Log.d("tesst", "this is size :" + itemList.size());
+                        Log.d("tesst", "this is name :" + ds.toString());
+
+//                    sellerHomeAdapter.notifyDataSetChanged();
+                    }}}
+
+            if (itemList.equals(null)) {
+
+            }
 
 
-    private void prepareAlbums() {
-        int[] covers = new int[]{
-                R.drawable.album11,
-                R.drawable.album21,
-                R.drawable.album31,
-                R.drawable.album41,
-                R.drawable.album51,
-                R.drawable.album61,
-                R.drawable.album71,
-                R.drawable.album81,
-                R.drawable.album41,
-                R.drawable.album101,
-                R.drawable.album111};
-//
-//        ModuleItem a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[0]);
-//        itemList.add(a);
-//
-//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[0]);
-//        itemList.add(a);
-//
-//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[1]);
-//        itemList.add(a);
-//
-//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[2]);
-//        itemList.add(a);
-//
-//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[3]);
-//        itemList.add(a);
-//
-//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[4]);
-//        itemList.add(a);
-//
-//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[5]);
-//        itemList.add(a);
-//
-//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[6]);
-//        itemList.add(a);
-//
-//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[7]);
-//        itemList.add(a);
-//
-//        a = new ModuleItem("سوبر تشارج", "تجربة للوصف ", "FORD", "GT", "Electric", "2017", 2059.95,covers[4]);
-//        itemList.add(a);
+            sellerOrderAdapter.notifyDataSetChanged();
+        }
 
-        sellerOrderAdapter.notifyDataSetChanged();
-    }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
+    databaseReference.addListenerForSingleValueEvent(valueEventListener);
+
+
+//
+//
+//
+//        sellerHomeAdapter.notifyDataSetChanged();
+}
 
     //____________________________________________________________
     @Override
