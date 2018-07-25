@@ -87,7 +87,7 @@ Log.d("test",moduleItem.getItemImages().get(0).toString());
         Bitmap bmp = (Bitmap) extras.getParcelable("imagebitmap");
         name.setText(moduleItem.getName());
         desc.setText(moduleItem.getDescription());
-        price.setText(Double.toString(moduleItem.getPrice()));
+        price.setText(String.valueOf(moduleItem.getPrice()));
         nameOfFactory.setText(moduleItem.getFactoryName());
         yearOfCreat.setText(moduleItem.getYear());
         carName.setText(moduleItem.getType());

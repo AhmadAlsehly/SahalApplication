@@ -499,7 +499,7 @@ mPhotos.clear();
                                 itemModel.getSelectedItem().toString(),
                                 itemCatgory.getSelectedItem().toString(),
                                 itemYear.getSelectedItem().toString(),
-                                Double.parseDouble(itemPrice.getText().toString()), mPhotos, currentUser.getUid(), 0,buyerId);
+                                itemPrice.getText().toString(), mPhotos, currentUser.getUid(), "0",buyerId);
 
                         if (!itemName.getText().toString().isEmpty()
                                 || !itemPrice.getText().toString().isEmpty()

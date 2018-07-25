@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.android.sahal.sahalapplication.Buyer.Fragment.BuyerProfileFragment;
+import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentAnsOprations;
 import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentBuyerHome;
 import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentBuyerOprations;
 import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentBuyerSearch;
@@ -77,10 +78,16 @@ public class MainBuyerActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_buyer_dots:
+                    if(currentUser!= null){
                     getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.buyer_container,new FragmentBuyerOprations(),"FragmentBuyerOprations()")
-                            .commit();
+                            .commit();}
+                            else{
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.buyer_container,new FragmentAnsOprations(),"FragmentAnsOprations()")
+                                .commit(); }
 
                     return true;
             }

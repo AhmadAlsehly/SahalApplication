@@ -7,16 +7,16 @@ import java.util.List;
 
 public class ModuleItem implements Serializable {
     String name, description, factoryName, type, category, year;
-    double price;
+    String price;
     List<String> itemImages;
     String sellerId;
-    Integer status;
+    String status;
     String buyerId;
 
 
 
     public ModuleItem(String name, String desc, String factoryName, String type
-            , String category, String year, double price, List<String> itemImages, String sellerId, Integer status , String buyerId
+            , String category, String year, String price, List<String> itemImages, String sellerId, String status , String buyerId
     ) {
 
         this.name = name;
@@ -46,11 +46,11 @@ public class ModuleItem implements Serializable {
         this.sellerId = sellerId;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -88,11 +88,11 @@ public class ModuleItem implements Serializable {
     }
 
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

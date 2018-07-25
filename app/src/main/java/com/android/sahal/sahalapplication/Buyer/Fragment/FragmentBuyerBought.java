@@ -22,6 +22,8 @@ import com.android.sahal.sahalapplication.Adapters.BuyerBoughtAdapter;
 import com.android.sahal.sahalapplication.Adapters.BuyerOrdersAdapter;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +47,10 @@ public class FragmentBuyerBought extends Fragment implements BuyerBoughtAdapter.
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -79,7 +85,7 @@ public class FragmentBuyerBought extends Fragment implements BuyerBoughtAdapter.
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = view.findViewById(R.id.cart_recyclerView);
+        recyclerView = view.findViewById(R.id.bb_recyclerView);
         itemList = new ArrayList<>();
         buyerBoughtAdapter = new BuyerBoughtAdapter(this.getContext(), itemList);
 
@@ -135,6 +141,8 @@ public class FragmentBuyerBought extends Fragment implements BuyerBoughtAdapter.
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            mAuth = FirebaseAuth.getInstance();
+            mDatabase = FirebaseDatabase.getInstance().getReference();
         }
 //---------------------------------------------------------------------------
 
@@ -153,15 +161,21 @@ public class FragmentBuyerBought extends Fragment implements BuyerBoughtAdapter.
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+               // final FirebaseUser user = mAuth.getCurrentUser();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     if(ds.child("buyerId").getValue().equals("none")){
-                        if(ds.child("status").getValue().equals("3")) {
+                        //user instead of none
+                        if(ds.child("status").getValue().equals("2")) {
                             itemList.add(ds.getValue(ModuleItem.class));
                             Log.d("tesst", "this is size :" + itemList.size());
                             Log.d("tesst", "this is name :" + ds.toString());
 
 //                    sellerHomeAdapter.notifyDataSetChanged();
                         }}}
+
+                if (itemList.equals(null)) {
+
+                }
 
 
                 buyerBoughtAdapter.notifyDataSetChanged();
@@ -226,6 +240,7 @@ public class FragmentBuyerBought extends Fragment implements BuyerBoughtAdapter.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_fragment_buyer_bought, container, false);
+
     }
 
 

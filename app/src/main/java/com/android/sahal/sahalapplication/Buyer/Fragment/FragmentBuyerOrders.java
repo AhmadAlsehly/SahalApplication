@@ -23,6 +23,8 @@ import com.android.sahal.sahalapplication.Adapters.BuyerCartAdapter;
 import com.android.sahal.sahalapplication.Adapters.BuyerOrdersAdapter;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,6 +48,9 @@ public class FragmentBuyerOrders extends Fragment implements BuyerOrdersAdapter.
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -80,7 +85,7 @@ public class FragmentBuyerOrders extends Fragment implements BuyerOrdersAdapter.
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = view.findViewById(R.id.cart_recyclerView);
+        recyclerView = view.findViewById(R.id.bo_recyclerView);
         itemList = new ArrayList<>();
         buyerOrdersAdapter = new BuyerOrdersAdapter(this.getContext(), itemList);
 
@@ -136,6 +141,9 @@ public class FragmentBuyerOrders extends Fragment implements BuyerOrdersAdapter.
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            mAuth = FirebaseAuth.getInstance();
+            mDatabase = FirebaseDatabase.getInstance().getReference();
         }
 //---------------------------------------------------------------------------
 
@@ -154,9 +162,11 @@ public class FragmentBuyerOrders extends Fragment implements BuyerOrdersAdapter.
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //final FirebaseUser user = mAuth.getCurrentUser();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     if(ds.child("buyerId").getValue().equals("none")){
-                        if(ds.child("status").getValue().equals("2")) {
+                        //user instead of none
+                        if(ds.child("status").getValue().equals("1")) {
                             itemList.add(ds.getValue(ModuleItem.class));
                             Log.d("tesst", "this is size :" + itemList.size());
                             Log.d("tesst", "this is name :" + ds.toString());
