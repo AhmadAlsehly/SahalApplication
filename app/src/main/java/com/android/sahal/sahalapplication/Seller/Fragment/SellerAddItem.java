@@ -204,19 +204,19 @@ mPhotos.clear();
 
                 if (itemSelectedSring.equals("TOYOTA")) {
                     String[] models =
-                            {"CAMRY", "COROLLA", "AURION"};
+                            {"","CAMRY", "COROLLA", "AURION"};
                     ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
                     adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     itemModel.setAdapter(adapterModel);
                 } else if (itemSelectedSring.equals("HYUANDAY")) {
                     String[] models =
-                            {"SONATA", "ELNTRA", "ACCENT"};
+                            {"","SONATA", "ELNTRA", "ACCENT"};
                     ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
                     adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     itemModel.setAdapter(adapterModel);
                 } else if (itemSelectedSring.equals("HONDA")) {
                     String[] models =
-                            {"CIVIC", "ACORD", "CARNAVAL"};
+                            {"","CIVIC", "ACORD", "CARNAVAL"};
                     ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
                     adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     itemModel.setAdapter(adapterModel);
@@ -239,7 +239,7 @@ mPhotos.clear();
 
         itemModel = view.findViewById(R.id.itemModel_input);
         String[] models =
-                {"CAMRY", "COROLLA", "AURION"};
+                {"","CAMRY", "COROLLA", "AURION"};
         ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, models);
         adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemModel.setAdapter(adapterModel);
@@ -247,7 +247,7 @@ mPhotos.clear();
 
         itemYear = view.findViewById(R.id.itemYear_input);
         String[] years =
-                {"2011", "2012", "2013"};
+                {"","2011", "2012", "2013"};
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, years);
         adapterYear.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemYear.setAdapter(adapterYear);
@@ -255,7 +255,7 @@ mPhotos.clear();
 
         itemCatgory = view.findViewById(R.id.itemCatg_input);
         String[] catgs =
-                {"هيكل", "كهرباء", "محرك"};
+                {"","هيكل", "كهرباء", "محركات","قطع خارجية"};
         ArrayAdapter<String> adapterCatg = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, catgs);
         adapterCatg.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemCatgory.setAdapter(adapterCatg);

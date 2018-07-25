@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.android.sahal.sahalapplication.Adapters.BuyerBodyAdapter;
 import com.android.sahal.sahalapplication.Adapters.BuyerEngineAdapter;
@@ -156,11 +157,16 @@ public class FragmentEngine extends Fragment implements BuyerEngineAdapter.onIte
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    itemList.add(ds.getValue(ModuleItem.class));
-                    Log.d("tesst", "this is size :" + itemList.size());
-                    Log.d("tesst", "this is name :" + ds.toString());
+                    if (ds.child("category").getValue().equals("محركات")) {
+                        itemList.add(ds.getValue(ModuleItem.class));
+                        Log.d("tesst", "this is size :" + itemList.size());
+                        Log.d("tesst", "this is name :" + ds.toString());
 
+                    }
 //                    sellerHomeAdapter.notifyDataSetChanged();
+                }
+                if (itemList.equals(null)) {
+                    Toast.makeText(getContext(),"no Items Yet",Toast.LENGTH_LONG).show();
                 }
 
 

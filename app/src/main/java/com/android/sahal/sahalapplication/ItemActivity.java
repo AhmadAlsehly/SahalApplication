@@ -76,10 +76,10 @@ public class ItemActivity extends AppCompatActivity {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
 Log.d("test",moduleItem.getItemImages().get(0).toString());
-        Glide.with(ItemActivity.this)
-                .using(new FirebaseImageLoader())
-                .load(storage.getReferenceFromUrl( moduleItem.getItemImages().get(0).toString()))
-                .into(imageView);
+//        Glide.with(ItemActivity.this)
+//                .using(new FirebaseImageLoader())
+//                .load(storage.getReferenceFromUrl( moduleItem.getItemImages().get(0).toString()))
+//                .into(imageView);
 
 
 

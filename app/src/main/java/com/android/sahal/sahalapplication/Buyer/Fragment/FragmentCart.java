@@ -32,14 +32,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FragmentCart.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FragmentCart#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemClickListener, SearchView.OnQueryTextListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
