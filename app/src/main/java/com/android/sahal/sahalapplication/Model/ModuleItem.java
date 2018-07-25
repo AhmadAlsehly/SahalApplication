@@ -12,11 +12,13 @@ public class ModuleItem implements Serializable {
     String sellerId;
     String status;
     String buyerId;
+    String id ;
 
 
 
     public ModuleItem(String name, String desc, String factoryName, String type
             , String category, String year, String price, List<String> itemImages, String sellerId, String status , String buyerId
+                      ,String id
     ) {
 
         this.name = name;
@@ -30,7 +32,7 @@ public class ModuleItem implements Serializable {
         this.sellerId = sellerId;
         this.status = status;
         this.buyerId=buyerId;
-
+        this.id=id;
 
     }
 
@@ -126,5 +128,13 @@ public class ModuleItem implements Serializable {
 
     public void setBuyerId(String buyerId) {
         this.buyerId = buyerId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

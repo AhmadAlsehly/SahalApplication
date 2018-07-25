@@ -493,18 +493,19 @@ mPhotos.clear();
                     Log.d("3llomi", "File Downloaded to " + file.getPath());
                     i++;
                     if (i == 4) {
+                        String itemId = "item"+UUID.randomUUID();
                         ModuleItem moduleItem = new ModuleItem(itemName.getText().toString(),
                                 itemDescr.getText().toString(),
                                 itemCompan.getSelectedItem().toString(),
                                 itemModel.getSelectedItem().toString(),
                                 itemCatgory.getSelectedItem().toString(),
                                 itemYear.getSelectedItem().toString(),
-                                itemPrice.getText().toString(), mPhotos, currentUser.getUid(), "0",buyerId);
+                                itemPrice.getText().toString(), mPhotos, currentUser.getUid(), "0",buyerId ,itemId);
 
                         if (!itemName.getText().toString().isEmpty()
                                 || !itemPrice.getText().toString().isEmpty()
                                 || !itemDescr.getText().toString().isEmpty()) {
-                            mDataRef.child("items").child("item" + UUID.randomUUID()).setValue(moduleItem);
+                            mDataRef.child("items").child(itemId).setValue(moduleItem);
 
                             Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
                         } else {

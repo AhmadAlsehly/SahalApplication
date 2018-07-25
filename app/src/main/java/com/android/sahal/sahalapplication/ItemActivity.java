@@ -11,12 +11,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.EventLog;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -40,7 +42,8 @@ public class ItemActivity extends AppCompatActivity {
     private TextView name, desc, price, category, nameOfFactory, yearOfCreat, carName;
     // private Button ;
     private ImageView imageView;
-
+    Button btnCart = null;
+    String itemId;
 
     FirebaseStorage storage = FirebaseStorage.getInstance() ;
 
@@ -70,12 +73,13 @@ public class ItemActivity extends AppCompatActivity {
         nameOfFactory = findViewById(R.id.factoryName);
         yearOfCreat = findViewById(R.id.module);
         carName = findViewById(R.id.carName);
+        btnCart = findViewById(R.id.price_addToCart);
         // category.findViewById(R.id.category);
 
 
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-Log.d("test",moduleItem.getItemImages().get(0).toString());
+        Log.d("test",moduleItem.getItemImages().get(0).toString());
 //        Glide.with(ItemActivity.this)
 //                .using(new FirebaseImageLoader())
 //                .load(storage.getReferenceFromUrl( moduleItem.getItemImages().get(0).toString()))
@@ -91,12 +95,21 @@ Log.d("test",moduleItem.getItemImages().get(0).toString());
         nameOfFactory.setText(moduleItem.getFactoryName());
         yearOfCreat.setText(moduleItem.getYear());
         carName.setText(moduleItem.getType());
+
        // imageView.setImage(httpsReference);
 
 
 //        imageView.setImageResource(moduleItem.getImage2());
         //category.setText(moduleItem.getCategory());
 
+        //add to cart
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+// to add id
+                MainBuyerActivity.cartList.add(moduleItem.getId());
+            }
+        });
     }
 
     @Override

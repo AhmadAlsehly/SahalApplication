@@ -20,6 +20,7 @@ import android.widget.SearchView;
 
 import com.android.sahal.sahalapplication.Adapters.BuyerCartAdapter;
 import com.android.sahal.sahalapplication.Adapters.BuyerPartsAdapter;
+import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.google.firebase.database.DataSnapshot;
@@ -147,10 +148,13 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    itemList.add(ds.getValue(ModuleItem.class));
-                    Log.d("tesst", "this is size :" + itemList.size());
-                    Log.d("tesst", "this is name :" + ds.toString());
+                    for(int i=0 ;i < MainBuyerActivity.cartList.size() ; i++){
+                        if(MainBuyerActivity.cartList.get(i).equals(ds.child("id").getValue())) {
 
+                            itemList.add(ds.getValue(ModuleItem.class));
+                            Log.d("tesst", "this is size :" + itemList.size());
+                            Log.d("tesst", "this is name :" + ds.toString());
+                        }}
 //                    sellerHomeAdapter.notifyDataSetChanged();
                 }
 

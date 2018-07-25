@@ -21,11 +21,15 @@ import com.android.sahal.sahalapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainBuyerActivity extends AppCompatActivity {
     public static Activity bA ;
     private FirebaseAuth mAuth;
     private TextView mTextMessage;
     FirebaseUser currentUser = null;
+    public static List<String>cartList = new ArrayList<String>();
     @Override
     public void onStart() {
         super.onStart();
