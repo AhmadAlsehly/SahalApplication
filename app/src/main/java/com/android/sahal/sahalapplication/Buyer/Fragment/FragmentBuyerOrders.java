@@ -49,8 +49,9 @@ public class FragmentBuyerOrders extends Fragment implements BuyerOrdersAdapter.
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = mAuth.getCurrentUser();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -142,7 +143,7 @@ public class FragmentBuyerOrders extends Fragment implements BuyerOrdersAdapter.
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
 
-            mAuth = FirebaseAuth.getInstance();
+
             mDatabase = FirebaseDatabase.getInstance().getReference();
         }
 //---------------------------------------------------------------------------
@@ -164,7 +165,7 @@ public class FragmentBuyerOrders extends Fragment implements BuyerOrdersAdapter.
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //final FirebaseUser user = mAuth.getCurrentUser();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if(ds.child("buyerId").getValue().equals("none")){
+                    if(ds.child("buyerId").getValue().equals(user.getUid())){
                         //user instead of none
                         if(ds.child("status").getValue().equals("1")) {
                             itemList.add(ds.getValue(ModuleItem.class));
