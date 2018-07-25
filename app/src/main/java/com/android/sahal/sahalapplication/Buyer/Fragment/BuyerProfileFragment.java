@@ -55,7 +55,7 @@ public class BuyerProfileFragment extends android.support.v4.app.Fragment {
                  @Override
                  public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Buyer buyer = dataSnapshot.getValue(Buyer.class);
-                name.setText(buyer.name);
+                name.setText(buyer.buyerName);
 
                  }
 

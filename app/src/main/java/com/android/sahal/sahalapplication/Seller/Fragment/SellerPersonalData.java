@@ -47,9 +47,9 @@ public class SellerPersonalData extends AppCompatActivity {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                Seller seller = dataSnapshot.getValue(Seller.class);
-               name.setText(seller.company);
+               name.setText(seller.companyName);
                email.setText(currentUser.getEmail());
-               phone.setText(seller.number);
+               phone.setText(seller.mobileNumber);
                bR.setText(seller.bR);
            }
 
@@ -65,8 +65,8 @@ public class SellerPersonalData extends AppCompatActivity {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                        Seller seller = dataSnapshot.getValue(Seller.class);
-                       seller.company=name.getText().toString().trim();
-                       seller.number=phone.getText().toString().trim();
+                       seller.companyName=name.getText().toString().trim();
+                       seller.mobileNumber=phone.getText().toString().trim();
                        seller.bR=bR.getText().toString().trim();
                        mDatabase.setValue(seller);
                        Intent i = new Intent(getBaseContext() , MainSellerActivity.class);
