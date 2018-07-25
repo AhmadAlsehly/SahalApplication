@@ -30,6 +30,7 @@ public class FragmentBuyerHome extends Fragment implements FragmentBody.OnFragme
         tabLayout.addTab(tabLayout.newTab().setText("كهرباء"));
         tabLayout.addTab(tabLayout.newTab().setText("محركات"));
         tabLayout.addTab(tabLayout.newTab().setText("قطع خارجية"));
+
         tabLayout.setTabGravity( TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = view.findViewById(R.id.containerBuyer);
