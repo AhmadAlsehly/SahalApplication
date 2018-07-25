@@ -70,6 +70,7 @@ public class SellerAddItem extends Fragment {
     int tryies = 0;
     int clearFirst = 0;
     String sellerId;
+    String buyerId = "none";
 
 
     Button btnDone;
@@ -498,7 +499,7 @@ mPhotos.clear();
                                 itemModel.getSelectedItem().toString(),
                                 itemCatgory.getSelectedItem().toString(),
                                 itemYear.getSelectedItem().toString(),
-                                Double.parseDouble(itemPrice.getText().toString()), mPhotos, currentUser.getUid(), 0);
+                                Double.parseDouble(itemPrice.getText().toString()), mPhotos, currentUser.getUid(), 0,buyerId);
 
                         if (!itemName.getText().toString().isEmpty()
                                 || !itemPrice.getText().toString().isEmpty()

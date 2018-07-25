@@ -5,31 +5,31 @@ import android.widget.ImageView;
 import java.io.Serializable;
 import java.util.List;
 
-public class ModuleItem implements Serializable{
-    String name,description,nameOfFactory,type,category,yearOfCreat;
+public class ModuleItem implements Serializable {
+    String name, description, factoryName, type, category, year;
     double price;
-     List<String> images ;
-     String sellerId ;
-     Integer status ;
+    List<String> itemImages;
+    String sellerId;
+    Integer status;
+    String buyerId;
 
 
 
+    public ModuleItem(String name, String desc, String factoryName, String type
+            , String category, String year, double price, List<String> itemImages, String sellerId, Integer status , String buyerId
+    ) {
 
-
-
-    public ModuleItem(String name,String desc,String nameOfFactory,String type
-    ,String category,String yearOfCreat,double price,List<String> images , String sellerId , Integer status){
-
-        this.name=name;
-        this.description=desc;
-        this.nameOfFactory=nameOfFactory;
-        this.type=type;
-        this.category=category;
-        this.yearOfCreat=yearOfCreat;
-        this.price=price;
-        this.images = images;
-        this.sellerId = sellerId ;
-        this.status = status ;
+        this.name = name;
+        this.description = desc;
+        this.factoryName = factoryName;
+        this.type = type;
+        this.category = category;
+        this.year = year;
+        this.price = price;
+        this.itemImages = itemImages;
+        this.sellerId = sellerId;
+        this.status = status;
+        this.buyerId=buyerId;
 
 
     }
@@ -70,13 +70,6 @@ public class ModuleItem implements Serializable{
         this.description = description;
     }
 
-    public String getNameOfFactory() {
-        return nameOfFactory;
-    }
-
-    public void setNameOfFactory(String nameOfFactory) {
-        this.nameOfFactory = nameOfFactory;
-    }
 
     public String getType() {
         return type;
@@ -94,13 +87,6 @@ public class ModuleItem implements Serializable{
         this.category = category;
     }
 
-    public String getYearOfCreat() {
-        return yearOfCreat;
-    }
-
-    public void setYearOfCreat(String yearOfCreat) {
-        this.yearOfCreat = yearOfCreat;
-    }
 
     public double getPrice() {
         return price;
@@ -110,11 +96,35 @@ public class ModuleItem implements Serializable{
         this.price = price;
     }
 
-    public List<String> getImages() {
-        return images;
+    public String getFactoryName() {
+        return factoryName;
     }
 
-    public void setImages(List<String> images) {
-        this.images = images;
+    public void setFactoryName(String factoryName) {
+        this.factoryName = factoryName;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public List<String> getItemImages() {
+        return itemImages;
+    }
+
+    public void setItemImages(List<String> itemImages) {
+        this.itemImages = itemImages;
+    }
+
+    public String getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
     }
 }
