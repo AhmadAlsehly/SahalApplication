@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.MainFirstActivity;
 import com.android.sahal.sahalapplication.Model.Seller;
 import com.android.sahal.sahalapplication.R;
@@ -105,8 +106,7 @@ public class SellerProfile extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
                                 FirebaseAuth.getInstance().signOut();
-
-
+                                MainBuyerActivity.cartList.clear();
                                 Intent intent = new Intent(v.getContext(),MainFirstActivity.class);
                                 startActivity(intent);
                                 getActivity().finish();

@@ -109,6 +109,7 @@ public class SignupSeller extends Fragment {
                                           Intent i = new Intent(getContext(),MainSellerActivity.class);
                                           startActivity(i);
                                           Toast.makeText(getContext(),"Welcome",Toast.LENGTH_SHORT).show();
+                                          MainBuyerActivity.cartList.clear();
                                           getActivity().finish();
                                           MainBuyerActivity.bA.finish();
 
