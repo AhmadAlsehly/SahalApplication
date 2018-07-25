@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.sahal.sahalapplication.Buyer.Activity.BuyerPersonalData;
+import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.MainFirstActivity;
 import com.android.sahal.sahalapplication.Model.Buyer;
 import com.android.sahal.sahalapplication.R;
@@ -94,8 +95,7 @@ public class BuyerProfileFragment extends android.support.v4.app.Fragment {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // continue with delete
                                     FirebaseAuth.getInstance().signOut();
-
-
+                                    MainBuyerActivity.cartList.clear();
                                     Intent intent = new Intent(v.getContext(),MainFirstActivity.class);
                                     startActivity(intent);
                                     getActivity().finish();

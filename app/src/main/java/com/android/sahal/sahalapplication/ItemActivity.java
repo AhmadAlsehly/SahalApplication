@@ -26,6 +26,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -44,6 +46,9 @@ public class ItemActivity extends AppCompatActivity {
     private ImageView imageView;
     Button btnCart = null;
     String itemId;
+    private FirebaseAuth mAuth;
+
+
 
     FirebaseStorage storage = FirebaseStorage.getInstance() ;
 
@@ -62,6 +67,8 @@ public class ItemActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
         Intent intent = this.getIntent();
@@ -106,9 +113,21 @@ public class ItemActivity extends AppCompatActivity {
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                if(user!= null){
 // to add id
                 MainBuyerActivity.cartList.add(moduleItem.getId());
+                    Toast.makeText(getBaseContext(), "تمت الاضافة للسلة" ,Toast.LENGTH_SHORT).show();
+
+                }
+            else  {
+
+                    Toast.makeText(getBaseContext(), "سجل الدخول اولا" ,Toast.LENGTH_SHORT).show();
+
+                }
             }
+
         });
     }
 

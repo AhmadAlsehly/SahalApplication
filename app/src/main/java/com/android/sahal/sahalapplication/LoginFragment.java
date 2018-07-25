@@ -118,15 +118,15 @@ public class LoginFragment extends Fragment {
                                            if (dataSnapshot.child("buyer").child(user.getUid()).exists()) {
 
                                                Intent i = new Intent(getContext(),MainBuyerActivity.class);
-                                               i.putExtra("UID",user.getUid());
                                                Toast.makeText(getContext(),"Welcome",Toast.LENGTH_SHORT).show();
+                                               MainBuyerActivity.cartList.clear();
                                                startActivity(i);
                                                getActivity().finish();
 
                                            } else {
                                                Intent i = new Intent(getContext(),MainSellerActivity.class);
-                                               i.putExtra("UID",user.getUid());
                                                Toast.makeText(getContext(),"Welcome",Toast.LENGTH_SHORT).show();
+                                               MainBuyerActivity.cartList.clear();
                                                startActivity(i);
                                                getActivity().finish();
                                            }
