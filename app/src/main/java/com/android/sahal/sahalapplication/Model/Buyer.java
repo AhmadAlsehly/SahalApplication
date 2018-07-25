@@ -1,13 +1,13 @@
 package com.android.sahal.sahalapplication.Model;
 
 public class Buyer {
-    public String name;
-    public String number;
+    public String buyerName;
+    public String mobileNumber;
 
 
     public Buyer(String name, String number) {
-        this.name = name;
-        this.number = number;
+        this.buyerName = name;
+        this.mobileNumber = number;
 
     }
 
