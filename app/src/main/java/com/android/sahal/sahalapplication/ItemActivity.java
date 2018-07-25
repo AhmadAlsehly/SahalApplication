@@ -114,13 +114,20 @@ public class ItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+             Boolean added = true;
                 if(user!= null){
 // to add id
-                MainBuyerActivity.cartList.add(moduleItem.getId());
-                    Toast.makeText(getBaseContext(), "تمت الاضافة للسلة" ,Toast.LENGTH_SHORT).show();
+                    for(int i=0 ; i < MainBuyerActivity.cartList.size();i++) {
 
-                }
+                        if(MainBuyerActivity.cartList.get(i).equals(moduleItem.getId())){
+                            added = false ;
+                            Toast.makeText(getBaseContext(), "القطعة مضافة مسبقا", Toast.LENGTH_SHORT).show();
+                             break;
+                        }}if(added) {
+                            MainBuyerActivity.cartList.add(moduleItem.getId());
+                            Toast.makeText(getBaseContext(), "تمت الاضافة للسلة", Toast.LENGTH_SHORT).show();
+
+                        }}
             else  {
 
                     Toast.makeText(getBaseContext(), "سجل الدخول اولا" ,Toast.LENGTH_SHORT).show();
