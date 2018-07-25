@@ -19,10 +19,13 @@ import android.graphics.Rect;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.TypedValue;
+import android.widget.Toast;
 
 import com.android.sahal.sahalapplication.Adapters.SellerHomeAdapter;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,16 +45,18 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
     private String mParam1;
     private String mParam2;
 
+
     List<ModuleItem> itemMoudelList;
+
 
     private FirebaseDatabase firebaseDatabase;
     private FirebaseStorage firebaseStorage;
     final DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference().child("items");
     ModuleItem moduleItem;
     private OnFragmentInteractionListener mListener;
-    private List<ModuleItem> itemList ;
-
-
+    private List<ModuleItem> itemList;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = mAuth.getCurrentUser();
 
 
 //--------------------------------------------------------------------------------
@@ -76,7 +81,7 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
 
         recyclerView = view.findViewById(R.id.recyclerView);
         itemList = new ArrayList<>();
-        sellerHomeAdapter = new SellerHomeAdapter(this.getContext(),itemList);
+        sellerHomeAdapter = new SellerHomeAdapter(this.getContext(), itemList);
 
 
         LinearLayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 1);
@@ -147,13 +152,21 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
 //        itemList.add(a);
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
-            public void onDataChange( DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    itemList.add(ds.getValue(ModuleItem.class));
-                    Log.d("tesst", "this is size :" + itemList.size());
-                    Log.d("tesst", "this is name :" + ds.toString());
+                    if (ds.child("sellerId").getValue().equals(currentUser.getUid())) {
+                        itemList.add(ds.getValue(ModuleItem.class));
+                        Log.d("tesst", "this is size :" + itemList.size());
+                        Log.d("tesst", "this is name :" + ds.toString());
+
+                    }
+
 
 //                    sellerHomeAdapter.notifyDataSetChanged();
+                }
+                if (itemList.equals(null)) {
+
                 }
 
 
@@ -161,7 +174,7 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
             }
 
             @Override
-            public void onCancelled( DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         };

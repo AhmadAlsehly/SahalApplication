@@ -26,17 +26,21 @@ import android.widget.Toast;
 import com.android.sahal.sahalapplication.Model.Item;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +77,7 @@ public class SellerAddItem extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
 
-        int i = 0;
+         int i = 0;
 
         super.onViewCreated(view, savedInstanceState);
 
@@ -101,15 +105,20 @@ public class SellerAddItem extends Fragment {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+mPhotos.clear();
 
                 itemPackage = "Items" + "/" + UUID.randomUUID().toString();
 
+//
+//                uploadImage(uri1);
+//                uploadImage(uri2);
+//                uploadImage(uri3);
+//                uploadImage(uri4);
+                upload(uri1);
+                upload(uri2);
+                upload(uri3);
+                upload(uri4);
 
-                uploadImage(uri1);
-                uploadImage(uri2);
-                uploadImage(uri3);
-                uploadImage(uri4);
 
 
                 Log.d("looog", mPhotos.toString());
@@ -371,70 +380,158 @@ public class SellerAddItem extends Fragment {
     }
 
 
-    private void uploadImage(Uri uri) {
+//    private void uploadImage(Uri uri) {
+//        final String imageName = UUID.randomUUID().toString() + ".jpg";
+//
+//
+//        mAuth = FirebaseAuth.getInstance();
+//        final FirebaseUser currentUser = mAuth.getCurrentUser();
+//
+//        if (uri != null) {
+//            final ProgressDialog progressDialog = new ProgressDialog(getContext());
+//            progressDialog.setTitle("Uploading . . . ");
+//            progressDialog.show();
+//StorageReference storageReference = storage.getReference();
+//            StorageReference ref = storage.getReference().child(imageName + "1");
+//
+//            ref.putFile(uri)
+//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                            mPhotos.add(taskSnapshot.getStorage().getDownloadUrl().toString());
+//                            download(imageName);
+//                             progressDialog.dismiss();
+//                            Toast.makeText(getContext(), "Upload", Toast.LENGTH_SHORT).show();
+//                            i++;
+//                            if (i == 4) {
+//                                ModuleItem moduleItem = new ModuleItem(itemName.getText().toString(),
+//                                        itemDescr.getText().toString(),
+//                                        itemCompan.getSelectedItem().toString(),
+//                                        itemModel.getSelectedItem().toString(),
+//                                        itemCatgory.getSelectedItem().toString(),
+//                                        itemYear.getSelectedItem().toString(),
+//                                        Double.parseDouble(itemPrice.getText().toString()), mPhotos, currentUser.getUid(), 0);
+//
+//                                if (!itemName.getText().toString().isEmpty()
+//                                        || !itemPrice.getText().toString().isEmpty()
+//                                        || !itemDescr.getText().toString().isEmpty()) {
+//                                    mDataRef.child("items").child("item" + UUID.randomUUID()).setValue(moduleItem);
+//
+//                                    Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
+//                                } else {
+//                                    Toast.makeText(getContext(), "complete all fields pleas", Toast.LENGTH_SHORT).show();
+//
+//
+//                                }
+//
+//                            }
+//
+//
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    progressDialog.dismiss();
+//                    Toast.makeText(getContext(), "Faield" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                    double prog = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+//                    progressDialog.setMessage("Upload" + (int) prog + "%");
+//
+//
+//                }
+//            });
+//
+//
+//        }
+//
+//    }
 
+    private void upload(Uri uri) {
+
+        final String imageName = UUID.randomUUID().toString() + ".jpg";
+        UploadTask uploadTask = mStorageRef.child(imageName).putFile(uri);
+        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()) {
+                    download(imageName);
+
+                    Toast.makeText(getContext(), "Uplaod Succeed", Toast.LENGTH_SHORT).show();
+
+                } else {
+//                        Log.d("3llomi", "upload Failed " + task.getException().getLocalizedMessage());
+//                        Toast.makeText(getContext(), "Uplaod Failed :( " + task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+        });
+
+        //if you want to cancel
+        //uploadTask.cancel();
+    }
+
+    private void download(String imageName) {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (uri != null) {
-            final ProgressDialog progressDialog = new ProgressDialog(getContext());
-            progressDialog.setTitle("Uploading . . . ");
-            progressDialog.show();
-StorageReference storageReference = storage.getReference();
-            StorageReference ref = storage.getReference().child(itemPackage + "1");
+        progressDialog.setMessage("Downloading...");
+        progressDialog.show();
+        final File file = new File(getContext().getFilesDir(), imageName);
+        FileDownloadTask fileDownloadTask = mStorageRef.child(imageName).getFile(file);
+        fileDownloadTask.addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
+                progressDialog.dismiss();
+                if (task.isSuccessful()) {
+                    mPhotos.add(file.getPath());
+                    Toast.makeText(getContext(), "file Downloaded to " + file.getPath(), Toast.LENGTH_SHORT).show();
+                    Log.d("3llomi", "File Downloaded to " + file.getPath());
+                    i++;
+                    if (i == 4) {
+                        ModuleItem moduleItem = new ModuleItem(itemName.getText().toString(),
+                                itemDescr.getText().toString(),
+                                itemCompan.getSelectedItem().toString(),
+                                itemModel.getSelectedItem().toString(),
+                                itemCatgory.getSelectedItem().toString(),
+                                itemYear.getSelectedItem().toString(),
+                                Double.parseDouble(itemPrice.getText().toString()), mPhotos, currentUser.getUid(), 0);
 
-            ref.putFile(uri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            mPhotos.add(taskSnapshot.getUploadSessionUri().toString());
-                             progressDialog.dismiss();
-                            Toast.makeText(getContext(), "Upload", Toast.LENGTH_SHORT).show();
-                            i++;
-                            if (i == 4) {
-                                ModuleItem moduleItem = new ModuleItem(itemName.getText().toString(),
-                                        itemDescr.getText().toString(),
-                                        itemCompan.getSelectedItem().toString(),
-                                        itemModel.getSelectedItem().toString(),
-                                        itemCatgory.getSelectedItem().toString(),
-                                        itemYear.getSelectedItem().toString(),
-                                        Double.parseDouble(itemPrice.getText().toString()), mPhotos, currentUser.getUid(), 0);
+                        if (!itemName.getText().toString().isEmpty()
+                                || !itemPrice.getText().toString().isEmpty()
+                                || !itemDescr.getText().toString().isEmpty()) {
+                            mDataRef.child("items").child("item" + UUID.randomUUID()).setValue(moduleItem);
 
-                                if (!itemName.getText().toString().isEmpty()
-                                        || !itemPrice.getText().toString().isEmpty()
-                                        || !itemDescr.getText().toString().isEmpty()) {
-                                    mDataRef.child("items").child("item" + UUID.randomUUID()).setValue(moduleItem);
-
-                                    Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getContext(), "complete all fields pleas", Toast.LENGTH_SHORT).show();
-
-
-                                }
-
-                            }
+                            Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "complete all fields pleas", Toast.LENGTH_SHORT).show();
 
 
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getContext(), "Faield" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        i=0;
+
+                    }
+
+                } else {
+                    Toast.makeText(getContext(), "download Failed " + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("3llomi", "Download Failed " + task.getException().getLocalizedMessage());
                 }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double prog = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Upload" + (int) prog + "%");
+            }
+        }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                double progressDouble = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                progressDialog.setMessage(progressDouble + "");
 
+            }
+        });
 
-                }
-            });
-
-
-        }
-
+        //if you want to cancel
+        //fileDownloadTask.cancel();
     }
 
 

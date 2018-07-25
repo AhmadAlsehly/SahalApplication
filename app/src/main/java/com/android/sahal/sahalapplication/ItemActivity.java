@@ -10,22 +10,28 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.EventLog;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -69,10 +75,10 @@ public class ItemActivity extends AppCompatActivity {
 
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-
+Log.d("test",moduleItem.getImages().get(0).toString());
         Glide.with(ItemActivity.this)
                 .using(new FirebaseImageLoader())
-                .load(storage.getReferenceFromUrl("https://firebasestorage.googleapis.com/v0/b/sahalapp-25947.appspot.com/o?name=Items%2F424455c4-a74d-491b-ba4f-40847ef8b6601&uploadType=resumable&upload_id=AEnB2UpYtNRMcOZ8ZxXRL1UVUgpa_dk2EvIv1IQatMiJT59Gh_8Ets8TocItrYXvbr6DL7zGmnzkcOV2CuPnfa5ck71eDj1f4HjqpNaFJVIVpXj5uW84g6I&upload_protocol=resumable"))
+                .load(storage.getReferenceFromUrl( moduleItem.getImages().get(0).toString()))
                 .into(imageView);
 
 
@@ -110,6 +116,9 @@ public class ItemActivity extends AppCompatActivity {
 //        EventBus.getDefault().unregister(this);
 //    }
 //
+
+
+
 
 
 }
