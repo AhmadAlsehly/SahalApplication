@@ -154,12 +154,14 @@ public class FragmentBuyerBought extends Fragment implements BuyerBoughtAdapter.
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    itemList.add(ds.getValue(ModuleItem.class));
-                    Log.d("tesst", "this is size :" + itemList.size());
-                    Log.d("tesst", "this is name :" + ds.toString());
+                    if(ds.child("buyerId").getValue().equals("none")){
+                        if(ds.child("status").getValue().equals("3")) {
+                            itemList.add(ds.getValue(ModuleItem.class));
+                            Log.d("tesst", "this is size :" + itemList.size());
+                            Log.d("tesst", "this is name :" + ds.toString());
 
 //                    sellerHomeAdapter.notifyDataSetChanged();
-                }
+                        }}}
 
 
                 buyerBoughtAdapter.notifyDataSetChanged();

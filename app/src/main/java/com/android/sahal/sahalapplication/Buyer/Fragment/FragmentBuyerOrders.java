@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.android.sahal.sahalapplication.Adapters.BuyerCartAdapter;
 import com.android.sahal.sahalapplication.Adapters.BuyerOrdersAdapter;
@@ -154,12 +155,18 @@ public class FragmentBuyerOrders extends Fragment implements BuyerOrdersAdapter.
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    itemList.add(ds.getValue(ModuleItem.class));
-                    Log.d("tesst", "this is size :" + itemList.size());
-                    Log.d("tesst", "this is name :" + ds.toString());
+                    if(ds.child("buyerId").getValue().equals("none")){
+                        if(ds.child("status").getValue().equals("2")) {
+                            itemList.add(ds.getValue(ModuleItem.class));
+                            Log.d("tesst", "this is size :" + itemList.size());
+                            Log.d("tesst", "this is name :" + ds.toString());
 
 //                    sellerHomeAdapter.notifyDataSetChanged();
+                        } }}
+                if (itemList.equals(null)) {
+                    Toast.makeText(getContext(),"no Items Yet",Toast.LENGTH_LONG).show();
                 }
+
 
 
                 buyerOrdersAdapter.notifyDataSetChanged();
