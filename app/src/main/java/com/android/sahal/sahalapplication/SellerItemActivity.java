@@ -1,5 +1,6 @@
 package com.android.sahal.sahalapplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
+import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentBuyerHome;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
@@ -78,7 +80,7 @@ public class SellerItemActivity extends AppCompatActivity{
             Bitmap bmp = (Bitmap) extras.getParcelable("imagebitmap");
             name.setText(moduleItem.getName());
             desc.setText(moduleItem.getDescription());
-            price.setText(String.valueOf(moduleItem.getPrice()));
+//            price.setText(String.valueOf(moduleItem.getPrice()));
             nameOfFactory.setText(moduleItem.getFactoryName());
             yearOfCreat.setText(moduleItem.getYear());
             carName.setText(moduleItem.getType());
@@ -95,38 +97,11 @@ public class SellerItemActivity extends AppCompatActivity{
                 public void onClick(View v) {
 
 
-                    EditItemFragment.itemName.setText(moduleItem.getName());
-                    EditItemFragment.itemDescr.setText(moduleItem.getDescription());
-                    EditItemFragment.itemPrice.setText(moduleItem.getPrice());
 
 
+                   Intent i = new Intent(getBaseContext(), EditItemFragment.class);
+                   startActivity(i);
 
-                    Intent intent=new Intent(SellerItemActivity.this,EditItemFragment.class);
-
-                   // intent.putExtra("ModuleItem",itemList.get(position));
-
-                    //TODO if the line before failed try this
-//                 intent.putExtra("Name",itemList.get(position).getName());
-//                                intent.putExtra("Category",itemList.get(position).getCategory());
-
-
-
-                    startActivity(intent);
-
-//                    Boolean added = true;
-//
-//// to add id
-//                    for(int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
-//
-//                        if(MainBuyerActivity.cartList.get(i).equals(moduleItem.getId())){
-//                            added = false ;
-//                            Toast.makeText(getBaseContext(), "القطعة مضافة مسبقا", Toast.LENGTH_SHORT).show();
-//                            break;
-//                        }}if(added) {
-//                        MainBuyerActivity.cartList.add(moduleItem.getId());
-//                        Toast.makeText(getBaseContext(), "تمت الاضافة للسلة", Toast.LENGTH_SHORT).show();
-//
-//                    }
  }
 
 

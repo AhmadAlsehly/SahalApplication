@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class FragmentBuyerSearch extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    EditText serchText ;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -91,6 +93,7 @@ public class FragmentBuyerSearch extends Fragment {
         itemCatgory = view.findViewById(R.id.itemCatg_input);
         itemModel = view.findViewById(R.id.itemModel_input);
         itemYear = view.findViewById(R.id.itemYear_input);
+        serchText = view.findViewById(R.id.search_edit_text);
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         String[] comapanys =
@@ -108,6 +111,9 @@ public class FragmentBuyerSearch extends Fragment {
                     return true;
                 }
             }
+
+
+
 
             @Override
             public View getDropDownView(int position, View convertView,
@@ -210,9 +216,17 @@ public class FragmentBuyerSearch extends Fragment {
         adapterCatg.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemCatgory.setAdapter(adapterCatg);
 
+        serchText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+            }
+        });
+
 
 
     }
+
 
 
 

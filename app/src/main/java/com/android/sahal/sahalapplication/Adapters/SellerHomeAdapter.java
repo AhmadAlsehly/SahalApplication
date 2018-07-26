@@ -94,9 +94,29 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
             public void onClick(View view) {
                 Intent intent=new Intent(view.getContext(),SellerItemActivity.class);
 
+              intent.putExtra("ModuleItem",itemList.get(position));
+
+//                 intent.putExtra("Name",itemList.get(position).getName());
+//                                intent.putExtra("Category",itemList.get(position).getCategory());
+
+
+
+                view.getContext().startActivity(intent);
+//                Intent toItem=new Intent(view.getContext(),ItemActivity.class);
+//                view.getContext().startActivity(toItem);
+
+                // EventBus.getDefault().post(new ItemActivity());
+            }
+        });
+
+        holder.thumbnail.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(view.getContext(),SellerItemActivity.class);
+
                 intent.putExtra("ModuleItem",itemList.get(position));
 
-                //TODO if the line before failed try this
 //                 intent.putExtra("Name",itemList.get(position).getName());
 //                                intent.putExtra("Category",itemList.get(position).getCategory());
 

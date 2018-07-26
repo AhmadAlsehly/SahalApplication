@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +48,7 @@ import static android.app.Activity.RESULT_OK;
 
 
 
-public class EditItemFragment extends Fragment {
+public class EditItemFragment  extends AppCompatActivity {
     public ArrayList<Item> seller = new ArrayList<>();
 
 
@@ -73,32 +74,43 @@ public class EditItemFragment extends Fragment {
 
     Button btnDone;
 
+//    @Override
+//    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+//
+//
+//
+//    }
+
+
     @Override
-    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_edit_item);
+
 
         int i = 0;
 
-        super.onViewCreated(view, savedInstanceState);
+
 
         storage = FirebaseStorage.getInstance();
         mStorageRef = storage.getReference();
         mDataRef = FirebaseDatabase.getInstance().getReference();
 
 
-        btnDone = view.findViewById(R.id.butnDone);
-        image1 = view.findViewById(R.id.image1);
-        image2 = view.findViewById(R.id.image2);
+        btnDone = findViewById(R.id.butnDone);
+        image1 = findViewById(R.id.image1);
+        image2 = findViewById(R.id.image2);
 
-        image3 = view.findViewById(R.id.image3);
+        image3 = findViewById(R.id.image3);
 
-        image4 = view.findViewById(R.id.image4);
+        image4 = findViewById(R.id.image4);
 
 
-        itemName = view.findViewById(R.id.itemName_input);
-        itemDescr = view.findViewById(R.id.itemDescr_input);
-        itemPrice = view.findViewById(R.id.itemPrice_input);
+        itemName = findViewById(R.id.itemName_input);
+        itemDescr = findViewById(R.id.itemDescr_input);
+        itemPrice = findViewById(R.id.itemPrice_input);
 
-        itemCompan = (Spinner) view.findViewById(R.id.itemComp_input);
+        itemCompan = (Spinner) findViewById(R.id.itemComp_input);
 
 
         btnDone.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +144,7 @@ public class EditItemFragment extends Fragment {
                 {"الشركة", "TOYOTA", "HYUANDAY", "HONDA"};
 
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this.getActivity(), R.layout.spinner_item, comapanys) {
+                this, R.layout.spinner_item, comapanys) {
             @Override
             public boolean isEnabled(int position) {
                 if (position == 0) {
@@ -172,7 +184,7 @@ public class EditItemFragment extends Fragment {
                 if (position > 0) {
                     // Notify the selected item text
                     Toast.makeText
-                            (getContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                            (view.getContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -191,7 +203,7 @@ public class EditItemFragment extends Fragment {
         // Spinners
 
 
-        itemModel = view.findViewById(R.id.itemModel_input);
+        itemModel = findViewById(R.id.itemModel_input);
 
         // when chose car barand show only brand cars
 
@@ -203,25 +215,25 @@ public class EditItemFragment extends Fragment {
                 if (itemSelectedSring.equals("TOYOTA")) {
                     String[] models =
                             {"","CAMRY", "COROLLA", "AURION"};
-                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
+                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, models);
                     adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     itemModel.setAdapter(adapterModel);
                 } else if (itemSelectedSring.equals("HYUANDAY")) {
                     String[] models =
                             {"","SONATA", "ELNTRA", "ACCENT"};
-                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
+                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, models);
                     adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     itemModel.setAdapter(adapterModel);
                 } else if (itemSelectedSring.equals("HONDA")) {
                     String[] models =
                             {"","CIVIC", "ACORD", "CARNAVAL"};
-                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
+                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, models);
                     adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     itemModel.setAdapter(adapterModel);
                 } else {
                     String[] models = {""};
 
-                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
+                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, models);
                     adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     itemModel.setAdapter(adapterModel);
                 }
@@ -235,40 +247,40 @@ public class EditItemFragment extends Fragment {
         });
 
 
-        itemModel = view.findViewById(R.id.itemModel_input);
+        itemModel = findViewById(R.id.itemModel_input);
         String[] models =
                 {"","CAMRY", "COROLLA", "AURION"};
-        ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, models);
+        ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, models);
         adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemModel.setAdapter(adapterModel);
 
 
-        itemYear = view.findViewById(R.id.itemYear_input);
+        itemYear = findViewById(R.id.itemYear_input);
         String[] years =
                 {"","2011", "2012", "2013"};
-        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, years);
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
         adapterYear.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemYear.setAdapter(adapterYear);
 
 
-        itemCatgory = view.findViewById(R.id.itemCatg_input);
+        itemCatgory = findViewById(R.id.itemCatg_input);
         String[] catgs =
                 {"","هيكل", "كهرباء", "محركات","قطع خارجية"};
-        ArrayAdapter<String> adapterCatg = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, catgs);
+        ArrayAdapter<String> adapterCatg = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, catgs);
         adapterCatg.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemCatgory.setAdapter(adapterCatg);
 
 
-        itemModel = view.findViewById(R.id.itemModel_input);
-        itemYear = view.findViewById(R.id.itemYear_input);
-        itemCatgory = view.findViewById(R.id.itemCatg_input);
+        itemModel = findViewById(R.id.itemModel_input);
+        itemYear = findViewById(R.id.itemYear_input);
+        itemCatgory = findViewById(R.id.itemCatg_input);
 
 
         // Add Image
-        btnImage1 = view.findViewById(R.id.btnImage1);
-        btnImage2 = view.findViewById(R.id.btnImage2);
-        btnImage3 = view.findViewById(R.id.btnImage3);
-        btnImage4 = view.findViewById(R.id.btnImage4);
+        btnImage1 = findViewById(R.id.btnImage1);
+        btnImage2 = findViewById(R.id.btnImage2);
+        btnImage3 = findViewById(R.id.btnImage3);
+        btnImage4 = findViewById(R.id.btnImage4);
 
 
         btnImage1.setOnClickListener(new View.OnClickListener() {
@@ -310,9 +322,7 @@ public class EditItemFragment extends Fragment {
             }
         });
 
-
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -322,7 +332,7 @@ public class EditItemFragment extends Fragment {
             uri1 = data.getData();
 
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri1);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(EditItemFragment.this.getContentResolver(), uri1);
                 image1.setImageBitmap(bitmap);
                 String u = uri1.getPath();
 
@@ -335,7 +345,7 @@ public class EditItemFragment extends Fragment {
         if (requestCode == 98 && resultCode == RESULT_OK) {
             uri2 = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri2);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(EditItemFragment.this.getContentResolver(), uri2);
                 image2.setImageBitmap(bitmap);
                 String u = uri2.getPath();
 
@@ -347,7 +357,7 @@ public class EditItemFragment extends Fragment {
         if (requestCode == 96 && resultCode == RESULT_OK) {
             uri3 = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri3);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(EditItemFragment.this.getContentResolver(), uri3);
                 image3.setImageBitmap(bitmap);
                 String u = uri3.getPath();
 
@@ -360,7 +370,7 @@ public class EditItemFragment extends Fragment {
         if (requestCode == 94 && resultCode == RESULT_OK) {
             uri4 = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri4);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(EditItemFragment.this.getContentResolver(), uri4);
                 image4.setImageBitmap(bitmap);
                 String u = uri4.getPath();
 
@@ -372,12 +382,12 @@ public class EditItemFragment extends Fragment {
     }
 
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)  {
-
-
-        return inflater.inflate(R.layout.fragment_edit_item, container, false);
-
-    }
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)  {
+//
+//
+//        return inflater.inflate(R.layout.fragment_edit_item, container, false);
+//
+//    }
 
 
 
@@ -392,7 +402,7 @@ public class EditItemFragment extends Fragment {
                 if (task.isSuccessful()) {
                     download(imageName);
 
-                    Toast.makeText(getContext(), "Uplaod Succeed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditItemFragment.this, "Uplaod Succeed", Toast.LENGTH_SHORT).show();
 
                 } else {
 //                        Log.d("3llomi", "upload Failed " + task.getException().getLocalizedMessage());
@@ -407,13 +417,13 @@ public class EditItemFragment extends Fragment {
     }
 
     private void download(String imageName) {
-        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        final ProgressDialog progressDialog = new ProgressDialog(EditItemFragment.this);
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
 
         progressDialog.setMessage("Downloading...");
         progressDialog.show();
-        final File file = new File(getContext().getFilesDir(), imageName);
+        final File file = new File(EditItemFragment.this.getFilesDir(), imageName);
         FileDownloadTask fileDownloadTask = mStorageRef.child(imageName).getFile(file);
         fileDownloadTask.addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
             @Override
@@ -421,7 +431,7 @@ public class EditItemFragment extends Fragment {
                 progressDialog.dismiss();
                 if (task.isSuccessful()) {
                     mPhotos.add(file.getPath());
-                    Toast.makeText(getContext(), "file Downloaded to " + file.getPath(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditItemFragment.this, "file Downloaded to " + file.getPath(), Toast.LENGTH_SHORT).show();
                     Log.d("3llomi", "File Downloaded to " + file.getPath());
                     i++;
                     if (i == 4) {
@@ -439,9 +449,9 @@ public class EditItemFragment extends Fragment {
                                 || !itemDescr.getText().toString().isEmpty()) {
                             mDataRef.child("items").child(itemId).setValue(moduleItem);
 
-                            Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditItemFragment.this, "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getContext(), "complete all fields pleas", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditItemFragment.this, "complete all fields pleas", Toast.LENGTH_SHORT).show();
 
 
                         }
@@ -451,7 +461,7 @@ public class EditItemFragment extends Fragment {
                     }
 
                 } else {
-                    Toast.makeText(getContext(), "download Failed " + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditItemFragment.this, "download Failed " + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     Log.d("3llomi", "Download Failed " + task.getException().getLocalizedMessage());
                 }
             }
