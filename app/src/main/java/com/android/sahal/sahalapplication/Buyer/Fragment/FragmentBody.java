@@ -150,11 +150,11 @@ public class FragmentBody extends Fragment implements BuyerBodyAdapter.onItemCli
             @Override
             public void onDataChange( DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Log.d("tesst", "this is size :" + dataSnapshot.toString());
 
                     if (ds.child("category").getValue().equals("هيكل")) {
                         itemList.add(ds.getValue(ModuleItem.class));
-                        Log.d("tesst", "this is size :" + itemList.size());
-                        Log.d("tesst", "this is name :" + ds.toString());
+
 
                     }
 //                    sellerHomeAdapter.notifyDataSetChanged();
