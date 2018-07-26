@@ -37,11 +37,10 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".Buyer.Activity.BuyerPersonalActivity" />
         <activity android:name=".ItemActivity" />
-        <activity android:name=".Buyer.Activity.MainBuyerActivity">
-
-        </activity>
-        <activity android:name=".Buyer.Activity.BuyerPersonalData"></activity>
-        <activity android:name=".SellerItemActivity"></activity>
+        <activity android:name=".Buyer.Activity.MainBuyerActivity"></activity>
+        <activity android:name=".Buyer.Activity.BuyerPersonalData" />
+        <activity android:name=".SellerItemActivity" />
+        <activity android:name=".Seller.Activity.SellerEditItem"></activity>
     </application>
 
 </manifest>
