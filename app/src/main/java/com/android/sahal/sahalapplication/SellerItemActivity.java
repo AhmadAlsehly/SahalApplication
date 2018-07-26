@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentBuyerHome;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
+import com.android.sahal.sahalapplication.Seller.Activity.SellerEditItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -99,8 +100,10 @@ public class SellerItemActivity extends AppCompatActivity{
 
 
 
-                   Intent i = new Intent(getBaseContext(), EditItemFragment.class);
-                   startActivity(i);
+                   Intent i = new Intent(SellerItemActivity.this, SellerEditItem.class);
+                    i.putExtra("ModuleItem",moduleItem);
+
+                    startActivity(i);
 
  }
 
