@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.sahal.sahalapplication.Adapters.BuyerCartAdapter;
 import com.android.sahal.sahalapplication.Adapters.BuyerPartsAdapter;
@@ -56,6 +57,7 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
     private String mParam2;
     List<ModuleItem> itemMoudelList;
     public int sum = 0;
+    public int sold = 0;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseStorage firebaseStorage;
     final DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference().child("items");
@@ -131,9 +133,13 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataS) {
                                                 ModuleItem item = dataS.getValue(ModuleItem.class);
+                                                if(item.getStatus().equals("0")){
                                                 item.setStatus("1");
                                                 item.setBuyerId(currentUser.getUid().toString());
-                                                mDatabase.setValue(item);
+                                                mDatabase.setValue(item);}
+                                                else {
+                                                    sold++;
+                                                }
                                             }
 
                                             @Override
@@ -144,11 +150,9 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
 
                                         //add the buyer ID and change the status to 1
                                     }
-//                    sellerHomeAdapter.notifyDataSetChanged();
-
-
-
-                                    MainBuyerActivity.cartList.clear();
+                                    if(sold > 0){
+                                    Toast.makeText(getContext(),"قطع مباعة تم ازالتها"+sold,Toast.LENGTH_SHORT).show();}
+                                     MainBuyerActivity.cartList.clear();
                                     itemList.clear();
                                     buyerCartAdapter.notifyDataSetChanged();
                                 }

@@ -92,20 +92,13 @@ public class SellerItemActivity extends AppCompatActivity{
             //category.setText(moduleItem.getCategory());
 
             //add to cart
-            btnEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-
-
-                   Intent i = new Intent(getBaseContext(), EditItemFragment.class);
-                   startActivity(i);
-
- }
-
-
-            });
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext() , EditItemFragment.class);
+                startActivity(i);
+            }
+        });
         }
 
         @Override
