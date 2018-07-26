@@ -16,9 +16,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.sahal.sahalapplication.EditItemFragment;
 import com.android.sahal.sahalapplication.ItemActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
+import com.android.sahal.sahalapplication.SellerItemActivity;
 
 ;//import org.greenrobot.eventbus.EventBus;
 
@@ -90,7 +92,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(view.getContext(),ItemActivity.class);
+                Intent intent=new Intent(view.getContext(),SellerItemActivity.class);
 
                 intent.putExtra("ModuleItem",itemList.get(position));
 
