@@ -68,7 +68,7 @@ public class ItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = mAuth.getCurrentUser();
+        //final FirebaseUser user = mAuth.getCurrentUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
         Intent intent = this.getIntent();
@@ -115,7 +115,7 @@ public class ItemActivity extends AppCompatActivity {
             public void onClick(View v) {
 
              Boolean added = true;
-                if(user!= null){
+
 // to add id
                     for(int i=0 ; i < MainBuyerActivity.cartList.size();i++) {
 
@@ -128,12 +128,7 @@ public class ItemActivity extends AppCompatActivity {
                             Toast.makeText(getBaseContext(), "تمت الاضافة للسلة", Toast.LENGTH_SHORT).show();
 
                         }}
-            else  {
 
-                    Toast.makeText(getBaseContext(), "سجل الدخول اولا" ,Toast.LENGTH_SHORT).show();
-
-                }
-            }
 
         });
     }
