@@ -152,7 +152,7 @@ public class FragmentBody extends Fragment implements BuyerBodyAdapter.onItemCli
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Log.d("tesst", "this is size :" + dataSnapshot.toString());
 
-                    if (ds.child("category").getValue().equals("هيكل")) {
+                    if (ds.child("category").getValue().equals("هيكل")&& ds.child("status").getValue().equals("0")) {
                         itemList.add(ds.getValue(ModuleItem.class));
 
 

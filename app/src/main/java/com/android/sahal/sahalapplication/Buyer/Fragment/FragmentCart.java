@@ -1,12 +1,18 @@
 package com.android.sahal.sahalapplication.Buyer.Fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,13 +22,18 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.android.sahal.sahalapplication.Adapters.BuyerCartAdapter;
 import com.android.sahal.sahalapplication.Adapters.BuyerPartsAdapter;
 import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
+import com.android.sahal.sahalapplication.MainFirstActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,13 +55,17 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
     private String mParam1;
     private String mParam2;
     List<ModuleItem> itemMoudelList;
-
+    public int sum = 0;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseStorage firebaseStorage;
     final DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference().child("items");
     ModuleItem moduleItem;
     private OnFragmentInteractionListener mListener;
     private List<ModuleItem> itemList;
+    private TextView txtSum = null;
+    Button btnPurchase = null;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
 
 //--------------------------------------------------------------------------------
@@ -70,13 +85,19 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
 
         recyclerView = view.findViewById(R.id.cart_recyclerView);
         itemList = new ArrayList<>();
         buyerCartAdapter = new BuyerCartAdapter(this.getContext(), itemList);
 
+        btnPurchase = view.findViewById(R.id.btnPurchase);
+
+        txtSum=view.findViewById(R.id.txtSum);
 
         LinearLayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -86,6 +107,102 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
 
         prepareAlbums();
 
+
+        btnPurchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth = FirebaseAuth.getInstance();
+                final FirebaseUser currentUser = mAuth.getCurrentUser();
+                if (currentUser != null){ AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+                    } else {
+                        builder = new AlertDialog.Builder(getContext());
+                    }
+                    builder.setTitle("عملية شراء")
+                            .setMessage("هل انت متاكد من رغبتك في شراء عدد قطع ؟  "+MainBuyerActivity.cartList.size())
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                    for(int i=0 ;i < MainBuyerActivity.cartList.size() ; i++){
+
+                                        mDatabase = FirebaseDatabase.getInstance().getReference().child("items").child(MainBuyerActivity.cartList.get(i));
+                                        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataS) {
+                                                ModuleItem item = dataS.getValue(ModuleItem.class);
+                                                item.setStatus("1");
+                                                item.setBuyerId(currentUser.getUid().toString());
+                                                mDatabase.setValue(item);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
+
+                                        //add the buyer ID and change the status to 1
+                                    }
+//                    sellerHomeAdapter.notifyDataSetChanged();
+
+
+
+                                    MainBuyerActivity.cartList.clear();
+                                    itemList.clear();
+                                    buyerCartAdapter.notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // do nothing
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
+                    //        ModuleItem a = new ModuleItem("hcd","dfv","fdv","adsfv","sdfvd","jhgfd",9,null);
+//        itemList.add(a);
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//
+//        sellerHomeAdapter.notifyDataSetChanged();
+                }
+                else {
+
+                    //should be loged in
+                    AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+                    } else {
+                        builder = new AlertDialog.Builder(getContext());
+                    }
+                    builder.setTitle("سجل الدخول")
+                            .setMessage("قم بتسجيل الدخول لاتمام عملية الشراء")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+
+                                }
+                            })
+
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            }
+        });
 
     }
 
@@ -142,6 +259,7 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
 
 
     private void prepareAlbums() {
+        sum = 0;
 //        ModuleItem a = new ModuleItem("hcd","dfv","fdv","adsfv","sdfvd","jhgfd",9,null);
 //        itemList.add(a);
         ValueEventListener valueEventListener = new ValueEventListener() {
@@ -152,12 +270,13 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
                         if(MainBuyerActivity.cartList.get(i).equals(ds.child("id").getValue())) {
 
                             itemList.add(ds.getValue(ModuleItem.class));
+                            sum += Integer.parseInt(ds.child("price").getValue().toString());
                             Log.d("tesst", "this is size :" + itemList.size());
                             Log.d("tesst", "this is name :" + ds.toString());
                         }}
 //                    sellerHomeAdapter.notifyDataSetChanged();
                 }
-
+                txtSum.setText(""+sum);
 
                 buyerCartAdapter.notifyDataSetChanged();
             }

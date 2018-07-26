@@ -155,7 +155,7 @@ public class FragmentOutSidePart extends Fragment implements BuyerPartsAdapter.o
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if (ds.child("category").getValue().equals("قطع خارجية")) {
+                    if (ds.child("category").getValue().equals("قطع خارجية")&& ds.child("status").getValue().equals("0")) {
                         itemList.add(ds.getValue(ModuleItem.class));
                         Log.d("tesst", "this is size :" + itemList.size());
                         Log.d("tesst", "this is name :" + ds.toString());

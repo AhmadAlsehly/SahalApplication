@@ -23,7 +23,7 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnPurchase"
         android:layout_width="160dp"
         android:layout_height="40dp"
         android:layout_marginBottom="48dp"
@@ -65,7 +65,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtSum"
         android:layout_width="65dp"
         android:layout_height="20dp"
         android:layout_marginBottom="24dp"
