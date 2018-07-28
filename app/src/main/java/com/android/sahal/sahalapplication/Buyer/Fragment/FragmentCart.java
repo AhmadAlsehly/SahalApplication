@@ -113,6 +113,8 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
         btnPurchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sum = 0;
+                sold = 0 ;
                 mAuth = FirebaseAuth.getInstance();
                 final FirebaseUser currentUser = mAuth.getCurrentUser();
                 if (currentUser != null){ AlertDialog.Builder builder;
@@ -150,8 +152,8 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
 
                                         //add the buyer ID and change the status to 1
                                     }
-                                    if(sold > 0){
-                                    Toast.makeText(getContext(),"قطع مباعة تم ازالتها"+sold,Toast.LENGTH_SHORT).show();}
+                                    if(sold != 0){
+                                    Toast.makeText( getContext() ,"قطع مباعة تم ازالتها"+sold , Toast.LENGTH_SHORT).show();}
                                      MainBuyerActivity.cartList.clear();
                                     itemList.clear();
                                     buyerCartAdapter.notifyDataSetChanged();
