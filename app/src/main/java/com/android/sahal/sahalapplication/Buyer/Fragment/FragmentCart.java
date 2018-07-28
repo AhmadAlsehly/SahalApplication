@@ -46,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemClickListener, SearchView.OnQueryTextListener{
+public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemClickListener, SearchView.OnQueryTextListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -91,15 +91,13 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
         super.onViewCreated(view, savedInstanceState);
 
 
-
-
         recyclerView = view.findViewById(R.id.cart_recyclerView);
         itemList = new ArrayList<>();
         buyerCartAdapter = new BuyerCartAdapter(this.getContext(), itemList);
 
         btnPurchase = view.findViewById(R.id.btnPurchase);
 
-        txtSum=view.findViewById(R.id.txtSum);
+        txtSum = view.findViewById(R.id.txtSum);
 
         LinearLayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -115,29 +113,26 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
             public void onClick(View v) {
                 mAuth = FirebaseAuth.getInstance();
                 final FirebaseUser currentUser = mAuth.getCurrentUser();
-                if (currentUser != null){ AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
-                    } else {
-                        builder = new AlertDialog.Builder(getContext());
-                    }
+                if (currentUser != null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
                     builder.setTitle("عملية شراء")
-                            .setMessage("هل انت متاكد من رغبتك في شراء عدد قطع ؟  "+MainBuyerActivity.cartList.size())
+                            .setMessage("هل انت متاكد من رغبتك في شراء عدد قطع ؟  " + MainBuyerActivity.cartList.size())
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // continue with delete
-                                    for(int i=0 ;i < MainBuyerActivity.cartList.size() ; i++){
+                                    for (int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
 
                                         mDatabase = FirebaseDatabase.getInstance().getReference().child("items").child(MainBuyerActivity.cartList.get(i));
                                         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataS) {
                                                 ModuleItem item = dataS.getValue(ModuleItem.class);
-                                                if(item.getStatus().equals("0")){
-                                                item.setStatus("1");
-                                                item.setBuyerId(currentUser.getUid().toString());
-                                                mDatabase.setValue(item);}
-                                                else {
+                                                if (item.getStatus().equals("0")) {
+                                                    item.setStatus("1");
+                                                    item.setBuyerId(currentUser.getUid().toString());
+                                                    mDatabase.setValue(item);
+                                                } else {
                                                     sold++;
                                                 }
                                             }
@@ -150,9 +145,10 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
 
                                         //add the buyer ID and change the status to 1
                                     }
-                                    if(sold > 0){
-                                    Toast.makeText(getContext(),"قطع مباعة تم ازالتها"+sold,Toast.LENGTH_SHORT).show();}
-                                     MainBuyerActivity.cartList.clear();
+                                    if (sold > 0) {
+                                        Toast.makeText(getContext(), "قطع مباعة تم ازالتها" + sold, Toast.LENGTH_SHORT).show();
+                                    }
+                                    MainBuyerActivity.cartList.clear();
                                     itemList.clear();
                                     buyerCartAdapter.notifyDataSetChanged();
                                 }
@@ -169,30 +165,15 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
 //        itemList.add(a);
 
 
-
-
-
-
-
-
-
-
-
-
 //
 //
 //
 //        sellerHomeAdapter.notifyDataSetChanged();
-                }
-                else {
+                } else {
 
                     //should be loged in
-                    AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
-                    } else {
-                        builder = new AlertDialog.Builder(getContext());
-                    }
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
                     builder.setTitle("سجل الدخول")
                             .setMessage("قم بتسجيل الدخول لاتمام عملية الشراء")
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -270,17 +251,18 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    for(int i=0 ;i < MainBuyerActivity.cartList.size() ; i++){
-                        if(MainBuyerActivity.cartList.get(i).equals(ds.child("id").getValue())) {
+                    for (int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
+                        if (MainBuyerActivity.cartList.get(i).equals(ds.child("id").getValue())) {
 
                             itemList.add(ds.getValue(ModuleItem.class));
                             sum += Integer.parseInt(ds.child("price").getValue().toString());
                             Log.d("tesst", "this is size :" + itemList.size());
                             Log.d("tesst", "this is name :" + ds.toString());
-                        }}
+                        }
+                    }
 //                    sellerHomeAdapter.notifyDataSetChanged();
                 }
-                txtSum.setText(""+sum);
+                txtSum.setText("" + sum);
 
                 buyerCartAdapter.notifyDataSetChanged();
             }
