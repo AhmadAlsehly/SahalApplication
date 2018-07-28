@@ -1,23 +1,44 @@
 package com.android.sahal.sahalapplication.Buyer.Fragment;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.sahal.sahalapplication.Adapters.BuyerBodyAdapter;
+import com.android.sahal.sahalapplication.Adapters.BuyerSearchAdapter;
+import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,41 +48,35 @@ import com.android.sahal.sahalapplication.R;
  * Use the {@link FragmentBuyerSearch#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentBuyerSearch extends Fragment {
+public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.onItemClickListener, SearchView.OnQueryTextListener {
 
     Spinner itemCompan, itemModel, itemYear, itemCatgory;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    EditText serchText ;
+    EditText serchText;
+    List<ModuleItem> itemMoudelList;
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseStorage firebaseStorage;
+    final DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference().child("items");
+    ModuleItem moduleItem;
+    private OnFragmentInteractionListener mListener;
+    private List<ModuleItem> itemList;
+
+    ModuleItem item;
+    RecyclerView recyclerView;
+
+    private BuyerSearchAdapter buyerSearchAdapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
 
-    public FragmentBuyerSearch() {
-        // Required empty public constructor
-    }
+//    public static FragmentBuyerSearch newInstance() {
+//        return new FragmentBuyerSearch();
+//    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentBuyerSearch.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentBuyerSearch newInstance(String param1, String param2) {
-        FragmentBuyerSearch fragment = new FragmentBuyerSearch();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +85,10 @@ public class FragmentBuyerSearch extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        setHasOptionsMenu(true);
+
+
     }
 
     @Override
@@ -96,6 +115,22 @@ public class FragmentBuyerSearch extends Fragment {
         serchText = view.findViewById(R.id.search_edit_text);
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //Recycler
+        recyclerView = view.findViewById(R.id.search_recyclerView);
+        itemList = new ArrayList<>();
+        buyerSearchAdapter = new BuyerSearchAdapter(this.getContext(),itemList);
+
+
+        LinearLayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 1);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(buyerSearchAdapter);
+
+        prepareAlbums();
+        //__________________________________________________________________________________________
+
+
         String[] comapanys =
                 {"أي", "TOYOTA", "HYUANDAY", "HONDA"};
 
@@ -111,8 +146,6 @@ public class FragmentBuyerSearch extends Fragment {
                     return true;
                 }
             }
-
-
 
 
             @Override
@@ -145,14 +178,15 @@ public class FragmentBuyerSearch extends Fragment {
                     Toast.makeText
                             (getContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
                             .show();
-                    }
-                    }
+                }
+            }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-                }});
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            }
+        });
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         itemCompan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -160,19 +194,19 @@ public class FragmentBuyerSearch extends Fragment {
 
                 if (itemSelectedSring.equals("TOYOTA")) {
                     String[] models =
-                            {"أي","CAMRY", "COROLLA", "AURION"};
+                            {"أي", "CAMRY", "COROLLA", "AURION"};
                     ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
                     adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     itemModel.setAdapter(adapterModel);
                 } else if (itemSelectedSring.equals("HYUANDAY")) {
                     String[] models =
-                            {"أي","SONATA", "ELNTRA", "ACCENT"};
+                            {"أي", "SONATA", "ELNTRA", "ACCENT"};
                     ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
                     adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     itemModel.setAdapter(adapterModel);
                 } else if (itemSelectedSring.equals("HONDA")) {
                     String[] models =
-                            {"أي","CIVIC", "ACORD", "CARNAVAL"};
+                            {"أي", "CIVIC", "ACORD", "CARNAVAL"};
                     ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, models);
                     adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
                     itemModel.setAdapter(adapterModel);
@@ -195,7 +229,7 @@ public class FragmentBuyerSearch extends Fragment {
 
         itemModel = view.findViewById(R.id.itemModel_input);
         String[] models =
-                {"أي","CAMRY", "COROLLA", "AURION"};
+                {"أي", "CAMRY", "COROLLA", "AURION"};
         ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, models);
         adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemModel.setAdapter(adapterModel);
@@ -203,7 +237,7 @@ public class FragmentBuyerSearch extends Fragment {
 
         itemYear = view.findViewById(R.id.itemYear_input);
         String[] years =
-                {"أي","2011", "2012", "2013"};
+                {"أي", "2011", "2012", "2013"};
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, years);
         adapterYear.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemYear.setAdapter(adapterYear);
@@ -211,7 +245,7 @@ public class FragmentBuyerSearch extends Fragment {
 
         itemCatgory = view.findViewById(R.id.itemCatg_input);
         String[] catgs =
-                {"أي","هيكل", "كهرباء", "محرك"};
+                {"أي", "هيكل", "كهرباء", "محرك"};
         ArrayAdapter<String> adapterCatg = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, catgs);
         adapterCatg.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemCatgory.setAdapter(adapterCatg);
@@ -224,26 +258,137 @@ public class FragmentBuyerSearch extends Fragment {
         });
 
 
+    }
+    @Override
 
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+    }
+
+    public FragmentBuyerSearch() {
+        // Required empty public constructor
+    }
+
+    public static FragmentBuyerSearch newInstance(String param1, String param2) {
+        FragmentBuyerSearch fragment = new FragmentBuyerSearch();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
     }
 
 
 
 
+    private void prepareAlbums() {
+//        ModuleItem a = new ModuleItem("hcd","dfv","fdv","adsfv","sdfvd","jhgfd",9,null);
+//        itemList.add(a);
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange( DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Log.d("tesst", "this is size :" + dataSnapshot.toString());
+
+                    if (ds.child("category").getValue().equals("هيكل")&& ds.child("status").getValue().equals("0")) {
+                        itemList.add(ds.getValue(ModuleItem.class));
 
 
-                /**
-                 * This interface must be implemented by activities that contain this
-                 * fragment to allow an interaction in this fragment to be communicated
-                 * to the activity and potentially other fragments contained in that
-                 * activity.
-                 * <p>
-                 * See the Android Training lesson <a href=
-                 * "http://developer.android.com/training/basics/fragments/communicating.html"
-                 * >Communicating with Other Fragments</a> for more information.
-                 */
-        public interface OnFragmentInteractionListener {
-            // TODO: Update argument type and name
-            void onFragmentInteraction(Uri uri);
+                    }
+//                    sellerHomeAdapter.notifyDataSetChanged();
+                }
+                if (itemList.equals(null)) {
+                    Toast.makeText(getContext(),"no Items Yet",Toast.LENGTH_LONG).show();
+                }
+
+
+                buyerSearchAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled( DatabaseError databaseError) {
+
+            }
+        };
+        databaseReference.addListenerForSingleValueEvent(valueEventListener);
+
+
+//
+//
+//
+    }
+
+
+
+
+//**************************************************************************************************
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
+    }
+
+    @Override
+    public void itemDetailClick(ModuleItem item) {
+
+    }
+//**************************************************************************************************
+
+
+
+    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
+
+        private int spanCount;
+        private int spacing;
+        private boolean includeEdge;
+
+        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+            this.spanCount = spanCount;
+            this.spacing = spacing;
+            this.includeEdge = includeEdge;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            int position = parent.getChildAdapterPosition(view); // item position
+            int column = position % spanCount; // item column
+
+            if (includeEdge) {
+                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
+                outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
+
+                if (position < spanCount) { // top edge
+                    outRect.top = spacing;
+                }
+                outRect.bottom = spacing; // item bottom
+            } else {
+                outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
+                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                if (position >= spanCount) {
+                    outRect.top = spacing; // item top
+                }
+            }
         }
     }
+
+
+
+    private int dpToPx(int dp) {
+        Resources r = getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+
+}
+
