@@ -63,7 +63,6 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
 
 
     ModuleItem item;
-    //    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     private SellerHomeAdapter sellerHomeAdapter;
