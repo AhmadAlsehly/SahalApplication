@@ -1,6 +1,10 @@
 package com.android.sahal.sahalapplication.Seller.Activity;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -8,6 +12,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.sahal.sahalapplication.MainFirstActivity;
 import com.android.sahal.sahalapplication.Seller.Activity.SellerEditItem;
 import com.android.sahal.sahalapplication.Model.Item;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
@@ -30,8 +36,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -40,6 +50,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -67,17 +78,11 @@ public class SellerEditItem extends AppCompatActivity {
     int clearFirst = 0;
     String sellerId;
     String buyerId = "none";
-    TextView idTextView ;
+    TextView idTextView;
+    final Context context = this;
 
 
     Button btnDone;
-
-//    @Override
-//    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
-//
-//
-//
-//    }
 
 
     @Override
@@ -87,12 +92,20 @@ public class SellerEditItem extends AppCompatActivity {
         int i = 0;
 
 
-
         storage = FirebaseStorage.getInstance();
         mStorageRef = storage.getReference();
-        mDataRef = FirebaseDatabase.getInstance().getReference();
+        mDataRef = FirebaseDatabase.getInstance().getReference("items");
+
         Intent intent = this.getIntent();
         final ModuleItem moduleItem = (ModuleItem) intent.getSerializableExtra("ModuleItem");
+        final Query query = mDataRef.orderByChild("id").equalTo(moduleItem.getId());
+
+
+        // Add Image
+        btnImage1 = findViewById(R.id.btnImage1);
+        btnImage2 = findViewById(R.id.btnImage2);
+        btnImage3 = findViewById(R.id.btnImage3);
+        btnImage4 = findViewById(R.id.btnImage4);
 
 
         btnDone = findViewById(R.id.butnDone);
@@ -108,392 +121,76 @@ public class SellerEditItem extends AppCompatActivity {
         itemDescr = findViewById(R.id.itemDescr_input);
         itemPrice = findViewById(R.id.itemPrice_input);
 
-        itemCompan = (Spinner) findViewById(R.id.itemComp_input);
-idTextView = findViewById(R.id.itemId);
 
-idTextView.setText(moduleItem.getId());
+        idTextView = findViewById(R.id.itemId);
+
+        idTextView.setText(moduleItem.getId());
 
 
         itemName.setText(moduleItem.getName());
-        itemDescr.setText(moduleItem.getDescription());
+//        itemDescr.setText(moduleItem.getDescription());
         itemPrice.setText(moduleItem.getPrice());
+        itemDescr.setText(moduleItem.getDescription());
         String idOfModel = moduleItem.getId();
 
-
-
-//itemCatgory.setSelection();
-        //image1.setImage(moduleItem.getItemImages().get(0));
+// Updating item Content
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPhotos.clear();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("هل أنت متأكد");
+                builder.setMessage("من تحديث بيانات القطعة");
 
-                itemPackage = "Items" + "/" + UUID.randomUUID().toString();
-
-//
-//                uploadImage(uri1);
-//                uploadImage(uri2);
-//                uploadImage(uri3);
-////                uploadImage(uri4);
-//                upload(uri1);
-//                upload(uri2);
-//                upload(uri3);
-//                upload(uri4);
+                builder.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
 
 
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                        String postkey = child.getRef().getKey();
+                                        String newName = itemName.getText().toString();
+                                        String newPrice= itemPrice.getText().toString();
+                                        String newDescr = itemDescr.getText().toString();
 
-                Log.d("looog", mPhotos.toString());
-
-
-            }
-
-        });
-
-
-        String[] comapanys =
-                {"الشركة", "TOYOTA", "HYUANDAY", "HONDA"};
-
-        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this, R.layout.spinner_item, comapanys) {
-            @Override
-            public boolean isEnabled(int position) {
-                if (position == 0) {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if (position == 0) {
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                } else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
-        itemCompan.setAdapter(spinnerArrayAdapter);
+                                        mDataRef.child(postkey).child("name").setValue(newName);
+                                        mDataRef.child(postkey).child("price").setValue(newPrice);
+                                        mDataRef.child(postkey).child("description").setValue(newDescr);
 
 
-        itemCompan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-                String userActivity = selectedItemText;
-                // If user change the default selection
-                // First item is disable and it is used for hint
-                if (position > 0) {
-                    // Notify the selected item text
-                    Toast.makeText
-                            (view.getContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
+                                    }
+                                }
+                            }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            // Initializing an ArrayAdapter
+                            }
+                        });
 
+                        Toast.makeText(getApplicationContext(), "تم تحديث بيانات القطغة",
+                                Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(context, MainSellerActivity.class);
+                        startActivity(intent);
+                        SellerEditItem.this.finish();
+                    }
+                });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
 
             }
         });
 
-
-        // Spinners
-
-
-        itemModel = findViewById(R.id.itemModel_input);
-
-        // when chose car barand show only brand cars
-
-        itemCompan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String itemSelectedSring = itemCompan.getSelectedItem().toString().trim();
-
-                if (itemSelectedSring.equals("TOYOTA")) {
-                    String[] models =
-                            {"","CAMRY", "COROLLA", "AURION"};
-                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, models);
-                    adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                    itemModel.setAdapter(adapterModel);
-                } else if (itemSelectedSring.equals("HYUANDAY")) {
-                    String[] models =
-                            {"","SONATA", "ELNTRA", "ACCENT"};
-                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, models);
-                    adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                    itemModel.setAdapter(adapterModel);
-                } else if (itemSelectedSring.equals("HONDA")) {
-                    String[] models =
-                            {"","CIVIC", "ACORD", "CARNAVAL"};
-                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, models);
-                    adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                    itemModel.setAdapter(adapterModel);
-                } else {
-                    String[] models = {""};
-
-                    ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, models);
-                    adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                    itemModel.setAdapter(adapterModel);
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-        itemModel = findViewById(R.id.itemModel_input);
-        String[] models =
-                {"","CAMRY", "COROLLA", "AURION"};
-        ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, models);
-        adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        itemModel.setAdapter(adapterModel);
-
-
-        itemYear = findViewById(R.id.itemYear_input);
-        String[] years =
-                {"","2011", "2012", "2013"};
-        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
-        adapterYear.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        itemYear.setAdapter(adapterYear);
-
-
-        itemCatgory = findViewById(R.id.itemCatg_input);
-        String[] catgs =
-                {"","هيكل", "كهرباء", "محركات","قطع خارجية"};
-        ArrayAdapter<String> adapterCatg = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, catgs);
-        adapterCatg.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        itemCatgory.setAdapter(adapterCatg);
-
-
-        itemModel = findViewById(R.id.itemModel_input);
-        itemYear = findViewById(R.id.itemYear_input);
-        itemCatgory = findViewById(R.id.itemCatg_input);
-
-
-        // Add Image
-        btnImage1 = findViewById(R.id.btnImage1);
-        btnImage2 = findViewById(R.id.btnImage2);
-        btnImage3 = findViewById(R.id.btnImage3);
-        btnImage4 = findViewById(R.id.btnImage4);
-
-
-        btnImage1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();//(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 100);
-            }
-        });
-
-        btnImage2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();//(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 98);
-            }
-        });
-        btnImage3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();//(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 96);
-            }
-        });
-
-        btnImage4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();//(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 94);
-            }
-        });
 
     }
-
-
-
-
-
-
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 100 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            uri1 = data.getData();
-
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri1);
-                image1.setImageBitmap(bitmap);
-                String u = uri1.getPath();
-
-                Log.d("tesst", u);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-        if (requestCode == 98 && resultCode == RESULT_OK) {
-            uri2 = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri2);
-                image2.setImageBitmap(bitmap);
-                String u = uri2.getPath();
-
-                Log.d("tesst", u);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if (requestCode == 96 && resultCode == RESULT_OK) {
-            uri3 = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri3);
-                image3.setImageBitmap(bitmap);
-                String u = uri3.getPath();
-
-                Log.d("tesst", u);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (requestCode == 94 && resultCode == RESULT_OK) {
-            uri4 = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri4);
-                image4.setImageBitmap(bitmap);
-                String u = uri4.getPath();
-
-                Log.d("tesst", u);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)  {
-//
-//
-//        return inflater.inflate(R.layout.fragment_edit_item, container, false);
-//
-//    }
-
-
-
-
-//    private void upload(Uri uri) {
-//
-//        final String imageName = UUID.randomUUID().toString() + ".jpg";
-//        UploadTask uploadTask = mStorageRef.child(imageName).putFile(uri);
-//        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    download(imageName);
-//
-//                    Toast.makeText(SellerEditItem.this, "Uplaod Succeed", Toast.LENGTH_SHORT).show();
-//
-//                } else {
-////                        Log.d("3llomi", "upload Failed " + task.getException().getLocalizedMessage());
-////                        Toast.makeText(getContext(), "Uplaod Failed :( " + task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//        });
-//
-//        //if you want to cancel
-//        //uploadTask.cancel();
-//    }
-
-//    private void download(String imageName) {
-//        final ProgressDialog progressDialog = new ProgressDialog(SellerEditItem.this);
-//        mAuth = FirebaseAuth.getInstance();
-//        final FirebaseUser currentUser = mAuth.getCurrentUser();
-//
-//
-//        progressDialog.setMessage("Downloading...");
-//        progressDialog.show();
-//        final File file = new File(this.getFilesDir(), imageName);
-//        FileDownloadTask fileDownloadTask = mStorageRef.child(imageName).getFile(file);
-//        fileDownloadTask.addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
-//                progressDialog.dismiss();
-//                if (task.isSuccessful()) {
-//                    mPhotos.add(file.getPath());
-//                    Toast.makeText(SellerEditItem.this, "file Downloaded to " + file.getPath(), Toast.LENGTH_SHORT).show();
-//                    Log.d("3llomi", "File Downloaded to " + file.getPath());
-//                    i++;
-//                    if (i == 4) {
-//                        String itemId = "item"+UUID.randomUUID();
-//                        ModuleItem moduleItem = new ModuleItem(itemName.getText().toString(),
-//                                itemDescr.getText().toString(),
-//                                itemCompan.getSelectedItem().toString(),
-//                                itemModel.getSelectedItem().toString(),
-//                                itemCatgory.getSelectedItem().toString(),
-//                                itemYear.getSelectedItem().toString(),
-//                                itemPrice.getText().toString(), mPhotos, currentUser.getUid(), "0",idTextView.getText().toString());
-//
-//                        if (!itemName.getText().toString().isEmpty()
-//                                || !itemPrice.getText().toString().isEmpty()
-//                                || !itemDescr.getText().toString().isEmpty()) {
-//                            mDataRef.child("items").child(itemId).setValue(moduleItem);
-//
-//                            Toast.makeText(SellerEditItem.this, "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Toast.makeText(SellerEditItem.this, "complete all fields pleas", Toast.LENGTH_SHORT).show();
-//
-//
-//                        }
-//
-//                        i=0;
-//
-//                    }
-//
-//                } else {
-//                    Toast.makeText(SellerEditItem.this, "download Failed " + task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                    Log.d("3llomi", "Download Failed " + task.getException().getLocalizedMessage());
-//                }
-//            }
-//        }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
-//            @Override
-//            public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                double progressDouble = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-//                progressDialog.setMessage(progressDouble + "");
-//
-//            }
-//        });
-//
-//        //if you want to cancel
-//        //fileDownloadTask.cancel();
-//    }
-
 }
