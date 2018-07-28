@@ -186,7 +186,7 @@ public class SellerAddItem extends Fragment {
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), imagePath);
-                image1.setImageBitmap(bitmap);
+                image2.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }

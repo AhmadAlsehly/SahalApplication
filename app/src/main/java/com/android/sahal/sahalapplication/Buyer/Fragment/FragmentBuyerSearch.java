@@ -13,6 +13,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -34,6 +36,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -62,6 +65,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
     ModuleItem moduleItem;
     private OnFragmentInteractionListener mListener;
     private List<ModuleItem> itemList;
+    Query query;
 
     ModuleItem item;
     RecyclerView recyclerView;
@@ -118,7 +122,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         //Recycler
         recyclerView = view.findViewById(R.id.search_recyclerView);
         itemList = new ArrayList<>();
-        buyerSearchAdapter = new BuyerSearchAdapter(this.getContext(),itemList);
+        buyerSearchAdapter = new BuyerSearchAdapter(this.getContext(), itemList);
 
 
         LinearLayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 1);
@@ -128,7 +132,46 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         recyclerView.setAdapter(buyerSearchAdapter);
 
         prepareAlbums();
-        //__________________________________________________________________________________________
+
+
+
+
+        serchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                itemList.clear();
+                query = databaseReference.orderByChild("name").equalTo(serchText.getText().toString());
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                itemList.add(ds.getValue(ModuleItem.class));
+
+                                buyerSearchAdapter.notifyDataSetChanged();
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
 
         String[] comapanys =
@@ -259,6 +302,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
 
     }
+
     @Override
 
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -281,26 +325,24 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
     }
 
 
-
-
     private void prepareAlbums() {
 //        ModuleItem a = new ModuleItem("hcd","dfv","fdv","adsfv","sdfvd","jhgfd",9,null);
 //        itemList.add(a);
+
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
-            public void onDataChange( DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Log.d("tesst", "this is size :" + dataSnapshot.toString());
 
-                    if (ds.child("category").getValue().equals("هيكل")&& ds.child("status").getValue().equals("0")) {
                         itemList.add(ds.getValue(ModuleItem.class));
 
 
-                    }
+
 //                    sellerHomeAdapter.notifyDataSetChanged();
                 }
                 if (itemList.equals(null)) {
-                    Toast.makeText(getContext(),"no Items Yet",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "no Items Yet", Toast.LENGTH_LONG).show();
                 }
 
 
@@ -308,7 +350,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
             }
 
             @Override
-            public void onCancelled( DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         };
@@ -321,9 +363,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
     }
 
 
-
-
-//**************************************************************************************************
+    //**************************************************************************************************
     @Override
     public boolean onQueryTextSubmit(String s) {
         return false;
@@ -339,7 +379,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
     }
 //**************************************************************************************************
-
 
 
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
@@ -376,7 +415,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
             }
         }
     }
-
 
 
     private int dpToPx(int dp) {
