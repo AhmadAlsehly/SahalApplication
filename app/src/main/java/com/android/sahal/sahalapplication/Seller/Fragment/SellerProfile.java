@@ -94,12 +94,7 @@ public class SellerProfile extends Fragment {
             @Override
             public void onClick(final View v) {
 
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
-                } else {
-                    builder = new AlertDialog.Builder(getContext());
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("تسجيل خروج ؟")
                         .setMessage("")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {

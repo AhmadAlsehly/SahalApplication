@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    style="@style/AppTheme.NoActionBar"
     >
 
     <LinearLayout
@@ -14,8 +15,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="127dp"
+            android:layout_height="136dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:background="@drawable/sahal_logo" />

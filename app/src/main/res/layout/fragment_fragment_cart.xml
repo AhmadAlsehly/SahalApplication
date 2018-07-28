@@ -6,27 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Buyer.Fragment.FragmentBody">
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/line_icon"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
+    tools:context=".Buyer.Fragment.FragmentBody"
+    tools:layout_editor_absoluteY="25dp">
 
 
     <Button
         android:id="@+id/btnPurchase"
         android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="48dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_button"
         android:text="تأكيد عملية الشراء"
         android:textColor="@color/white"
@@ -34,18 +22,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cart_recyclerView"
+        app:layout_constraintVertical_bias="0.505"
         tools:layout_conversion_absoluteHeight="35dp"
         tools:layout_conversion_absoluteWidth="208dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/cart_recyclerView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="428dp"
-        android:layout_marginBottom="116dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="185dp"
@@ -55,37 +41,38 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="44dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="المجموع : "
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/btnPurchase"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.723"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/cart_recyclerView"
+        app:layout_constraintVertical_bias="0.79" />
 
     <TextView
         android:id="@+id/txtSum"
         android:layout_width="65dp"
         android:layout_height="20dp"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toStartOf="@+id/textView3"
-        app:layout_constraintHorizontal_bias="0.988"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginBottom="44dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnPurchase"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cart_recyclerView" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="44dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
         android:text="S.R"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.712"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/btnPurchase"
+        app:layout_constraintStart_toEndOf="@+id/txtSum"
+        app:layout_constraintTop_toBottomOf="@+id/cart_recyclerView" />
 </android.support.constraint.ConstraintLayout>
