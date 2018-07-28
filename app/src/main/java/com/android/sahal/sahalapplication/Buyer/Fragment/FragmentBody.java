@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FragmentBody extends Fragment implements BuyerBodyAdapter.onItemClickListener, SearchView.OnQueryTextListener  {
+public class FragmentBody extends Fragment implements BuyerBodyAdapter.onItemClickListener, SearchView.OnQueryTextListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -50,9 +50,7 @@ public class FragmentBody extends Fragment implements BuyerBodyAdapter.onItemCli
     final DatabaseReference databaseReference = firebaseDatabase.getInstance().getReference().child("items");
     ModuleItem moduleItem;
     private OnFragmentInteractionListener mListener;
-    private List<ModuleItem> itemList ;
-
-
+    private List<ModuleItem> itemList;
 
 
 //--------------------------------------------------------------------------------
@@ -77,7 +75,7 @@ public class FragmentBody extends Fragment implements BuyerBodyAdapter.onItemCli
 
         recyclerView = view.findViewById(R.id.body_recyclerView);
         itemList = new ArrayList<>();
-        buyerBodyAdapter = new BuyerBodyAdapter(this.getContext(),itemList);
+        buyerBodyAdapter = new BuyerBodyAdapter(this.getContext(), itemList);
 
 
         LinearLayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 1);
@@ -148,19 +146,20 @@ public class FragmentBody extends Fragment implements BuyerBodyAdapter.onItemCli
 //        itemList.add(a);
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
-            public void onDataChange( DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Log.d("tesst", "this is size :" + dataSnapshot.toString());
+                    if (ds.child("category").exists()){
+                        if (ds.child("category").getValue().equals("هيكل") && ds.child("status").getValue().equals("0")) {
+                            itemList.add(ds.getValue(ModuleItem.class));
 
-                    if (ds.child("category").getValue().equals("هيكل")&& ds.child("status").getValue().equals("0")) {
-                        itemList.add(ds.getValue(ModuleItem.class));
 
-
+                        }
                     }
 //                    sellerHomeAdapter.notifyDataSetChanged();
                 }
                 if (itemList.equals(null)) {
-                    Toast.makeText(getContext(),"no Items Yet",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "no Items Yet", Toast.LENGTH_LONG).show();
                 }
 
 
@@ -168,7 +167,7 @@ public class FragmentBody extends Fragment implements BuyerBodyAdapter.onItemCli
             }
 
             @Override
-            public void onCancelled( DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         };

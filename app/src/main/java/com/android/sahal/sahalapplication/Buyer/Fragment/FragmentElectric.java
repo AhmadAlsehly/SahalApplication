@@ -156,14 +156,15 @@ public class FragmentElectric extends Fragment implements BuyerElectricAdapter.o
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if (ds.child("category").exists()) {
+                        if (ds.child("category").getValue().equals("كهرباء") && ds.child("status").getValue().equals("0")) {
+                            itemList.add(ds.getValue(ModuleItem.class));
+                            Log.d("tesst", "this is size :" + itemList.size());
+                            Log.d("tesst", "this is name :" + ds.toString());
 
-                    if (ds.child("category").getValue().equals("كهرباء")&& ds.child("status").getValue().equals("0")) {
-                        itemList.add(ds.getValue(ModuleItem.class));
-                        Log.d("tesst", "this is size :" + itemList.size());
-                        Log.d("tesst", "this is name :" + ds.toString());
-
-                    }
+                        }
 //                    sellerHomeAdapter.notifyDataSetChanged();
+                    }
                 }
                 if (itemList.equals(null)) {
                     Toast.makeText(getContext(),"no Items Yet",Toast.LENGTH_LONG).show();

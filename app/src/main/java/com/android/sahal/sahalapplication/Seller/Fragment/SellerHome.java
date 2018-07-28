@@ -56,7 +56,7 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
     private OnFragmentInteractionListener mListener;
     private List<ModuleItem> itemList;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseUser currentUser = mAuth.getCurrentUser();
+    FirebaseUser currentUser ;
 
 
 //--------------------------------------------------------------------------------
@@ -81,6 +81,7 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
         recyclerView = view.findViewById(R.id.recyclerView);
         itemList = new ArrayList<>();
         sellerHomeAdapter = new SellerHomeAdapter(this.getContext(), itemList);
+        currentUser = mAuth.getCurrentUser();
 
 
         LinearLayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 1);

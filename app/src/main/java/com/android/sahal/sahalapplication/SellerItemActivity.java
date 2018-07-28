@@ -62,7 +62,7 @@ public class SellerItemActivity extends AppCompatActivity {
 
         StorageReference storageReference = firebaseStorage.getReference();
 
-        storageReference.child(moduleItem.getItemImages().get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        storageReference.child("items").child(moduleItem.getItemImages().get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).fit().centerCrop().into(imageView);

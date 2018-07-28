@@ -94,7 +94,6 @@ public class SellerAddItem extends Fragment {
             public void onClick(final View v) {
 
                 for (int i = 0; i < mPhotos.size(); i++){
-                     count=i+1;
                     StorageReference imageReference = storageReference.child("items").child(mPhotos.get(i));
                     UploadTask uploadTask = imageReference.putFile((uri.get(i)));
 
@@ -107,6 +106,8 @@ public class SellerAddItem extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                             Toast.makeText(v.getContext(), "Upload successful!", Toast.LENGTH_SHORT).show();
+                            count++;
+
                             if (count==mPhotos.size()){
                                 uploadItem();
                             }
@@ -162,6 +163,20 @@ public class SellerAddItem extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getData() != null) {
+            imagePath = data.getData();
+            String path = imagePath.getPath();
+            filename = path.substring(path.lastIndexOf("/") + 1);
+            mPhotos.add(filename);
+            uri.add(imagePath);
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), imagePath);
+                image1.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getData() != null) {
             imagePath = data.getData();
             String path = imagePath.getPath();
