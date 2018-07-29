@@ -6,6 +6,8 @@
     android:layout_height="match_parent">
 
 
+
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
@@ -22,12 +24,12 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="23dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="عكس أمامي يسار ازيرا 2012"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.901"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -57,23 +59,25 @@
         app:layout_constraintTop_toBottomOf="@+id/name"
         app:srcCompat="@drawable/pin" />
 
+
     <Button
         android:id="@+id/price_addToCart"
         android:layout_width="123dp"
-        android:layout_height="36dp"
+        android:layout_height="31dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_button"
         android:text="200 S.R"
-        android:drawableLeft="@drawable/shopping_cart"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/desc"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/place" />
 
     <TextView
         android:id="@+id/desc"
-        android:layout_width="235dp"
+        android:layout_width="190dp"
         android:layout_height="109dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -99,53 +103,52 @@
     <Button
         android:id="@+id/module"
         android:layout_width="68dp"
-        android:layout_height="38dp"
+        android:layout_height="28sp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_button"
         android:text="2012"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/factoryName"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <Button
+        android:textColor="@color/white"
         android:id="@+id/category"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_width="115dp"
+        android:layout_height="26dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_button_darkblue"
         android:text="هيكل وجسم خارجي"
         app:layout_constraintEnd_toStartOf="@+id/module"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <Button
         android:id="@+id/carName"
         android:layout_width="68dp"
-        android:layout_height="38dp"
+        android:layout_height="28sp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_button_red"
         android:text="ازيرا"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <Button
         android:id="@+id/factoryName"
         android:layout_width="68dp"
-        android:layout_height="38dp"
+        android:layout_height="28sp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_button"
         android:text="هيونداي"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/carName"
-        app:layout_constraintHorizontal_bias="0.946"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <TextView
@@ -156,7 +159,7 @@
         android:layout_marginStart="8dp"
         android:text="اسم البائع"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.961"
+        app:layout_constraintHorizontal_bias="0.944"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
