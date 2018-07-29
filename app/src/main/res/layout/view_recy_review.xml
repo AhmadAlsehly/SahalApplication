@@ -26,8 +26,7 @@
                 android:layout_width="195dp"
                 android:layout_height="56dp"
                 android:layout_below="@+id/title"
-                android:layout_marginBottom="6dp"
-                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_toLeftOf="@+id/thumbnail"
                 android:layout_toStartOf="@+id/thumbnail"
@@ -43,7 +42,7 @@
             <ImageView
                 android:id="@+id/thumbnail"
                 android:layout_width="107dp"
-                android:layout_height="133dp"
+                android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
@@ -69,7 +68,7 @@
                 android:textSize="@dimen/album_title"
                 card_view:layout_constraintBottom_toTopOf="@+id/desc"
                 card_view:layout_constraintEnd_toStartOf="@+id/thumbnail"
-                card_view:layout_constraintHorizontal_bias="0.73"
+                card_view:layout_constraintHorizontal_bias="1.0"
                 card_view:layout_constraintStart_toEndOf="@+id/overflow"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="1.0" />
@@ -86,7 +85,7 @@
                 android:textColor="@color/white"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toStartOf="@+id/thumbnail"
-                card_view:layout_constraintHorizontal_bias="0.759"
+                card_view:layout_constraintHorizontal_bias="1.0"
                 card_view:layout_constraintStart_toStartOf="parent">
 
             </TextView>
@@ -99,13 +98,25 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
                 android:layout_marginStart="4dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_dots"
-                card_view:layout_constraintBottom_toTopOf="@+id/count"
+                card_view:layout_constraintBottom_toTopOf="@+id/status"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="@+id/title"
-                card_view:layout_constraintVertical_bias="0.0" />
+                card_view:layout_constraintTop_toTopOf="@+id/title" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                card_view:layout_constraintBottom_toTopOf="@+id/count"
+                card_view:layout_constraintEnd_toStartOf="@+id/desc"
+                card_view:layout_constraintHorizontal_bias="1.0"
+                card_view:layout_constraintStart_toStartOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 

@@ -31,7 +31,7 @@ public class BuyerOrdersAdapter extends RecyclerView.Adapter<BuyerOrdersAdapter.
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count,desc;
+        public TextView title, count,desc,status;
         public ImageView thumbnail, overflow;
         public CardView cardView;
         public MyViewHolder(View view) {
@@ -41,6 +41,7 @@ public class BuyerOrdersAdapter extends RecyclerView.Adapter<BuyerOrdersAdapter.
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             overflow = (ImageView) view.findViewById(R.id.overflow);
             desc= (TextView) view.findViewById(R.id.desc);
+            status=(TextView) view.findViewById(R.id.status);
             cardView=(CardView) view.findViewById(R.id.card_view);
         }
     }
@@ -69,10 +70,27 @@ public class BuyerOrdersAdapter extends RecyclerView.Adapter<BuyerOrdersAdapter.
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        String status;
+
+
         ModuleItem item = itemList.get(position);
         holder.title.setText(item.getName());
         holder.desc.setText(item.getDescription());
         holder.count.setText(item.getPrice() + " SR");
+
+        if (item.getStatus().equals("1")) {
+            status="تجهيز الشحنة";
+            holder.status.setText(status);
+        }else if(item.getStatus().equals("2")){
+
+            status="تم الشحن";
+            holder.status.setText(status);
+        }else if (item.getStatus().equals("3")){
+
+            status="تم الاستلام";
+            holder.status.setText(status);
+        }
+
 
         // loading album cover using Glide library
 //        Glide.with(mContext).load(item.getImages().get(0)).into(holder.thumbnail);
