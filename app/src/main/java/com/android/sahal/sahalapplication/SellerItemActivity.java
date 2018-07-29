@@ -58,7 +58,7 @@ public class SellerItemActivity extends AppCompatActivity {
         // category.findViewById(R.id.category);
 
 
-        firebaseStorage = FirebaseStorage.getInstance();
+       FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
         StorageReference storageReference = firebaseStorage.getReference();
 

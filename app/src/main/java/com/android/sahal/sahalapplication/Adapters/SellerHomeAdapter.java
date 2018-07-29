@@ -2,6 +2,7 @@ package com.android.sahal.sahalapplication.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +22,10 @@ import com.android.sahal.sahalapplication.ItemActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.android.sahal.sahalapplication.SellerItemActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 ;//import org.greenrobot.eventbus.EventBus;
 
@@ -28,7 +33,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
     private Context mContext;
     private List<ModuleItem> itemList;
-
+FirebaseStorage firebaseStorage;
 
 
 
@@ -73,10 +78,20 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        ModuleItem item = itemList.get(position);
-        holder.title.setText(item.getName());
-        holder.desc.setText(item.getDescription());
-        holder.count.setText(item.getPrice() + " SR");
+        firebaseStorage = FirebaseStorage.getInstance();
+        ModuleItem moduleItem = itemList.get(position);
+        holder.title.setText(moduleItem.getName());
+        holder.desc.setText(moduleItem.getDescription());
+        holder.count.setText(moduleItem.getPrice() + " SR");
+       // holder.thumbnail.setImageBitmap();
+        StorageReference storageReference = firebaseStorage.getReference();
+
+        storageReference.child("items").child(moduleItem.getItemImages().get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).fit().centerCrop().into(holder.thumbnail);
+            }
+        });
 
         // loading album cover using Glide library
 //        Glide.with(mContext).load(item.getImages().get(0)).into(holder.thumbnail);

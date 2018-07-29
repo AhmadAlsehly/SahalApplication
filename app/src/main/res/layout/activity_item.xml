@@ -6,18 +6,30 @@
     android:layout_height="match_parent">
 
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="205dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="23dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="عكس أمامي يسار ازيرا 2012"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.901"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/place"
@@ -53,6 +65,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:text="200 S.R"
+        android:drawableLeft="@drawable/shopping_cart"
         app:layout_constraintEnd_toStartOf="@+id/desc"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +83,6 @@
         app:layout_constraintHorizontal_bias="0.939"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
-
     <TextView
         android:id="@+id/textView25"
         android:layout_width="73dp"
@@ -148,28 +160,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView2"
-        android:layout_width="match_parent"
-        android:layout_height="205dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<ScrollView-->
-    <!--android:layout_width="368dp"-->
-    <!--android:layout_height="112dp"-->
-    <!--tools:layout_editor_absoluteX="8dp"-->
-    <!--tools:layout_editor_absoluteY="469dp">-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="vertical" />-->
-    <!---->
-    <!--</ScrollView>-->
 
 </android.support.constraint.ConstraintLayout>

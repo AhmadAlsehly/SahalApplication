@@ -2,6 +2,7 @@ package com.android.sahal.sahalapplication.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,10 @@ import android.widget.TextView;
 import com.android.sahal.sahalapplication.ItemActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -77,6 +82,18 @@ public class BuyerOrdersAdapter extends RecyclerView.Adapter<BuyerOrdersAdapter.
         holder.title.setText(item.getName());
         holder.desc.setText(item.getDescription());
         holder.count.setText(item.getPrice() + " SR");
+
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+
+        StorageReference storageReference = firebaseStorage.getReference();
+
+        storageReference.child("items").child(item.getItemImages().get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).fit().centerCrop().into(holder.thumbnail);
+            }
+        });
+
 
         if (item.getStatus().equals("1")) {
             status="تجهيز الشحنة";
