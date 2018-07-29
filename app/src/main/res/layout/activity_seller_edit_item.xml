@@ -29,7 +29,7 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/itemPrice_input"
+        app:layout_constraintBottom_toTopOf="@+id/itemCity_input"
         app:layout_constraintEnd_toEndOf="parent"
 
 
@@ -47,13 +47,13 @@
         android:layout_marginStart="84dp"
         android:layout_marginTop="25dp"
         android:text="السعر"
-        app:layout_constraintBottom_toBottomOf="@+id/itemPrice_input"
+        app:layout_constraintBottom_toBottomOf="@+id/itemCity_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/itemId"
         app:layout_constraintTop_toBottomOf="@+id/itemName_input" />
 
     <EditText
-        android:id="@+id/itemPrice_input"
+        android:id="@+id/itemCity_input"
         android:layout_width="255dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="14dp"

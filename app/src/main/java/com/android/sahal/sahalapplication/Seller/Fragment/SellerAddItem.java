@@ -77,7 +77,7 @@ public class SellerAddItem extends Fragment {
         image4 = view.findViewById(R.id.image4);
         itemName = view.findViewById(R.id.itemName_input);
         itemDescr = view.findViewById(R.id.itemDescr_input);
-        itemPrice = view.findViewById(R.id.itemPrice_input);
+        itemPrice = view.findViewById(R.id.itemCity_input);
         firebaseAuth = FirebaseAuth.getInstance();
 
         storage = FirebaseStorage.getInstance();
