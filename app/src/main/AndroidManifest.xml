@@ -43,7 +43,7 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".Seller.Activity.MainSellerActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
+            android:windowSoftInputMode="adjustPan"
 
             android:label="@string/title_activity_main_buyer"
             android:theme="@style/AppTheme" />
@@ -52,7 +52,8 @@
             />
         <activity android:name=".ItemActivity" />
         <activity android:name=".Buyer.Activity.MainBuyerActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
+            android:windowSoftInputMode="adjustPan"
+
             ></activity>
         <activity android:name=".Buyer.Activity.BuyerPersonalData"
             android:windowSoftInputMode="stateAlwaysHidden"

@@ -47,7 +47,7 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
     CharSequence[] values = {"التجهيز للشحن","تم الشحن "};
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count,desc;
+        public TextView title, count,desc,buyerName,buyerNumber,buyerAddress,status;
         public ImageView thumbnail, overflow,review;
         public CardView cardView;
         public MyViewHolder(View view) {
@@ -58,6 +58,12 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
             overflow = (ImageView) view.findViewById(R.id.overflow);
             desc= (TextView) view.findViewById(R.id.desc);
             cardView=(CardView) view.findViewById(R.id.card_view);
+            status=(TextView) view.findViewById(R.id.status);
+            buyerName=(TextView) view.findViewById(R.id.buyer_name);
+            buyerNumber=(TextView) view.findViewById(R.id.buyer_number);
+            buyerAddress=(TextView) view.findViewById(R.id.buyer_address);
+
+
 
 
             //TODO: add here review
@@ -88,7 +94,7 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_recy_review, parent, false);
+                .inflate(R.layout.view_recy_order, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -101,10 +107,39 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
 
     @Override
     public void onBindViewHolder(final SellerOrderAdapter.MyViewHolder holder, final int position) {
+        String status;
+
+
         final ModuleItem moduleItem = itemList.get(position);
         holder.title.setText(moduleItem.getName());
         holder.desc.setText(moduleItem.getDescription());
         holder.count.setText(moduleItem.getPrice() + " SR");
+
+        //TODO connect to firebase and get buyer info from item.getBuyerId()
+
+        holder.buyerName.setText("");
+        holder.buyerNumber.setText("");
+        holder.buyerAddress.setText("");
+
+
+        if (moduleItem.getStatus().equals("1")) {
+            status="تجهيز الشحنة";
+            holder.status.setText(status);
+        }else if(moduleItem.getStatus().equals("2")){
+
+            status="تم الشحن";
+            holder.status.setText(status);
+        }else if (moduleItem.getStatus().equals("3")){
+
+            status="تم الاستلام";
+            holder.status.setText(status);
+        }
+
+
+
+
+
+        
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
         StorageReference storageReference = firebaseStorage.getReference();
@@ -115,6 +150,7 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
                 Picasso.get().load(uri).fit().centerCrop().into(holder.thumbnail);
             }
         });
+
 
         // loading album cover using Glide library
        // Glide.with(mContext).load(item.getImage1()).into(holder.thumbnail);

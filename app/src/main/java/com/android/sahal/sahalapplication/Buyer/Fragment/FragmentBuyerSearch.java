@@ -145,7 +145,9 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 itemList.clear();
-                query = databaseReference.orderByChild("name").equalTo(serchText.getText().toString());
+                query = databaseReference.orderByChild("name")
+                        .startAt(serchText.getText().toString())
+                .endAt(serchText.getText().toString()+"\uf8ff");
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

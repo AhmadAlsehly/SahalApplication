@@ -3,6 +3,7 @@ package com.android.sahal.sahalapplication;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,6 +16,11 @@ import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -22,7 +28,7 @@ import com.squareup.picasso.Picasso;
 
 public class ItemActivity extends AppCompatActivity {
 
-    private TextView name, desc, price, category, nameOfFactory, yearOfCreat, carName;
+    private TextView name, desc, price, category, nameOfFactory, yearOfCreat, carName , sellerName;
     // private Button ;
     private ImageView imageView;
     Button btnCart = null;
@@ -47,7 +53,7 @@ public class ItemActivity extends AppCompatActivity {
     //  ArrayList<Integer> myImageList = new ArrayList<>();
 //ImageViewe image;
 
-    private FirebaseStorage firebaseStorage;
+    private FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,17 +71,26 @@ public class ItemActivity extends AppCompatActivity {
         yearOfCreat = findViewById(R.id.module);
         carName = findViewById(R.id.carName);
         btnCart = findViewById(R.id.price_addToCart);
+        sellerName = findViewById(R.id.sellerName);
         // category.findViewById(R.id.category);
-        firebaseStorage = FirebaseStorage.getInstance();
+        firebaseDatabase = firebaseDatabase.getInstance();
 
-        StorageReference storageReference = firebaseStorage.getReference();
 
-        storageReference.child("items").child(moduleItem.getItemImages().get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        DatabaseReference databaseReference = firebaseDatabase.getReference();
+
+        databaseReference.child("seller").child(moduleItem.getSellerId()).child("companyName").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).fit().centerCrop().into(imageView);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String sellerNameValeu = dataSnapshot.getValue().toString();
+                sellerName.setText(sellerNameValeu);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
+
 
 
 
