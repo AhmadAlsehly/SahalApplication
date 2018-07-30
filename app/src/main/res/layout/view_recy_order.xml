@@ -126,19 +126,24 @@
                 android:layout_marginBottom="12dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="اسم المشتري"
                 card_view:layout_constraintBottom_toTopOf="@+id/textView28"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.031"
-                card_view:layout_constraintStart_toEndOf="@+id/buyer_name" />
+                card_view:layout_constraintStart_toEndOf="@+id/buyer_name"
+                card_view:layout_constraintTop_toBottomOf="@+id/desc" />
 
             <TextView
                 android:id="@+id/textView28"
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="160dp"
                 android:text="رقم التواصل"
-                tools:layout_editor_absoluteX="209dp"
-                tools:layout_editor_absoluteY="162dp" />
+                card_view:layout_constraintBottom_toTopOf="@+id/textView30"
+                card_view:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="210dp" />
 
             <TextView
                 android:id="@+id/textView30"
@@ -146,11 +151,12 @@
                 android:layout_height="26dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="196dp"
                 android:text="عنوان الشحن"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toEndOf="@+id/buyer_address"
-                tools:layout_editor_absoluteY="192dp" />
+                card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/buyer_name"
@@ -158,8 +164,10 @@
                 android:layout_height="26dp"
                 android:layout_marginBottom="12dp"
                 android:layout_marginStart="72dp"
+                android:layout_marginTop="8dp"
                 card_view:layout_constraintBottom_toTopOf="@+id/buyer_number"
-                card_view:layout_constraintStart_toStartOf="parent" />
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/thumbnail" />
 
             <TextView
                 android:id="@+id/buyer_number"
@@ -177,10 +185,13 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 card_view:layout_constraintBottom_toTopOf="@+id/count"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.277"
-                card_view:layout_constraintStart_toStartOf="parent" />
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="1.0" />
 
         </android.support.constraint.ConstraintLayout>
 
