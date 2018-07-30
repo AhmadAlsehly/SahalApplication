@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 
 import com.android.sahal.sahalapplication.Adapters.BuyerBodyAdapter;
 import com.android.sahal.sahalapplication.Adapters.BuyerSearchAdapter;
+import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.google.firebase.database.DataSnapshot;
@@ -54,6 +56,7 @@ import java.util.List;
 public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.onItemClickListener, SearchView.OnQueryTextListener {
 
     Spinner itemCompan, itemModel, itemYear, itemCatgory;
+    Button count;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -316,6 +319,40 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
             }
         });
+
+
+
+
+//
+//        count = view.findViewById(R.id.count);
+//
+//        count.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//                    MainBuyerActivity.cartList.add(moduleItem.getId());
+//                    Toast.makeText(getActivity().getBaseContext(), "تمت الاضافة للسلة", Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }  );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }

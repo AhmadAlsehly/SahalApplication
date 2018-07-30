@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.ItemActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
@@ -74,7 +76,7 @@ public class BuyerBodyAdapter extends RecyclerView.Adapter<BuyerBodyAdapter.MyVi
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        ModuleItem item = itemList.get(position);
+        final ModuleItem item = itemList.get(position);
         holder.title.setText(item.getName());
         holder.desc.setText(item.getDescription());
         holder.count.setText(item.getPrice() + " SR");
@@ -108,19 +110,48 @@ public class BuyerBodyAdapter extends RecyclerView.Adapter<BuyerBodyAdapter.MyVi
 
                 intent.putExtra("ModuleItem",itemList.get(position));
 
-                //TODO if the line before failed try this
-//                 intent.putExtra("Name",itemList.get(position).getName());
-//                                intent.putExtra("Category",itemList.get(position).getCategory());
+           view.getContext().startActivity(intent);
 
-
-
-                view.getContext().startActivity(intent);
-//                Intent toItem=new Intent(view.getContext(),ItemActivity.class);
-//                view.getContext().startActivity(toItem);
-
-                // EventBus.getDefault().post(new ItemActivity());
             }
         });
+
+        holder.thumbnail.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(view.getContext(),ItemActivity.class);
+
+                intent.putExtra("ModuleItem",itemList.get(position));
+                view.getContext().startActivity(intent);
+
+            }
+        });
+
+
+        holder.count.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Boolean added = true;
+
+// to add id
+                for (int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
+
+                    if (MainBuyerActivity.cartList.get(i).equals(item.getId())) {
+                        added = false;
+                        Toast.makeText(view.getContext(), "القطعة مضافة مسبقا", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+                if (added) {
+                    MainBuyerActivity.cartList.add(item.getId());
+                    Toast.makeText(view.getContext(), "تمت الاضافة للسلة", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+
+        });
+
 
 
     }
