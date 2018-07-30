@@ -123,9 +123,9 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Buyer buyer = dataSnapshot.getValue(Buyer.class);
-                holder.buyerName.setText(buyer.getBuyerName());
-                holder.buyerNumber.setText(buyer.getMobileNumber());
-                holder.buyerAddress.setText(buyer.getAddress());
+                holder.buyerName.setText("إسم المشتري :  "+buyer.getBuyerName());
+                holder.buyerNumber.setText("رقم التواصل  :  "+buyer.getMobileNumber());
+                holder.buyerAddress.setText(" عنوان الشحن :  "+buyer.getAddress());
             }
 
             @Override
