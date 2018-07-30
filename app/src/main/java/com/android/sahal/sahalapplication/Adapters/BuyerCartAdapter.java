@@ -1,6 +1,8 @@
 package com.android.sahal.sahalapplication.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
@@ -14,10 +16,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.ItemActivity;
+import com.android.sahal.sahalapplication.MainFirstActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -36,7 +41,7 @@ public class BuyerCartAdapter  extends RecyclerView.Adapter<BuyerCartAdapter.MyV
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count,desc;
+        public TextView title, count,desc,remove;
         public ImageView thumbnail, overflow;
         public CardView cardView;
         public MyViewHolder(View view) {
@@ -47,6 +52,7 @@ public class BuyerCartAdapter  extends RecyclerView.Adapter<BuyerCartAdapter.MyV
             overflow = (ImageView) view.findViewById(R.id.overflow);
             desc= (TextView) view.findViewById(R.id.desc);
             cardView=(CardView) view.findViewById(R.id.card_view);
+            remove = (TextView) view.findViewById(R.id.remove);
         }
     }
 
@@ -62,7 +68,7 @@ public class BuyerCartAdapter  extends RecyclerView.Adapter<BuyerCartAdapter.MyV
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.buyer_view_recy, parent, false);
+                .inflate(R.layout.buyer_cart_recy, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -74,7 +80,7 @@ public class BuyerCartAdapter  extends RecyclerView.Adapter<BuyerCartAdapter.MyV
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        ModuleItem item = itemList.get(position);
+        final ModuleItem item = itemList.get(position);
         holder.title.setText(item.getName());
         holder.desc.setText(item.getDescription());
         holder.count.setText(item.getPrice() + " SR");
@@ -96,6 +102,39 @@ public class BuyerCartAdapter  extends RecyclerView.Adapter<BuyerCartAdapter.MyV
             @Override
             public void onClick(View view) {
                 showPopupMenu(holder.overflow);
+            }
+        });
+
+        holder.remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+                builder.setTitle("هل تريد حذف هذه القطعة ؟")
+                        .setMessage("")
+                        .setPositiveButton(android.R.string.yes , new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // continue with delete
+                                for(int i= 0 ; i< MainBuyerActivity.cartList.size();i++){
+                                    if(item.getId().equals(MainBuyerActivity.cartList.get(i))){
+                                        MainBuyerActivity.cartList.remove(i);
+                                        itemList.remove(i);
+                                        notifyDataSetChanged();
+
+                                    }
+
+                                }
+
+
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
 
