@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.ItemActivity;
+import com.android.sahal.sahalapplication.Model.Buyer;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,6 +41,7 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
     private List<ModuleItem> itemList;
 
     private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase2;
 
 
     AlertDialog alertDialog1;
@@ -116,10 +118,23 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
         holder.count.setText(moduleItem.getPrice() + " SR");
 
         //TODO connect to firebase and get buyer info from item.getBuyerId()
+        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("buyer").child(moduleItem.getBuyerId());
+        mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Buyer buyer = dataSnapshot.getValue(Buyer.class);
+                holder.buyerName.setText(buyer.getBuyerName());
+                holder.buyerNumber.setText(buyer.getMobileNumber());
+                holder.buyerAddress.setText(buyer.getAddress());
+            }
 
-        holder.buyerName.setText("");
-        holder.buyerNumber.setText("");
-        holder.buyerAddress.setText("");
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
         if (moduleItem.getStatus().equals("1")) {
@@ -139,7 +154,7 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
 
 
 
-        
+
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
         StorageReference storageReference = firebaseStorage.getReference();
