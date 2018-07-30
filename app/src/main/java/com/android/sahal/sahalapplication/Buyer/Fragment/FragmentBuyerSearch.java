@@ -145,15 +145,24 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 itemList.clear();
+
                 query = databaseReference.orderByChild("name")
                         .startAt(serchText.getText().toString())
                 .endAt(serchText.getText().toString()+"\uf8ff");
+                if(!serchText.getText().toString().equals(""))
+                {
+
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
+                            itemList.clear();
+
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                itemList.add(ds.getValue(ModuleItem.class));
+                                if (ds.child("status").getValue().equals("0"))
+                                {
+                                    itemList.add(ds.getValue(ModuleItem.class));
+                            }
 
                                 buyerSearchAdapter.notifyDataSetChanged();
                             }
@@ -166,6 +175,12 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                     }
                 });
+
+                }else{
+                    itemList.clear();
+
+                    prepareAlbums();
+                }
             }
 
             @Override
@@ -336,8 +351,11 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Log.d("tesst", "this is size :" + dataSnapshot.toString());
-
+                    if (ds.child("status").getValue().equals("0"))
+                    {
                         itemList.add(ds.getValue(ModuleItem.class));
+                    }
+
 
 
 
