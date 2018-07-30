@@ -102,13 +102,16 @@
         android:id="@+id/itemCatg_input"
         android:layout_width="169dp"
         android:layout_height="34dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/search_recyclerView"
         app:layout_constraintEnd_toStartOf="@+id/itemYear_input"
-        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemModel_input" />
+        app:layout_constraintTop_toBottomOf="@+id/itemModel_input"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/itemComp_input"
@@ -137,17 +140,16 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="337dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="228dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemCatg_input"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
