@@ -169,9 +169,6 @@ public class FragmentBuyerOrders extends Fragment implements BuyerOrdersAdapter.
                         //user instead of none
                         if(ds.child("status").getValue().equals("1")) {
                             itemList.add(ds.getValue(ModuleItem.class));
-                            Log.d("tesst", "this is size :" + itemList.size());
-                            Log.d("tesst", "this is name :" + ds.toString());
-
 //                    sellerHomeAdapter.notifyDataSetChanged();
                         } }}
                 if (itemList.equals(null)) {

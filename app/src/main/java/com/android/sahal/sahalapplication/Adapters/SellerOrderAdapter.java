@@ -125,7 +125,7 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
                 Buyer buyer = dataSnapshot.getValue(Buyer.class);
                 holder.buyerName.setText("إسم المشتري :  "+buyer.getBuyerName());
                 holder.buyerNumber.setText("رقم التواصل  :  "+buyer.getMobileNumber());
-                holder.buyerAddress.setText(" عنوان الشحن :  "+buyer.getAddress());
+                holder.buyerAddress.setText(" عنوان الشحن :  "+buyer.getCity());
             }
 
             @Override
@@ -203,7 +203,7 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         ModuleItem dBItem = dataSnapshot.getValue(ModuleItem.class);
-                                        dBItem.setStatus("3");
+                                        dBItem.setStatus("2");
                                         mDatabase.setValue(dBItem);
                                     }
 

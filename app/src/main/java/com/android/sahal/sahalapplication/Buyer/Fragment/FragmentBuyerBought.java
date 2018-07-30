@@ -168,7 +168,7 @@ public class FragmentBuyerBought extends Fragment implements BuyerBoughtAdapter.
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     if(ds.child("buyerId").getValue().equals(user.getUid())){
                         //user instead of none
-                        if(ds.child("status").getValue().equals("3")) {
+                        if(ds.child("status").getValue().equals("2")) {
                             itemList.add(ds.getValue(ModuleItem.class));
                             Log.d("tesst", "this is size :" + itemList.size());
                             Log.d("tesst", "this is name :" + ds.toString());

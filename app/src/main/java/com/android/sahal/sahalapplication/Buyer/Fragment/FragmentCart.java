@@ -31,6 +31,7 @@ import com.android.sahal.sahalapplication.Adapters.BuyerCartAdapter;
 import com.android.sahal.sahalapplication.Adapters.BuyerPartsAdapter;
 import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.MainFirstActivity;
+import com.android.sahal.sahalapplication.Model.Buyer;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,6 +69,7 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
     Button btnPurchase = null;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseB;
 
 
 //--------------------------------------------------------------------------------
@@ -116,53 +118,72 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
                 mAuth = FirebaseAuth.getInstance();
                 final FirebaseUser currentUser = mAuth.getCurrentUser();
                 if (currentUser != null) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    mDatabaseB = FirebaseDatabase.getInstance().getReference().child("buyer").child(currentUser.getUid());
+                    mDatabaseB.addListenerForSingleValueEvent(new ValueEventListener() {
 
-                    builder.setTitle("عملية شراء")
-                            .setMessage("هل انت متاكد من رغبتك في شراء عدد قطع ؟  " + MainBuyerActivity.cartList.size())
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // continue with delete
-                                    for (int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSBuyer) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            Buyer buyer = dataSBuyer.getValue(Buyer.class);
+                            // TODO chake if buyer has location
+                            if (!buyer.getCity().isEmpty()){
+                                builder.setTitle("عملية شراء")
+                                        .setMessage("هل انت متاكد من رغبتك في شراء عدد قطع ؟  " + MainBuyerActivity.cartList.size())
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // continue with delete
+                                                for (int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
 
-                                        mDatabase = FirebaseDatabase.getInstance().getReference().child("items").child(MainBuyerActivity.cartList.get(i));
-                                        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataS) {
-                                                ModuleItem item = dataS.getValue(ModuleItem.class);
-                                                if (item.getStatus().equals("0")) {
-                                                    item.setStatus("1");
-                                                    item.setBuyerId(currentUser.getUid().toString());
-                                                    mDatabase.setValue(item);
-                                                } else {
-                                                    sold++;
+                                                    mDatabase = FirebaseDatabase.getInstance().getReference().child("items").child(MainBuyerActivity.cartList.get(i));
+                                                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot dataS) {
+                                                            ModuleItem item = dataS.getValue(ModuleItem.class);
+                                                            if (item.getStatus().equals("0")) {
+                                                                item.setStatus("1");
+                                                                item.setBuyerId(currentUser.getUid().toString());
+                                                                mDatabase.setValue(item);
+                                                            } else {
+                                                                sold++;
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                        }
+                                                    });
+
+                                                    //add the buyer ID and change the status to 1
                                                 }
+
+                                                if (sold != 0) {
+                                                    Toast.makeText(getContext(), "قطع مباعة تم ازالتها" + sold, Toast.LENGTH_SHORT).show();
+                                                }
+                                                MainBuyerActivity.cartList.clear();
+
+                                                itemList.clear();
+                                                buyerCartAdapter.notifyDataSetChanged();
                                             }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                        })
+                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // do nothing
                                             }
-                                        });
+                                        })
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
 
-                                        //add the buyer ID and change the status to 1
-                                    }
+                        } else {
+                        Toast.makeText(view.getContext(),"اكمل الملف الشخصي لتتم عملية الشراء",Toast.LENGTH_SHORT).show();}
+                        }
 
-                                    if(sold != 0){
-                                    Toast.makeText( getContext() ,"قطع مباعة تم ازالتها"+sold , Toast.LENGTH_SHORT).show();}
-                                     MainBuyerActivity.cartList.clear();
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                    itemList.clear();
-                                    buyerCartAdapter.notifyDataSetChanged();
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // do nothing
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                        }
+                    });
+
 
                     //        ModuleItem a = new ModuleItem("hcd","dfv","fdv","adsfv","sdfvd","jhgfd",9,null);
 //        itemList.add(a);

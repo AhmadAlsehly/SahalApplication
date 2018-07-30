@@ -25,6 +25,7 @@ public class BuyerPersonalData extends AppCompatActivity {
     TextView name = null;
     TextView phone = null;
     TextView email = null;
+    TextView city = null;
     Button btn = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class BuyerPersonalData extends AppCompatActivity {
         name = findViewById(R.id.txtNameb);
         email = findViewById(R.id.txtEmailb);
         phone = findViewById(R.id.txtPhoneb);
-
+        city = findViewById(R.id.txtLocation);
         btn = findViewById(R.id.btnSave);
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -47,6 +48,7 @@ public class BuyerPersonalData extends AppCompatActivity {
                 name.setText(buyer.getBuyerName());
                 email.setText(currentUser.getEmail());
                 phone.setText(buyer.getMobileNumber());
+                city.setText(buyer.getCity());
 
             }
 
@@ -65,6 +67,7 @@ public class BuyerPersonalData extends AppCompatActivity {
                         final Buyer buyer = dataSnapshot.getValue(Buyer.class);
                         buyer.setBuyerName(name.getText().toString().trim());
                         buyer.setMobileNumber(phone.getText().toString().trim());
+                        buyer.setCity(city.getText().toString().trim());
                         mDatabase.setValue(buyer);
                         Intent i = new Intent(getBaseContext() , MainBuyerActivity.class);
                         startActivity(i);

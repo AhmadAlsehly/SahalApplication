@@ -114,7 +114,7 @@ public class SellerSoldItems extends Fragment  implements SellerSoldItemsAdapter
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     if(ds.child("sellerId").getValue().equals(currentUser.getUid())){
                         //user instead of none
-                        if(ds.child("status").getValue().equals("3")) {
+                        if(ds.child("status").getValue().equals("2")) {
                             itemList.add(ds.getValue(ModuleItem.class));
                             Log.d("tesst", "this is size :" + itemList.size());
                             Log.d("tesst", "this is name :" + ds.toString());

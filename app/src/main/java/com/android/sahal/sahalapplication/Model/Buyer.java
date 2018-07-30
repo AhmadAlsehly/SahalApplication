@@ -3,16 +3,24 @@ package com.android.sahal.sahalapplication.Model;
 public class Buyer {
     private String buyerName;
     private String mobileNumber;
-    private String address;
+    private String city;
 
-    public Buyer(String buyerName, String mobileNumber) {
+    public Buyer(String buyerName, String mobileNumber,String city) {
         this.buyerName = buyerName;
         this.mobileNumber = mobileNumber;
-        this.address = address;
+        this.city = city;
     }
 
     public Buyer() {
 
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getBuyerName() {
@@ -23,9 +31,6 @@ public class Buyer {
         return mobileNumber;
     }
 
-    public String getAddress() {
-        return address;
-    }
 
     public void setBuyerName(String buyerName) {
         this.buyerName = buyerName;
@@ -35,8 +40,6 @@ public class Buyer {
         this.mobileNumber = mobileNumber;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+
 }
 

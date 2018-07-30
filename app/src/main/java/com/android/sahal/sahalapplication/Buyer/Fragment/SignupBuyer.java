@@ -38,6 +38,7 @@ public class SignupBuyer extends Fragment {
     EditText number = null;
     EditText name = null;
     Button btnSB = null;
+    EditText city = null ;
     private FirebaseAuth mAuth;
     public static SignupBuyer newInstance(String param1, String param2) {
         SignupBuyer fragment = new SignupBuyer();
@@ -71,12 +72,14 @@ public class SignupBuyer extends Fragment {
         number = view.findViewById(R.id.txtPhoneb) ;
         name = view.findViewById(R.id.txtNameb);
         btnSB = view.findViewById(R.id.button3);
+        city = view.findViewById(R.id.txtLocation);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         btnSB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                final Buyer   buyer = new Buyer(name.getText().toString().trim() , number.getText().toString().trim());
+                final Buyer   buyer = new Buyer(name.getText().toString().trim() , number.getText().toString().trim(),
+                        city.getText().toString().trim());
                 if (!email.getText().toString().isEmpty()&&
                         !pass.getText().toString().isEmpty()&&
                         !name.getText().toString().isEmpty()&&!
