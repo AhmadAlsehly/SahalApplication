@@ -1,8 +1,11 @@
 package com.android.sahal.sahalapplication.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,10 +20,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.ItemActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -30,9 +39,12 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
     private Context mContext;
     private List<ModuleItem> itemList;
 
+    private DatabaseReference mDatabase;
 
 
+    AlertDialog alertDialog1;
 
+    CharSequence[] values = {"التجهيز للشحن","تم الشحن "};
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count,desc,buyerName,buyerNumber,buyerAddress,status;
@@ -98,10 +110,10 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
         String status;
 
 
-        ModuleItem item = itemList.get(position);
-        holder.title.setText(item.getName());
-        holder.desc.setText(item.getDescription());
-        holder.count.setText(item.getPrice() + " SR");
+        final ModuleItem moduleItem = itemList.get(position);
+        holder.title.setText(moduleItem.getName());
+        holder.desc.setText(moduleItem.getDescription());
+        holder.count.setText(moduleItem.getPrice() + " SR");
 
         //TODO connect to firebase and get buyer info from item.getBuyerId()
 
@@ -110,14 +122,14 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
         holder.buyerAddress.setText("");
 
 
-        if (item.getStatus().equals("1")) {
+        if (moduleItem.getStatus().equals("1")) {
             status="تجهيز الشحنة";
             holder.status.setText(status);
-        }else if(item.getStatus().equals("2")){
+        }else if(moduleItem.getStatus().equals("2")){
 
             status="تم الشحن";
             holder.status.setText(status);
-        }else if (item.getStatus().equals("3")){
+        }else if (moduleItem.getStatus().equals("3")){
 
             status="تم الاستلام";
             holder.status.setText(status);
@@ -127,12 +139,12 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
 
 
 
-
+        
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
         StorageReference storageReference = firebaseStorage.getReference();
 
-        storageReference.child("items").child(item.getItemImages().get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        storageReference.child("items").child(moduleItem.getItemImages().get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).fit().centerCrop().into(holder.thumbnail);
@@ -155,21 +167,54 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
 
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(view.getContext(),ItemActivity.class);
 
-                intent.putExtra("ModuleItem",itemList.get(position));
+                final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-                //TODO if the line before failed try this
-//                 intent.putExtra("Name",itemList.get(position).getName());
-//                                intent.putExtra("Category",itemList.get(position).getCategory());
+                builder.setTitle("حالة القطعة");
+
+                builder.setSingleChoiceItems(values, 0, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int item) {
+
+                        switch(item)
+                        {
+                            case 0:
+
+                                Toast.makeText(mContext, "لم يتم تغيير الحالة", Toast.LENGTH_LONG).show();
+                                break;
+                            case 1:
+                                mDatabase = FirebaseDatabase.getInstance().getReference().child("items").child(moduleItem.getId());
+                                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        ModuleItem dBItem = dataSnapshot.getValue(ModuleItem.class);
+                                        dBItem.setStatus("3");
+                                        mDatabase.setValue(dBItem);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                                Toast.makeText(mContext, "تم تغيير الحالة", Toast.LENGTH_LONG).show();
+                                itemList.remove(moduleItem);
+                                notifyDataSetChanged();
+                                break;
+
+                        }
+                        alertDialog1.dismiss();
+                    }
+                });
+                alertDialog1 = builder.create();
+                alertDialog1.show();
 
 
 
-                view.getContext().startActivity(intent);
-//                Intent toItem=new Intent(view.getContext(),ItemActivity.class);
-//                view.getContext().startActivity(toItem);
 
-                // EventBus.getDefault().post(new ItemActivity());
+
+
+
             }
         });
 
