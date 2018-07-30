@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,9 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
     Spinner itemCompan, itemModel, itemYear, itemCatgory;
     Button count;
+
+    boolean filter = false;
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -136,6 +140,244 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
         prepareAlbums();
 
+//        itemCatgory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> arg0, View arg1,
+//                                       int pos, long id) {
+//
+//                String workRequestType = arg0.getItemAtPosition(pos)
+//                        .toString();
+//
+//                if (pos != 0) {
+//                    if (filter == false){
+//
+//                        itemList.clear();
+//                        filter=true;
+//                    }
+//                    query = databaseReference.orderByChild("category")
+//                            .equalTo(workRequestType);
+//
+//                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            if (dataSnapshot.exists()) {
+//                                itemList.clear();
+//
+//                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                                    if (ds.child("status").getValue().equals("0")) {
+//
+//                                        itemList.add(ds.getValue(ModuleItem.class));
+//
+//
+//
+//                                    }
+//                                    buyerSearchAdapter.notifyDataSetChanged();
+//                                }
+//                            }
+//                        }
+//
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//
+//
+//
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                prepareAlbums();
+//
+//            }
+//        });
+//
+//
+//        itemModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> arg0, View arg1,
+//                                       int pos, long id) {
+//
+//                String workRequestType = arg0.getItemAtPosition(pos)
+//                        .toString();
+//
+//                if (pos != 0) {
+//                    if (filter == false){
+//
+//                        itemList.clear();
+//                        filter=true;
+//                    }
+//                    query = databaseReference.orderByChild("type")
+//                            .equalTo(workRequestType);
+//
+//                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            if (dataSnapshot.exists()) {
+//                                itemList.clear();
+//
+//                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                                    if (ds.child("status").getValue().equals("0")) {
+//
+//                                        itemList.add(ds.getValue(ModuleItem.class));
+//
+//
+//
+//                                    }
+//                                    buyerSearchAdapter.notifyDataSetChanged();
+//                                }
+//                            }
+//                        }
+//
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//
+//
+//
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                prepareAlbums();
+//
+//            }
+//        });
+//
+//        itemYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> arg0, View arg1,
+//                                       int pos, long id) {
+//
+//                String workRequestType = arg0.getItemAtPosition(pos)
+//                        .toString();
+//
+//                if (pos != 0) {
+//                    if (filter == false){
+//
+//                        itemList.clear();
+//                        filter=true;
+//                    }
+//                    query = databaseReference.orderByChild("year")
+//                            .equalTo(workRequestType);
+//
+//                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            if (dataSnapshot.exists()) {
+//                                itemList.clear();
+//
+//                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                                    if (ds.child("status").getValue().equals("0")) {
+//
+//                                        itemList.add(ds.getValue(ModuleItem.class));
+//
+//
+//
+//                                    }
+//                                    buyerSearchAdapter.notifyDataSetChanged();
+//                                }
+//                            }
+//                        }
+//
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//
+//
+//
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                prepareAlbums();
+//
+//            }
+//        });
+//
+//
+//     itemCompan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//         @Override
+//         public void onItemSelected(AdapterView<?> arg0, View arg1,
+//                                    int pos, long id) {
+//
+//             String workRequestType = arg0.getItemAtPosition(pos)
+//                     .toString();
+//
+//             if (pos != 0) {
+//                 if (filter == false){
+//
+//                     itemList.clear();
+//             filter=true;
+//                 }
+//                 query = databaseReference.orderByChild("factoryName")
+//                         .equalTo(workRequestType);
+//
+//                 query.addListenerForSingleValueEvent(new ValueEventListener() {
+//                     @Override
+//                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                         if (dataSnapshot.exists()) {
+//                             itemList.clear();
+//
+//                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                                 if (ds.child("status").getValue().equals("0")) {
+//
+//                                     itemList.add(ds.getValue(ModuleItem.class));
+//
+//
+//
+//                                 }
+//                                 buyerSearchAdapter.notifyDataSetChanged();
+//                             }
+//                         }
+//                     }
+//
+//
+//                     @Override
+//                     public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                     }
+//                 });
+//
+//
+//
+//
+//             }
+//
+//
+//         }
+//
+//         @Override
+//         public void onNothingSelected(AdapterView<?> adapterView) {
+//             prepareAlbums();
+//
+//         }
+//     });
+
 
 
 
@@ -162,9 +404,32 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                             itemList.clear();
 
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                if (ds.child("status").getValue().equals("0"))
-                                {
-                                    itemList.add(ds.getValue(ModuleItem.class));
+                                if (ds.child("status").getValue().equals("0")) {
+                                    if (!ds.child("factoryName").getValue().equals(null) && ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString()))
+                                    {
+                                        if (!ds.child("category").getValue().equals(null) && ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString()))
+                                        {
+                                            if (!ds.child("year").getValue().equals(null) && ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) {
+
+                                                if (!ds.child("type").getValue().equals(null) && ds.child("type").getValue().equals(itemModel.getSelectedItem().toString())) {
+
+                                                    itemList.add(ds.getValue(ModuleItem.class));
+                                                }else{
+                                                    itemList.add(ds.getValue(ModuleItem.class));
+
+                                                }
+                                            }else{
+                                                itemList.add(ds.getValue(ModuleItem.class));
+
+                                            }
+                                }else{
+                                            itemList.add(ds.getValue(ModuleItem.class));
+
+                                        }
+
+                                    }else {
+
+                                    }
                             }
 
                                 buyerSearchAdapter.notifyDataSetChanged();
@@ -191,7 +456,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
             }
         });
-
 
 
         String[] comapanys =
