@@ -86,12 +86,14 @@ FirebaseStorage firebaseStorage;
        // holder.thumbnail.setImageBitmap();
         StorageReference storageReference = firebaseStorage.getReference();
 
-        storageReference.child("items").child(moduleItem.getItemImages().get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).fit().centerCrop().into(holder.thumbnail);
-            }
-        });
+        Picasso.get().load( "https://firebasestorage.googleapis.com/v0/b/sahalapp-25947.appspot.com/o?name=items%2F389&uploadType=resumable&upload_id=AEnB2UqNhZFY-0_HZHxG0gddiucr0Y3_tPzd-2V_PoaiV0LS6Rh8nFquTUfh4FYNJAIb-baCiqa2TYKpcutX1ytMsv82pi-H-w&upload_protocol=resumable").fit().centerCrop().into(holder.thumbnail);
+
+//        storageReference.child("items").child(moduleItem.getItemImages().get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                Picasso.get().load(uri).fit().centerCrop().into(holder.thumbnail);
+//            }
+//        });
 
         // loading album cover using Glide library
 //        Glide.with(mContext).load(item.getImages().get(0)).into(holder.thumbnail);

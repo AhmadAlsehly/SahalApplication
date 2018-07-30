@@ -44,6 +44,8 @@ public class SellerAddItem extends Fragment {
 
 
     private List<String> mPhotos = new ArrayList<>();
+    private List<String> linkPhotos = new ArrayList<>();
+
     private List<Uri> uri = new ArrayList<>();
 
     Uri imagePath;
@@ -53,6 +55,10 @@ public class SellerAddItem extends Fragment {
     Spinner itemCompan, itemModel, itemYear, itemCatgory;
     ImageView image1, image2, image3, image4;
     private static int PICK_IMAGE = 100;
+    private static int PICK_IMAGE_2 = 98;
+    private static int PICK_IMAGE_3 = 96;
+    private static int PICK_IMAGE_4 = 94;
+
     private FirebaseStorage firebaseStorage;
     private FirebaseAuth firebaseAuth;
     Button btnDone;
@@ -96,6 +102,7 @@ public class SellerAddItem extends Fragment {
                 for (int i = 0; i < mPhotos.size(); i++){
                     StorageReference imageReference = storageReference.child("items").child(mPhotos.get(i));
                     UploadTask uploadTask = imageReference.putFile((uri.get(i)));
+                    mPhotos.add(uploadTask.getResult().getUploadSessionUri().toString());
 
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -177,16 +184,47 @@ public class SellerAddItem extends Fragment {
                 e.printStackTrace();
             }
         }
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getData() != null) {
+        if (requestCode == PICK_IMAGE_2 && resultCode == RESULT_OK && data.getData() != null) {
             imagePath = data.getData();
             String path = imagePath.getPath();
-            filename = path.substring(path.lastIndexOf("/") + 1);
+            filename = path.substring(path.lastIndexOf("/") + 2);
             mPhotos.add(filename);
             uri.add(imagePath);
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), imagePath);
                 image2.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        if (requestCode == PICK_IMAGE_3 && resultCode == RESULT_OK && data.getData() != null) {
+            imagePath = data.getData();
+            String path = imagePath.getPath();
+            filename = path.substring(path.lastIndexOf("/") + 3);
+            mPhotos.add(filename);
+            uri.add(imagePath);
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), imagePath);
+                image3.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (requestCode == PICK_IMAGE_4 && resultCode == RESULT_OK && data.getData() != null) {
+            imagePath = data.getData();
+            String path = imagePath.getPath();
+            filename = path.substring(path.lastIndexOf("/") + 4);
+            mPhotos.add(filename);
+            uri.add(imagePath);
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), imagePath);
+                image4.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -343,7 +381,7 @@ public class SellerAddItem extends Fragment {
                 Intent intent = new Intent();//(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, PICK_IMAGE);
             }
         });
 
@@ -353,7 +391,7 @@ public class SellerAddItem extends Fragment {
                 Intent intent = new Intent();//(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, PICK_IMAGE_2);
             }
         });
         btnImage3.setOnClickListener(new View.OnClickListener() {
@@ -362,7 +400,7 @@ public class SellerAddItem extends Fragment {
                 Intent intent = new Intent();//(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, PICK_IMAGE_3);
             }
         });
 
@@ -372,7 +410,7 @@ public class SellerAddItem extends Fragment {
                 Intent intent = new Intent();//(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, PICK_IMAGE_4);
             }
         });
 

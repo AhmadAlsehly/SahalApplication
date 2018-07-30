@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+
 
     <TextView
         android:id="@+id/name"
@@ -81,10 +84,10 @@
         android:layout_height="109dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:text="لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا يوت انيم"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintHorizontal_bias="0.896"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
     <TextView
@@ -104,8 +107,8 @@
         android:id="@+id/module"
         android:layout_width="68dp"
         android:layout_height="28sp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/rounded_button"
         android:text="2012"
         android:textColor="@color/white"
@@ -113,32 +116,29 @@
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <Button
-        android:textColor="@color/white"
         android:id="@+id/category"
         android:layout_width="115dp"
         android:layout_height="26dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/rounded_button_darkblue"
         android:text="هيكل وجسم خارجي"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/module"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <Button
-        android:textColor="@color/white"
         android:id="@+id/carName"
         android:layout_width="68dp"
         android:layout_height="28sp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/rounded_button_red"
         android:text="ازيرا"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.971"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
@@ -146,8 +146,8 @@
         android:id="@+id/factoryName"
         android:layout_width="68dp"
         android:layout_height="28sp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/rounded_button"
         android:text="هيونداي"
         android:textColor="@color/white"
@@ -156,15 +156,17 @@
 
     <TextView
         android:id="@+id/sellerName"
-        android:layout_width="56dp"
+        android:layout_width="160dp"
         android:layout_height="25dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="اسم البائع"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.944"
+        app:layout_constraintHorizontal_bias="0.913"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
+
+
 
 
 

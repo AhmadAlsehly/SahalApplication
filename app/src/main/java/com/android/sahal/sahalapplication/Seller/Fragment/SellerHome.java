@@ -56,7 +56,7 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
     private OnFragmentInteractionListener mListener;
     private List<ModuleItem> itemList;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseUser currentUser ;
+    FirebaseUser currentUser;
 
 
 //--------------------------------------------------------------------------------
@@ -148,8 +148,7 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
 
 
     private void prepareAlbums() {
-//        ModuleItem a = new ModuleItem("hcd","dfv","fdv","adsfv","sdfvd","jhgfd",9,null);
-//        itemList.add(a);
+
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -165,7 +164,6 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
                         }
                     }
 
-//                    sellerHomeAdapter.notifyDataSetChanged();
                 }
                 if (itemList.equals(null)) {
 
@@ -183,10 +181,7 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
         databaseReference.addListenerForSingleValueEvent(valueEventListener);
 
 
-//
-//
-//
-//        sellerHomeAdapter.notifyDataSetChanged();
+
     }
 
 //____________________________________________________________

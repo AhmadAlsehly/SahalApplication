@@ -75,7 +75,6 @@ public class ItemActivity extends AppCompatActivity {
         // category.findViewById(R.id.category);
         firebaseDatabase = firebaseDatabase.getInstance();
 
-
         DatabaseReference databaseReference = firebaseDatabase.getReference();
 
         databaseReference.child("seller").child(moduleItem.getSellerId()).child("companyName").addListenerForSingleValueEvent(new ValueEventListener() {
