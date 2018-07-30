@@ -60,7 +60,7 @@ public class SellerProfile extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Seller seller = dataSnapshot.getValue(Seller.class);
-                    name.setText(seller.companyName);
+                    name.setText(seller.getCompanyName());
 
                 }
 

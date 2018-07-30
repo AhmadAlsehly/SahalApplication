@@ -1,9 +1,9 @@
 package com.android.sahal.sahalapplication.Model;
 
 public class Buyer {
-    public String buyerName;
-    public String mobileNumber;
-    public String address;
+    private String buyerName;
+    private String mobileNumber;
+    private String address;
 
     public Buyer(String buyerName, String mobileNumber) {
         this.buyerName = buyerName;
