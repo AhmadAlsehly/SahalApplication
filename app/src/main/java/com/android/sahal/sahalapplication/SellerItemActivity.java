@@ -69,7 +69,7 @@ public class SellerItemActivity extends AppCompatActivity {
             }
         });
 
-        name.setText(moduleItem.getName());
+        name.setText(moduleItem.getItemName());
         desc.setText(moduleItem.getDescription());
         nameOfFactory.setText(moduleItem.getFactoryName());
         yearOfCreat.setText(moduleItem.getYear());

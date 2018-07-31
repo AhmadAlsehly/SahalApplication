@@ -93,7 +93,7 @@ public class ItemActivity extends AppCompatActivity {
 
 
 
-        name.setText(moduleItem.getName());
+        name.setText(moduleItem.getItemName());
         desc.setText(moduleItem.getDescription());
         price.setText(String.valueOf(moduleItem.getPrice()));
         nameOfFactory.setText(moduleItem.getFactoryName());

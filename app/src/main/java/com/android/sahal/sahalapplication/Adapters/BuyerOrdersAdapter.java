@@ -79,7 +79,7 @@ public class BuyerOrdersAdapter extends RecyclerView.Adapter<BuyerOrdersAdapter.
 
 
         ModuleItem item = itemList.get(position);
-        holder.title.setText(item.getName());
+        holder.title.setText(item.getItemName());
         holder.desc.setText(item.getDescription());
         holder.count.setText(item.getPrice() + " SR");
 

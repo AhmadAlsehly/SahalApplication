@@ -80,7 +80,7 @@ FirebaseStorage firebaseStorage;
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         firebaseStorage = FirebaseStorage.getInstance();
         ModuleItem moduleItem = itemList.get(position);
-        holder.title.setText(moduleItem.getName());
+        holder.title.setText(moduleItem.getItemName());
         holder.desc.setText(moduleItem.getDescription());
         holder.count.setText(moduleItem.getPrice() + " SR");
        // holder.thumbnail.setImageBitmap();

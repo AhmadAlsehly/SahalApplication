@@ -104,7 +104,7 @@ public class SellerEditItem extends AppCompatActivity {
         idTextView.setText(moduleItem.getId());
 
 
-        itemName.setText(moduleItem.getName());
+        itemName.setText(moduleItem.getItemName());
 //        itemDescr.setText(moduleItem.getDescription());
         itemPrice.setText(moduleItem.getPrice());
         itemDescr.setText(moduleItem.getDescription());

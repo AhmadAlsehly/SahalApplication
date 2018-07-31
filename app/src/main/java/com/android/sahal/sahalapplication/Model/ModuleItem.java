@@ -6,8 +6,9 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ModuleItem implements Serializable {
-    String name, description, factoryName, type, category, year;
+    String itemName, description, factoryName, type, category, year;
     String price;
+    String carName ;
     List<String> itemImages;
     String sellerId;
     String status;
@@ -16,12 +17,13 @@ public class ModuleItem implements Serializable {
 
 
 
-    public ModuleItem(String name, String desc, String factoryName, String type
+    public ModuleItem(String itemName,String carName ,String desc, String factoryName, String type
             , String category, String year, String price, List<String> itemImages, String sellerId, String status , String buyerId
                       ,String id
     ) {
 
-        this.name = name;
+        this.itemName = itemName;
+        this.carName = carName ;
         this.description = desc;
         this.factoryName = factoryName;
         this.type = type;
@@ -40,6 +42,14 @@ public class ModuleItem implements Serializable {
 
     }
 
+    public String getCarName() {
+        return carName;
+    }
+
+    public void setCarName(String carName) {
+        this.carName = carName;
+    }
+
     public String getSellerId() {
         return sellerId;
     }
@@ -56,12 +66,12 @@ public class ModuleItem implements Serializable {
         this.status = status;
     }
 
-    public String getName() {
-        return name;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setItemName(String name) {
+        this.itemName = name;
     }
 
     public String getDescription() {

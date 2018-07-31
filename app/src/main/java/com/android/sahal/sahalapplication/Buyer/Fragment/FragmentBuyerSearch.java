@@ -1,6 +1,5 @@
 package com.android.sahal.sahalapplication.Buyer.Fragment;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -29,9 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.sahal.sahalapplication.Adapters.BuyerBodyAdapter;
 import com.android.sahal.sahalapplication.Adapters.BuyerSearchAdapter;
-import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.google.firebase.database.DataSnapshot;
@@ -117,7 +114,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         super.onViewCreated(view, savedInstanceState);
         itemCompan = view.findViewById(R.id.itemComp_input);
         itemCatgory = view.findViewById(R.id.itemCatg_input);
-        itemModel = view.findViewById(R.id.itemModel_input);
+        itemModel = view.findViewById(R.id.itemType_input);
         itemYear = view.findViewById(R.id.itemYear_input);
         serchText = view.findViewById(R.id.search_edit_text);
 
@@ -290,7 +287,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         });
 
 
-        itemModel = view.findViewById(R.id.itemModel_input);
+        itemModel = view.findViewById(R.id.itemType_input);
         String[] models =
                 {"أي", "CAMRY", "COROLLA", "AURION"};
         ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, models);

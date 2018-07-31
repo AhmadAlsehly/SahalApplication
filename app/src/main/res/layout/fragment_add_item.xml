@@ -1,371 +1,400 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="15dp">
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="65dp"
-        android:layout_height="24dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="اسم القطعة"
-        app:layout_constraintBottom_toTopOf="@+id/itemName_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/itemName_input"
-        android:layout_width="244dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="72dp"
-        android:ems="10"
-        android:hint="اسم القطعة المدخلة"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="15dp">
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="37dp"
-        android:layout_height="19dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="السعر"
-        app:layout_constraintBottom_toTopOf="@+id/itemCity_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.82"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:text="السيارة"
+            app:layout_constraintBottom_toTopOf="@+id/carName_input"
+            app:layout_constraintEnd_toEndOf="@+id/carName_input"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/itemCity_input"
-        android:layout_width="256dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemName_input" />
+        <Spinner
+            android:id="@+id/carName_input"
+            android:layout_width="168dp"
+            android:layout_height="34dp"
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="الوصف"
-        app:layout_constraintBottom_toTopOf="@+id/itemDescr_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.816"
-        app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="42dp"
+            android:fadingEdge="horizontal"
+            android:isScrollContainer="true"
+            android:spinnerMode="dialog"
+            android:splitMotionEvents="true"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemPrice_input" />
 
-    <EditText
-        android:id="@+id/itemDescr_input"
-        android:layout_width="255dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemCity_input" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="132dp"
+            android:layout_marginTop="16dp"
+            android:text="السعر"
+            app:layout_constraintEnd_toEndOf="@+id/itemPrice_input"
+            app:layout_constraintHorizontal_bias="0.963"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemDescr_input" />
 
-    <Spinner
-        android:id="@+id/itemComp_input"
-        android:layout_width="122dp"
-        android:layout_height="37dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.772"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemDescr_input" />
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="8dp"
+            android:text="اسم القطعة"
+            app:layout_constraintBottom_toTopOf="@+id/itemName_input"
+            app:layout_constraintEnd_toEndOf="@+id/itemName_input"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="الشركة"
-        app:layout_constraintBottom_toTopOf="@+id/itemComp_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.832"
-        app:layout_constraintStart_toStartOf="parent" />
+        <EditText
+            android:id="@+id/itemName_input"
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="72dp"
+            android:ems="10"
+            android:hint="اسم القطعة المدخلة"
+            android:inputType="text"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/itemModel_input"
-        android:layout_width="123dp"
-        android:layout_height="37dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toStartOf="@+id/itemComp_input"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemDescr_input" />
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="8dp"
+            android:text="الوصف"
+            app:layout_constraintBottom_toTopOf="@+id/itemDescr_input"
+            app:layout_constraintEnd_toEndOf="@+id/itemDescr_input"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="النوع"
-        app:layout_constraintBottom_toTopOf="@+id/itemModel_input"
-        app:layout_constraintEnd_toStartOf="@+id/textView17"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Spinner
+            android:id="@+id/itemComp_input"
 
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="الموديل"
-        app:layout_constraintBottom_toTopOf="@+id/itemYear_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.829"
-        app:layout_constraintStart_toStartOf="parent" />
+            android:layout_width="151dp"
+            android:layout_height="37dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="48dp"
+            android:spinnerMode="dialog"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/itemPrice_input"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemDescr_input" />
 
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:text="النوع الرئيسي"
-        app:layout_constraintBottom_toTopOf="@+id/itemCatg_input"
-        app:layout_constraintEnd_toStartOf="@+id/textView19"
-        app:layout_constraintHorizontal_bias="0.765"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:text="الشركة"
+            app:layout_constraintBottom_toTopOf="@+id/itemComp_input"
+            app:layout_constraintEnd_toEndOf="@+id/itemComp_input"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Spinner
-        android:id="@+id/itemYear_input"
-        android:layout_width="74dp"
-        android:layout_height="34dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.823"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemComp_input" />
+        <Spinner
+            android:id="@+id/itemType_input"
 
-    <Spinner
-        android:id="@+id/itemCatg_input"
-        android:layout_width="169dp"
-        android:layout_height="34dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toStartOf="@+id/itemYear_input"
-        app:layout_constraintHorizontal_bias="0.876"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemModel_input" />
+            android:layout_width="144dp"
+            android:layout_height="37dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="42dp"
+            android:spinnerMode="dialog"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/itemCatg_input"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemYear_input" />
 
-    <LinearLayout
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:text="الصنف"
+            app:layout_constraintBottom_toTopOf="@+id/itemType_input"
+            app:layout_constraintEnd_toEndOf="@+id/itemType_input"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        android:id="@+id/relativeAdd"
-        android:layout_width="257dp"
-        android:layout_height="65dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemCatg_input">
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:text="الموديل"
+            app:layout_constraintBottom_toTopOf="@+id/itemYear_input"
+            app:layout_constraintEnd_toEndOf="@+id/itemYear_input"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:text="نوع القطعة"
+            app:layout_constraintBottom_toTopOf="@+id/itemCatg_input"
+            app:layout_constraintEnd_toEndOf="@+id/itemCatg_input"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/itemYear_input"
+
+            android:layout_width="145dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="42dp"
+            android:spinnerMode="dialog"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/carName_input"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemComp_input" />
+
+        <Spinner
+            android:id="@+id/itemCatg_input"
+
+            android:layout_width="173dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="42dp"
+            android:fadingEdge="horizontal"
+
+            android:isScrollContainer="true"
+            android:spinnerMode="dialog"
+            android:splitMotionEvents="true"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/carName_input" />
 
         <LinearLayout
 
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="63dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:weightSum="4">
+            android:id="@+id/relativeAdd"
+            android:layout_width="257dp"
+            android:layout_height="65dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemType_input">
 
-            <TextView
-                android:id="@+id/btnImage4"
-                android:layout_width="wrap_content"
+            <LinearLayout
 
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="63dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:gravity="center"
-                android:onClick="btnImage4"
-                android:text="+"
-                tools:layout_editor_absoluteX="217dp"
-                tools:layout_editor_absoluteY="444dp" />
+                android:weightSum="4">
 
-            <TextView
-                android:id="@+id/btnImage3"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/btnImage4"
+                    android:layout_width="wrap_content"
 
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:onClick="btnImage3"
-                android:text="+"
-                tools:layout_editor_absoluteX="284dp"
-                tools:layout_editor_absoluteY="444dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="btnImage4"
+                    android:text="+"
+                    tools:layout_editor_absoluteX="217dp"
+                    tools:layout_editor_absoluteY="444dp" />
 
-            <TextView
-                android:id="@+id/btnImage2"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/btnImage3"
+                    android:layout_width="wrap_content"
 
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:onClick="btnImage2"
-                android:text="+"
-                tools:layout_editor_absoluteX="342dp"
-                tools:layout_editor_absoluteY="444dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="btnImage3"
+                    android:text="+"
+                    tools:layout_editor_absoluteX="284dp"
+                    tools:layout_editor_absoluteY="444dp" />
 
-            <TextView
-                android:id="@+id/btnImage1"
-                android:layout_width="11dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:onClick="btnImage1"
-                android:text="+"
-                tools:layout_editor_absoluteX="148dp"
-                tools:layout_editor_absoluteY="444dp" />
+                <TextView
+                    android:id="@+id/btnImage2"
+                    android:layout_width="wrap_content"
 
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="btnImage2"
+                    android:text="+"
+                    tools:layout_editor_absoluteX="342dp"
+                    tools:layout_editor_absoluteY="444dp" />
+
+                <TextView
+                    android:id="@+id/btnImage1"
+                    android:layout_width="11dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="btnImage1"
+                    android:text="+"
+                    tools:layout_editor_absoluteX="148dp"
+                    tools:layout_editor_absoluteY="444dp" />
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/butnDone"
+            android:layout_width="211dp"
+            android:layout_height="43dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/rounded_button"
+            android:text="اضف القطعة"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeAdd" />
 
-    <Button
-        android:id="@+id/butnDone"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/rounded_button"
-        android:text="اضف القطعة"
-        android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeAdd" />
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="56dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintEnd_toEndOf="@+id/relativeAdd"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/relativeAdd"
+            app:layout_constraintTop_toTopOf="@+id/relativeAdd" />
 
-    <ImageView
-        android:id="@+id/image1"
-        android:layout_width="56dp"
-        android:layout_height="34dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/butnDone"
-        app:layout_constraintEnd_toEndOf="@+id/relativeAdd"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/relativeAdd"
-        app:layout_constraintTop_toTopOf="@+id/relativeAdd"
-        app:layout_constraintVertical_bias="0.4" />
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="56dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintEnd_toEndOf="@+id/relativeAdd"
+            app:layout_constraintHorizontal_bias="0.66"
+            app:layout_constraintStart_toStartOf="@+id/relativeAdd"
+            app:layout_constraintTop_toTopOf="@+id/relativeAdd" />
 
-    <ImageView
-        android:id="@+id/image2"
-        android:layout_width="56dp"
-        android:layout_height="34dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/butnDone"
-        app:layout_constraintEnd_toEndOf="@+id/relativeAdd"
-        app:layout_constraintHorizontal_bias="0.659"
-        app:layout_constraintStart_toStartOf="@+id/relativeAdd"
-        app:layout_constraintTop_toTopOf="@+id/relativeAdd"
-        app:layout_constraintVertical_bias="0.4" />
+        <ImageView
+            android:id="@+id/image3"
+            android:layout_width="56dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintEnd_toEndOf="@+id/relativeAdd"
+            app:layout_constraintHorizontal_bias="0.318"
+            app:layout_constraintStart_toStartOf="@+id/relativeAdd"
+            app:layout_constraintTop_toTopOf="@+id/relativeAdd" />
 
-    <ImageView
-        android:id="@+id/image3"
-        android:layout_width="56dp"
-        android:layout_height="34dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/butnDone"
-        app:layout_constraintEnd_toEndOf="@+id/relativeAdd"
-        app:layout_constraintHorizontal_bias="0.318"
-        app:layout_constraintStart_toStartOf="@+id/relativeAdd"
-        app:layout_constraintTop_toTopOf="@+id/relativeAdd"
-        app:layout_constraintVertical_bias="0.4" />
+        <ImageView
+            android:id="@+id/image4"
+            android:layout_width="56dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintEnd_toEndOf="@+id/relativeAdd"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/relativeAdd"
+            app:layout_constraintTop_toTopOf="@+id/relativeAdd" />
 
-    <ImageView
-        android:id="@+id/image4"
-        android:layout_width="56dp"
-        android:layout_height="34dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/butnDone"
-        app:layout_constraintEnd_toEndOf="@+id/relativeAdd"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/relativeAdd"
-        app:layout_constraintTop_toTopOf="@+id/relativeAdd"
-        app:layout_constraintVertical_bias="0.4" />
-</android.support.constraint.ConstraintLayout>
+        <EditText
+            android:id="@+id/itemDescr_input"
 
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="48dp"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemName_input" />
+
+        <EditText
+            android:id="@+id/itemPrice_input"
+            android:layout_width="176dp"
+
+            android:layout_height="50dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemDescr_input" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="8dp"
+            android:text="S.R"
+            app:layout_constraintBottom_toBottomOf="@+id/itemPrice_input"
+            app:layout_constraintEnd_toEndOf="@+id/itemPrice_input"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+    </android.support.constraint.ConstraintLayout>
 
 
 </ScrollView>
