@@ -130,7 +130,7 @@ FirebaseStorage firebaseStorage;
 
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(view.getContext(),SellerItemActivity.class);
+                Intent intent=new Intent(view.getContext(),ItemActivity.class);
 
                 intent.putExtra("ModuleItem",itemList.get(position));
 

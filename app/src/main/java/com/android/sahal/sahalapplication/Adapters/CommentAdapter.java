@@ -14,22 +14,18 @@ import com.android.sahal.sahalapplication.R;
 
 import java.util.List;
 
-public class CommentAdapter extends RecyclerView.Adapter<BuyerBodyAdapter.MyViewHolder>  {
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHolder>  {
     private Context mContext;
     private List<ModuleComment> moduleCommentList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count,desc;
-        public ImageView thumbnail, overflow;
-        public CardView cardView;
+        public TextView comment , name;
+
         public MyViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            count = (TextView) view.findViewById(R.id.count);
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-            overflow = (ImageView) view.findViewById(R.id.overflow);
-            desc= (TextView) view.findViewById(R.id.desc);
-            cardView=(CardView) view.findViewById(R.id.card_view);
+            comment = (TextView) view.findViewById(R.id.txtComment);
+            name=(TextView) view.findViewById(R.id.txtComName);
+
         }
     }
 
@@ -47,17 +43,17 @@ public class CommentAdapter extends RecyclerView.Adapter<BuyerBodyAdapter.MyView
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.comment_view_recy, parent, false);
 
-        return new CommentAdapter().MyViewHolder(itemView);
+        return new MyViewHolder(itemView);
     }
 
 
 
-
-
-
     @Override
-    public void onBindViewHolder(final BuyerBodyAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final CommentAdapter.MyViewHolder holder, final int position) {
         final ModuleComment comment = moduleCommentList.get(position);
+        String sss=comment.getSenderName();
+        holder.name.setText(comment.getSenderName());
+        holder.comment.setText(comment.getMessage());
         /*holder.title.setText(item.getName());
         holder.desc.setText(item.getDescription());
         holder.count.setText(item.getPrice() + " SR");*/

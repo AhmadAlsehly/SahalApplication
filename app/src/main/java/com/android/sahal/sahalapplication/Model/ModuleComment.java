@@ -3,13 +3,13 @@ package com.android.sahal.sahalapplication.Model;
 public class ModuleComment {
 
     private String senderId;
-    private String itemId;
-    private  String comments;
+    private String senderName;
+    private String message;
 
-    public ModuleComment(String senderId, String itemId, String comments) {
+    public ModuleComment(String senderId, String senderName, String message) {
         this.senderId = senderId;
-        this.itemId = itemId;
-        this.comments = comments;
+        this.senderName = senderName;
+        this.message = message;
     }
 
     public ModuleComment() {
@@ -23,19 +23,19 @@ public class ModuleComment {
         this.senderId = senderId;
     }
 
-    public String getItemId() {
-        return itemId;
+    public String getSenderName() {
+        return senderName;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 
-    public String getComments() {
-        return comments;
+    public String getMessage() {
+        return message;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
