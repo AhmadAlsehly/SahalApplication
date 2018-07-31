@@ -5,17 +5,29 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.sahal.sahalapplication.Adapters.BuyerBodyAdapter;
+import com.android.sahal.sahalapplication.Adapters.CommentAdapter;
 import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
+import com.android.sahal.sahalapplication.Buyer.Fragment.FragmentBody;
+import com.android.sahal.sahalapplication.Model.Buyer;
+import com.android.sahal.sahalapplication.Model.ModuleComment;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
+import com.android.sahal.sahalapplication.Seller.Activity.MainSellerActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +36,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 
 public class ItemActivity extends AppCompatActivity {
@@ -36,6 +52,17 @@ public class ItemActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     RecyclerView recyclerView;
+    private List<ModuleComment> moduleCommentList ;
+    private CommentAdapter commentAdapter;
+    DatabaseReference mDataRef;
+    private DatabaseReference mDatabase;
+    private FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference ;
+
+
+    EditText editTextComment ;
+    ImageView send ;
+
     ModuleItem item;
 
 
@@ -53,16 +80,53 @@ public class ItemActivity extends AppCompatActivity {
     //  ArrayList<Integer> myImageList = new ArrayList<>();
 //ImageViewe image;
 
-    private FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mDataRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
         //final FirebaseUser user = mAuth.getCurrentUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
         Intent intent = this.getIntent();
         final ModuleItem moduleItem = (ModuleItem) intent.getSerializableExtra("ModuleItem");
+        //to add comments
+        recyclerView = findViewById(R.id.comment_recyclerView);
+        moduleCommentList = new ArrayList<>();
+        commentAdapter = new CommentAdapter(this, moduleCommentList);
+
+        LinearLayoutManager mLayoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(mLayoutManager);
+       // recyclerView.addItemDecoration(new FragmentBody.GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(commentAdapter);
+        editTextComment = findViewById(R.id.editTextComment);
+        send = findViewById(R.id.imageSend);
+        prepareComment();
+//---------------------------------Prepare Comments
+         databaseReference  = firebaseDatabase.getInstance().getReference().child("Comments").child(moduleItem.getId());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    moduleCommentList.add(ds.getValue(ModuleComment.class));
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+//---------------------------------
+
+
         name = findViewById(R.id.name);
         desc = findViewById(R.id.desc);
         price = findViewById(R.id.price_addToCart);
@@ -127,9 +191,78 @@ public class ItemActivity extends AppCompatActivity {
 
 
 
+    //to add comment
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!(currentUser==null)){
+                    if(!editTextComment.getText().toString().isEmpty()) {
+                        mDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.child("buyer").child(currentUser.getUid()).exists()) {
+                                    mDatabase = FirebaseDatabase.getInstance().getReference().child("buyer").child(currentUser.getUid());
+                                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataS) {
+                                            Buyer buyer =  dataS.getValue(Buyer.class);
+                                            ModuleComment comment = new ModuleComment(currentUser.getUid(),
+                                                    buyer.getBuyerName()
+                                                    , editTextComment.getText().toString());
+                                            Log.d("test",comment.getSenderName());
+                                            mDataRef.child("Comments").child(moduleItem.getId()).child(UUID.randomUUID().toString())
+                                                    .setValue(comment);
+                                            editTextComment.setText("");
+                                            commentAdapter.notifyDataSetChanged();
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                    //+++++++
+
+                                } else {
+                                    ModuleComment comment = new ModuleComment(currentUser.getUid(),
+                                            sellerName.getText().toString()
+                                            , editTextComment.getText().toString());
+                                    Log.d("test",comment.getSenderName());
+                                    mDataRef.child("Comments").child(moduleItem.getId()).child(UUID.randomUUID().toString())
+                                            .setValue(comment);
+                                    editTextComment.setText("");
+                                    commentAdapter.notifyDataSetChanged();
+
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+                else { Toast.makeText(getBaseContext(), "يجب ان يحتوي تعليقك على نص",Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+                else {
+                    Toast.makeText(getBaseContext(), "تحتاج لتسجيل الدخول اولا",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+    private void prepareComment() {
 
 
     }
-
-
 }
+
+
+

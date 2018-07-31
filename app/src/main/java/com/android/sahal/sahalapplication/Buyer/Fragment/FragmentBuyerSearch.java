@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,11 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
     Spinner itemCompan, itemModel, itemYear, itemCatgory;
     Button count;
+    //int i=0,i2=0;
+
+    boolean filter = false,factory=false,category=false,model=false,year=false;
+
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -133,6 +139,320 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
         prepareAlbums();
 
+        itemCatgory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int pos, long id) {
+                
+
+                String workRequestType = arg0.getItemAtPosition(pos)
+                        .toString();
+               // final int[] i = {0};
+
+                if (pos != 0) {
+
+                    if (category == false){
+
+                        category=true;
+                    }
+                    switch (pos){
+                        case 1  :
+                        query = databaseReference.orderByChild("category")
+                                .equalTo("قطع خارجية");
+                            return;
+                        case 2:
+                            query = databaseReference.orderByChild("category")
+                                    .equalTo("كهرباء");
+                            return;
+                        case 3:
+                            query = databaseReference.orderByChild("category")
+                                    .equalTo("محركات");
+
+                    }
+
+
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                itemList.clear();
+
+                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                    if (ds.child("status").getValue().equals("0")) {
+
+
+                                        //Year
+                                        //----------------------------------------------------------
+                                        if(year==true){
+                                            if((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString()))&& ! itemYear.getSelectedItem().equals(0)){
+
+                                        itemList.add(ds.getValue(ModuleItem.class));
+                                        //i++;
+
+
+
+                                    }}else{
+                                        //----------------------------------------------------------
+
+
+                                                itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                            }
+
+                                        }
+                                    }
+                                    buyerSearchAdapter.notifyDataSetChanged();
+                                }
+                            else {
+                                itemList.clear();
+                            }
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+
+                }else{
+                    itemList.clear();
+                   prepareAlbums();
+                    buyerSearchAdapter.notifyDataSetChanged();
+
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                prepareAlbums();
+
+            }
+        });
+//
+//
+//        itemModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> arg0, View arg1,
+//                                       int pos, long id) {
+//
+//                String workRequestType = arg0.getItemAtPosition(pos)
+//                        .toString();
+//
+//                if (pos != 0) {
+//                    if (filter == false){
+//
+//                        itemList.clear();
+//                        filter=true;
+//                    }
+//                    query = databaseReference.orderByChild("type")
+//                            .equalTo(workRequestType);
+//
+//                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            if (dataSnapshot.exists()) {
+//                                itemList.clear();
+//
+//                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                                    if (ds.child("status").getValue().equals("0")) {
+//
+//                                        itemList.add(ds.getValue(ModuleItem.class));
+//
+//
+//
+//                                    }
+//                                    buyerSearchAdapter.notifyDataSetChanged();
+//                                }
+//                            }
+//                        }
+//
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//
+//
+//
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                prepareAlbums();
+//
+//            }
+//        });
+//
+        itemYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int pos, long id) {
+
+                final String workRequestType = arg0.getItemAtPosition(pos)
+                        .toString();
+                //final int[] i = {0};
+
+                if (pos != 0) {
+                    if (year == false){
+
+                       // itemList.clear();
+                        year=true;
+                        Log.d(workRequestType, "onItemSelected: "+year);
+
+                    }
+                    query = databaseReference.orderByChild("year")
+                            .equalTo(workRequestType);
+
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                itemList.clear();
+
+                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                    if (ds.child("status").getValue().equals("0")) {
+
+                                        //Category
+//                                        //---------------------------------------------------------
+                                        if(category==true){
+                                                if((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString()))&& !itemCatgory.getSelectedItem().equals(0)){
+
+                                                    itemList.add(ds.getValue(ModuleItem.class));
+                                                   // i2++;
+                                                //    Log.d(workRequestType, "onDataChange: "+i2);
+
+
+
+                                                }}else{
+                                            //------------------------------------------------------
+
+
+                                                itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                            }
+
+                                        }
+
+                                    }
+                                  //  year=true;
+
+                                    buyerSearchAdapter.notifyDataSetChanged();
+                                }
+                            else{
+
+                                itemList.clear();
+
+                            }
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+
+                }else{
+                   // itemCompan.getSelectedItem();
+                    itemList.clear();
+                   prepareAlbums();
+                    buyerSearchAdapter.notifyDataSetChanged();
+
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                prepareAlbums();
+
+            }
+        });
+
+
+//        itemCompan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> arg0, View arg1,
+//                                       int pos, long id) {
+//
+//                String workRequestType = arg0.getItemAtPosition(pos)
+//                        .toString();
+//
+//                if (pos != 0) {
+//
+//                    if (filter == false){
+//
+//                        itemList.clear();
+//                        filter=true;
+//                    }
+//                    query = databaseReference.orderByChild("factoryName")
+//                            .equalTo(workRequestType);
+//
+//                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            if (dataSnapshot.exists()) {
+//                                itemList.clear();
+//
+//                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                                    if (ds.child("status").getValue().equals("0")) {
+//
+//                                        itemList.add(ds.getValue(ModuleItem.class));
+//
+//
+//
+//                                    }
+//                                    buyerSearchAdapter.notifyDataSetChanged();
+//                                }
+//                            }
+//                        }
+//
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//
+//
+//
+//                }else {
+//                    //TODO chick if another filter selected
+//                    prepareAlbums();
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                prepareAlbums();
+//
+//            }
+//        });
+
 
 
 
@@ -159,9 +479,35 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                             itemList.clear();
 
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                if (ds.child("status").getValue().equals("0"))
-                                {
-                                    itemList.add(ds.getValue(ModuleItem.class));
+                                if (ds.child("status").getValue().equals("0")) {
+
+                                itemList.add(ds.getValue(ModuleItem.class));
+
+//                                    if (!ds.child("factoryName").getValue().equals(null) && ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString()))
+//                                    {
+//                                        if (!ds.child("category").getValue().equals(null) && ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString()))
+//                                        {
+//                                            if (!ds.child("year").getValue().equals(null) && ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) {
+//
+//                                                if (!ds.child("type").getValue().equals(null) && ds.child("type").getValue().equals(itemModel.getSelectedItem().toString())) {
+//
+//                                                    itemList.add(ds.getValue(ModuleItem.class));
+//                                                }else{
+//                                                    itemList.add(ds.getValue(ModuleItem.class));
+//
+//                                                }
+//                                            }else{
+//                                                itemList.add(ds.getValue(ModuleItem.class));
+//
+//                                            }
+//                                }else{
+//                                            itemList.add(ds.getValue(ModuleItem.class));
+//
+//                                        }
+//
+//                                    }else {
+//
+//                                    }
                             }
 
                                 buyerSearchAdapter.notifyDataSetChanged();
@@ -188,7 +534,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
             }
         });
-
 
 
         String[] comapanys =
@@ -226,26 +571,26 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         itemCompan.setAdapter(spinnerArrayAdapter);
 
 
-        itemCompan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-                String userActivity = selectedItemText;
-                // If user change the default selection
-                // First item is disable and it is used for hint
-                if (position > 0) {
-                    // Notify the selected item text
-                    Toast.makeText
-                            (getContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        itemCompan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                String selectedItemText = (String) parent.getItemAtPosition(position);
+//                String userActivity = selectedItemText;
+//                // If user change the default selection
+//                // First item is disable and it is used for hint
+//                if (position > 0) {
+//                    // Notify the selected item text
+//                    Toast.makeText
+//                            (getContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         itemCompan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
