@@ -63,6 +63,7 @@ public class ItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item);
         Intent intent = this.getIntent();
         final ModuleItem moduleItem = (ModuleItem) intent.getSerializableExtra("ModuleItem");
+        recyclerView = findViewById(R.id.)
         name = findViewById(R.id.name);
         desc = findViewById(R.id.desc);
         price = findViewById(R.id.price_addToCart);
