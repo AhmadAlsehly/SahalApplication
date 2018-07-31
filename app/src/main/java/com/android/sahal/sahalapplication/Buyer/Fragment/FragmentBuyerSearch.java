@@ -147,20 +147,33 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int pos, long id) {
+                
 
                 String workRequestType = arg0.getItemAtPosition(pos)
                         .toString();
                // final int[] i = {0};
 
                 if (pos != 0) {
+
                     if (category == false){
 
-                        //itemList.clear();
                         category=true;
-                //        Log.d(workRequestType, "onItemSelected: "+category);
                     }
-                    query = databaseReference.orderByChild("category")
-                            .equalTo(workRequestType);
+                    switch (pos){
+                        case 1  :
+                        query = databaseReference.orderByChild("category")
+                                .equalTo("قطع خارجية");
+                            return;
+                        case 2:
+                            query = databaseReference.orderByChild("category")
+                                    .equalTo("كهرباء");
+                            return;
+                        case 3:
+                            query = databaseReference.orderByChild("category")
+                                    .equalTo("محركات");
+
+                    }
+
 
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -318,7 +331,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                     if (ds.child("status").getValue().equals("0")) {
 
                                         //Category
-                                        //----------------------------------------------------------
+//                                        //---------------------------------------------------------
                                         if(category==true){
                                                 if((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString()))&& !itemCatgory.getSelectedItem().equals(0)){
 
