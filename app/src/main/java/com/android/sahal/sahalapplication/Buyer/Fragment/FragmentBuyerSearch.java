@@ -159,7 +159,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                     switch (pos){
                         case 1  :
                         query = databaseReference.orderByChild("category")
-                                .equalTo("قطع خارجية");
+                                .equalTo("بودي");
                             return;
                         case 2:
                             query = databaseReference.orderByChild("category")
@@ -167,7 +167,13 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                             return;
                         case 3:
                             query = databaseReference.orderByChild("category")
-                                    .equalTo("محركات");
+                                    .equalTo("محركات - وقود");
+                            return;
+                            //جير - شاسيه
+                        case 4:
+                            query = databaseReference.orderByChild("category")
+                                    .equalTo("جير - شاسيه");
+                            return;
 
                     }
 
@@ -650,7 +656,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
         itemCatgory = view.findViewById(R.id.itemCatg_input);
         String[] catgs =
-                {"أي", "هيكل", "كهرباء", "محرك"};
+                {"أي", "بودي", "كهرباء", "محركات - وقود", "جير - شاسيه"};
         ArrayAdapter<String> adapterCatg = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, catgs);
         adapterCatg.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemCatgory.setAdapter(adapterCatg);
