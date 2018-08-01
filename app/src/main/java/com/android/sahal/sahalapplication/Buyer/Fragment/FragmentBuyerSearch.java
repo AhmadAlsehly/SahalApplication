@@ -156,27 +156,9 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                         category=true;
                     }
-                    switch (pos){
-                        case 1  :
-                        query = databaseReference.orderByChild("category")
-                                .equalTo("بودي");
-                            return;
-                        case 2:
-                            query = databaseReference.orderByChild("category")
-                                    .equalTo("كهرباء");
-                            return;
-                        case 3:
-                            query = databaseReference.orderByChild("category")
-                                    .equalTo("محركات - وقود");
-                            return;
-                            //جير - شاسيه
-                        case 4:
-                            query = databaseReference.orderByChild("category")
-                                    .equalTo("جير - شاسيه");
-                            return;
 
-                    }
-
+                    query = databaseReference.orderByChild("category")
+                            .equalTo(workRequestType);
 
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -318,7 +300,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                        // itemList.clear();
                         year=true;
-                        Log.d(workRequestType, "onItemSelected: "+year);
+                       // Log.d(workRequestType, "onItemSelected: "+year);
 
                     }
                     query = databaseReference.orderByChild("year")
@@ -339,8 +321,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                                 if((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString()))&& !itemCatgory.getSelectedItem().equals(0)){
 
                                                     itemList.add(ds.getValue(ModuleItem.class));
-                                                   // i2++;
-                                                //    Log.d(workRequestType, "onDataChange: "+i2);
+
 
 
 
@@ -380,7 +361,47 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                 }else{
                    // itemCompan.getSelectedItem();
                     itemList.clear();
-                   prepareAlbums();
+                    query = databaseReference.orderByChild("category")
+                            .equalTo(itemCatgory.getSelectedItem().toString());
+
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                itemList.clear();
+
+                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                    if (ds.child("status").getValue().equals("0")) {
+
+                                        //Category
+//                                        //---------------------------------------------------------
+
+                                        itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                    }
+
+                                }
+                                //  year=true;
+
+                                buyerSearchAdapter.notifyDataSetChanged();
+                            }
+                            else{
+
+                                itemList.clear();
+
+                            }
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
                     buyerSearchAdapter.notifyDataSetChanged();
 
                 }

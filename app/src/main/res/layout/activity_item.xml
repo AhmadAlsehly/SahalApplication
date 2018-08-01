@@ -14,18 +14,17 @@
     android:layout_height="match_parent">
 
 
-
-    <ImageView
+    <com.synnapps.carouselview.CarouselView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="205dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="250dp"
+        app:autoPlay="false"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:slideInterval="300" />
 
 
     <TextView

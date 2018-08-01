@@ -38,6 +38,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +50,7 @@ public class ItemActivity extends AppCompatActivity {
 
     private TextView name, desc, price, category, nameOfFactory, yearOfCreat, carName , sellerName;
     // private Button ;
-    private ImageView imageView;
+    private CarouselView carouselview;
     Button btnCart = null;
     String itemId;
     private FirebaseAuth mAuth;
@@ -171,7 +173,7 @@ public class ItemActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         desc = findViewById(R.id.desc);
         price = findViewById(R.id.price_addToCart);
-        imageView = findViewById(R.id.imageView);
+        carouselview = findViewById(R.id.imageView);
         nameOfFactory = findViewById(R.id.factoryName);
         yearOfCreat = findViewById(R.id.module);
         carName = findViewById(R.id.carName);
@@ -195,6 +197,17 @@ public class ItemActivity extends AppCompatActivity {
             }
         });
 
+
+
+        //imageScroller
+
+        carouselview.setPageCount(moduleItem.getItemImages().size());
+        carouselview.setImageListener(new ImageListener() {
+            @Override
+            public void setImageForPosition(int position, ImageView imageView) {
+                Picasso.get().load(moduleItem.getItemImages().get(position)).fit().centerCrop().into(imageView);
+            }
+        });
 
 
 

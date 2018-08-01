@@ -80,6 +80,8 @@ public class BuyerPartsAdapter extends RecyclerView.Adapter<BuyerPartsAdapter.My
         holder.title.setText(item.getItemName());
         holder.desc.setText(item.getDescription());
         holder.count.setText(item.getPrice() + " SR");
+        Picasso.get().load(item.getItemImages().get(0)).fit().centerCrop().into(holder.thumbnail);
+
 
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
