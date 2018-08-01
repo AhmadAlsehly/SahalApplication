@@ -55,7 +55,13 @@ public class SellerItemActivity extends AppCompatActivity {
         yearOfCreat = findViewById(R.id.module);
         carName = findViewById(R.id.carName);
         btnEdit = findViewById(R.id.editBtn);
+
         // category.findViewById(R.id.category);
+
+
+        // imageView Scroller
+
+
 
 
        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();

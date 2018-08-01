@@ -1,5 +1,6 @@
 package com.android.sahal.sahalapplication.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -104,15 +105,20 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), SellerItemActivity.class);
+               /* Intent intent = new Intent(view.getContext(), SellerItemActivity.class);
 
                 intent.putExtra("ModuleItem", itemList.get(position));
+                view.getContext().startActivity(intent);*/
 
+                Intent intent = new Intent(view.getContext(), ItemActivity.class);
+
+                intent.putExtra("ModuleItem", itemList.get(position));
+                view.getContext().startActivity(intent);
 //                 intent.putExtra("Name",itemList.get(position).getName());
 //                                intent.putExtra("Category",itemList.get(position).getCategory());
 
 
-                view.getContext().startActivity(intent);
+
 //                Intent toItem=new Intent(view.getContext(),ItemActivity.class);
 //                view.getContext().startActivity(toItem);
 
@@ -165,7 +171,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
                 case R.id.action_edit:
 
 
-                    Intent i = new Intent(mContext, SellerEditItem.class);
+                    Intent i = new Intent((Activity)mContext, SellerEditItem.class);
                     i.putExtra("ModuleItem", moduleItem);
 
                     mContext.startActivity(i);
