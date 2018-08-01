@@ -52,11 +52,21 @@ dependencies {
 
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // images scroll view
+
 }
 apply plugin: 'com.google.gms.google-services'
 
+
+
+
 dependencies {
     implementation 'com.android.support:support-v4:26.+'
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
 }
 
 dependencies {
@@ -68,10 +78,6 @@ dependencies {
 }
 
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:+'
-}
-
-dependencies {
     implementation 'com.android.support:support-v4:26.+'
 }
 
@@ -114,3 +120,8 @@ dependencies {
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:+'
 }
+
+dependencies {
+    implementation 'com.synnapps:carouselview:0.1.5'
+}
+
