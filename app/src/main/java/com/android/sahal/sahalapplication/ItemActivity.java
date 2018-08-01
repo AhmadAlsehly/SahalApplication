@@ -58,9 +58,10 @@ public class ItemActivity extends AppCompatActivity {
     private CommentAdapter commentAdapter;
     DatabaseReference mDataRef;
     private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseCheck;
     private FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference ;
-
+    public boolean isSeller = true;
 
     EditText editTextComment ;
     ImageView send ;
@@ -106,6 +107,23 @@ public class ItemActivity extends AppCompatActivity {
         editTextComment = findViewById(R.id.editTextComment);
         send = findViewById(R.id.imageSend);
         prepareComment();
+//+++++++++++++++++++++++++++++++++++++++to check if buyer++++++++++++++++++++++++++++++++++++++++++
+        if(currentUser!=null){
+        mDatabaseCheck=firebaseDatabase.getInstance().getReference();
+        mDatabaseCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+             if(dataSnapshot.child("seller").child(currentUser.getUid()).exists()){
+                 isSeller=false;
+             }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });}
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //---------------------------------Prepare Comments
          databaseReference  = firebaseDatabase.getInstance().getReference().child("Comments").child(moduleItem.getId());
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -190,7 +208,7 @@ public class ItemActivity extends AppCompatActivity {
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(isSeller){
                 Boolean added = true;
 
 // to add id
@@ -207,6 +225,7 @@ public class ItemActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "تمت الاضافة للسلة", Toast.LENGTH_SHORT).show();
 
                 }
+            }
             }
 
 

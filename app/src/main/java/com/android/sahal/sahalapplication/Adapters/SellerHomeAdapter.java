@@ -1,9 +1,12 @@
 package com.android.sahal.sahalapplication.Adapters;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,12 +22,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
+import com.android.sahal.sahalapplication.Model.Buyer;
 import com.android.sahal.sahalapplication.Seller.Activity.SellerEditItem;
 import com.android.sahal.sahalapplication.ItemActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.android.sahal.sahalapplication.SellerItemActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -36,6 +46,8 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
     private Context mContext;
     private List<ModuleItem> itemList;
     FirebaseStorage firebaseStorage;
+    private FirebaseDatabase firebaseDatabase;
+    DatabaseReference mDataRef ;
     ModuleItem moduleItem;
 
 
@@ -74,29 +86,20 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         firebaseStorage = FirebaseStorage.getInstance();
-        ModuleItem moduleItem = itemList.get(position);
+          moduleItem = itemList.get(position);
         holder.title.setText(moduleItem.getItemName());
         holder.desc.setText(moduleItem.getDescription());
         holder.count.setText(moduleItem.getPrice() + " SR");
 
-        // holder.thumbnail.setImageBitmap();
         StorageReference storageReference = firebaseStorage.getReference();
 
         Picasso.get().load(moduleItem.getItemImages().get(0)).fit().centerCrop().into(holder.thumbnail);
 
-//        storageReference.child("items").child(moduleItem.getItemImages().get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-//                Picasso.get().load(uri).fit().centerCrop().into(holder.thumbnail);
-//            }
-//        });
-
-        // loading album cover using Glide library
-//        Glide.with(mContext).load(item.getImages().get(0)).into(holder.thumbnail);
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                moduleItem=itemList.get(position);
                 showPopupMenu(holder.overflow);
             }
         });
@@ -105,15 +108,15 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
             @Override
             public void onClick(View view) {
-               /* Intent intent = new Intent(view.getContext(), SellerItemActivity.class);
-
-                intent.putExtra("ModuleItem", itemList.get(position));
-                view.getContext().startActivity(intent);*/
-
-                Intent intent = new Intent(view.getContext(), ItemActivity.class);
+               Intent intent = new Intent(view.getContext(), ItemActivity.class);
 
                 intent.putExtra("ModuleItem", itemList.get(position));
                 view.getContext().startActivity(intent);
+
+                /*Intent intent = new Intent(view.getContext(), ItemActivity.class);
+
+                intent.putExtra("ModuleItem", itemList.get(position));
+                view.getContext().startActivity(intent);*/
 //                 intent.putExtra("Name",itemList.get(position).getName());
 //                                intent.putExtra("Category",itemList.get(position).getCategory());
 
@@ -170,8 +173,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
             switch (menuItem.getItemId()) {
                 case R.id.action_edit:
 
-
-                    Intent i = new Intent((Activity)mContext, SellerEditItem.class);
+                    Intent i = new Intent(mContext, SellerEditItem.class);
                     i.putExtra("ModuleItem", moduleItem);
 
                     mContext.startActivity(i);
@@ -179,9 +181,42 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
 
                 case R.id.action_remove:
+                    mDataRef =  firebaseDatabase.getInstance().getReference().child("items").child(moduleItem.getId());
+                 mDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                     @Override
+                     public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+                             builder.setTitle("هل تريد حذف هذه القطعة")
+                                     .setMessage("لا يمكنك استعادة هذه البيانات بعد حذفها")
+                                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                         public void onClick(DialogInterface dialog, int which) {
+                                             // continue with delete
 
 
-                    Toast.makeText(mContext, "تمت الإزالة", Toast.LENGTH_SHORT).show();
+                                             dataSnapshot.getRef().removeValue();
+                                             itemList.remove(moduleItem);
+                                             notifyDataSetChanged();
+
+
+                                         }
+                                     })
+                                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                         public void onClick(DialogInterface dialog, int which) {
+                                             // do nothing
+                                         }
+                                     })
+                                     .setIcon(android.R.drawable.ic_dialog_alert)
+                                     .show();
+
+                         }
+
+                     @Override
+                     public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                     }
+                 });
+
                     return true;
                 default:
 

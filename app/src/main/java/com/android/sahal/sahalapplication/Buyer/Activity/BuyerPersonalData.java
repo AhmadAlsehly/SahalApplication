@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.sahal.sahalapplication.Model.Buyer;
 import com.android.sahal.sahalapplication.R;
@@ -61,6 +62,8 @@ public class BuyerPersonalData extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!name.getText().toString().isEmpty() && !phone.getText().toString().isEmpty()
+                        && ! city.getText().toString().isEmpty()){
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -69,7 +72,7 @@ public class BuyerPersonalData extends AppCompatActivity {
                         buyer.setMobileNumber(phone.getText().toString().trim());
                         buyer.setCity(city.getText().toString().trim());
                         mDatabase.setValue(buyer);
-                        Intent i = new Intent(getBaseContext() , MainBuyerActivity.class);
+                        Intent i = new Intent(getBaseContext(), MainBuyerActivity.class);
                         startActivity(i);
                         finish();
                     }
@@ -80,6 +83,10 @@ public class BuyerPersonalData extends AppCompatActivity {
                     }
                 });
             }
+                else {
+                    Toast.makeText(v.getContext(), "جميع البيانات مطلوبة",
+                            Toast.LENGTH_SHORT).show(); }
+        }
         });
     }
 }
