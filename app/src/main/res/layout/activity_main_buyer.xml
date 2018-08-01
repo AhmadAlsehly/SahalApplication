@@ -8,6 +8,7 @@
     tools:context=".Buyer.Activity.MainBuyerActivity"
     tools:layout_editor_absoluteY="25dp">
 
+
     <FrameLayout
         android:id="@+id/buyer_container"
         android:layout_width="0dp"
