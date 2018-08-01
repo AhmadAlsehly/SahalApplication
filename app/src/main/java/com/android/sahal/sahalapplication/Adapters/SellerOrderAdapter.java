@@ -116,6 +116,8 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
         holder.title.setText(moduleItem.getItemName());
         holder.desc.setText(moduleItem.getDescription());
         holder.count.setText(moduleItem.getPrice() + " SR");
+        Picasso.get().load(moduleItem.getItemImages().get(0)).fit().centerCrop().into(holder.thumbnail);
+
 
         //TODO connect to firebase and get buyer info from item.getBuyerId()
         mDatabase2 = FirebaseDatabase.getInstance().getReference().child("buyer").child(moduleItem.getBuyerId());
