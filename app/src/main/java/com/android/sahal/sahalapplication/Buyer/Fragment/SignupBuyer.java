@@ -113,7 +113,7 @@ public class SignupBuyer extends Fragment {
                                 }
 
                             });}else {
-                    Toast.makeText(v.getContext(), "All field are required",
+                    Toast.makeText(v.getContext(), "جميع البيانات مطلوبة",
                             Toast.LENGTH_SHORT).show(); }
 
             }
