@@ -1,8 +1,11 @@
 package com.android.sahal.sahalapplication.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +16,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.sahal.sahalapplication.Buyer.Activity.MainBuyerActivity;
 import com.android.sahal.sahalapplication.ItemActivity;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -29,7 +39,11 @@ public class BuyerBoughtAdapter extends RecyclerView.Adapter<BuyerBoughtAdapter.
 
     private Context mContext;
     private List<ModuleItem> itemList;
+    private DatabaseReference mDatabase;
 
+    AlertDialog alertDialog1;
+
+    CharSequence[] values = {"رائعة","ممتازة","جيدة","مقبولة","غير مرضية"};
 
 
 
@@ -62,7 +76,7 @@ public class BuyerBoughtAdapter extends RecyclerView.Adapter<BuyerBoughtAdapter.
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.buyer_view_recy, parent, false);
+                .inflate(R.layout.buyer_porchase_recy, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -74,7 +88,7 @@ public class BuyerBoughtAdapter extends RecyclerView.Adapter<BuyerBoughtAdapter.
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        ModuleItem item = itemList.get(position);
+        final ModuleItem item = itemList.get(position);
         holder.title.setText(item.getItemName());
         holder.desc.setText(item.getDescription());
         holder.count.setText(item.getPrice() + " SR");
@@ -105,21 +119,58 @@ public class BuyerBoughtAdapter extends RecyclerView.Adapter<BuyerBoughtAdapter.
 
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(view.getContext(),ItemActivity.class);
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        final ModuleItem item1 = dataSnapshot.child("items").child(item.getId()).getValue(ModuleItem.class);
+                        if(item1.getReview().equals("لم تقيم")){
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-                intent.putExtra("ModuleItem",itemList.get(position));
+                        builder.setTitle("تقييم القطعة");
 
-                //TODO if the line before failed try this
-//                 intent.putExtra("Name",itemList.get(position).getName());
-//                                intent.putExtra("Category",itemList.get(position).getCategory());
+                        builder.setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int item) {
+
+                                switch (item) {
+                                    case 0:
+                                        item1.setReview("5");
+                                        mDatabase.child("items").child(item1.getId()).setValue(item1);
+                                        break;
+                                    case 1:
+                                        item1.setReview("4");
+                                        mDatabase.child("items").child(item1.getId()).setValue(item1);
+                                        break;
+                                    case 2:
+                                        item1.setReview("3");
+                                        mDatabase.child("items").child(item1.getId()).setValue(item1);
+                                        break;
+                                    case 3:
+                                        item1.setReview("2");
+                                        mDatabase.child("items").child(item1.getId()).setValue(item1);
+                                        break;
+                                    case 4:
+                                        item1.setReview("1");
+                                        mDatabase.child("items").child(item1.getId()).setValue(item1);
+                                        break;
+                                }
+                                alertDialog1.dismiss();
+                            }
+                        });
+                        alertDialog1 = builder.create();
+                        alertDialog1.show();
+                    }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
 
 
-                view.getContext().startActivity(intent);
-//                Intent toItem=new Intent(view.getContext(),ItemActivity.class);
-//                view.getContext().startActivity(toItem);
-
-                // EventBus.getDefault().post(new ItemActivity());
             }
         });
 

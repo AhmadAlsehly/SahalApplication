@@ -150,7 +150,12 @@ public class SellerAddItem extends Fragment {
                     storageReference.child("items").child(mPhotos.get(i)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
+                            count++;
                             linkPhotos.add(uri.toString());
+                            if (count == 4) {
+                                uploadItem();
+                            }
+
                         }
                     });
 
@@ -166,11 +171,7 @@ public class SellerAddItem extends Fragment {
                             task.getResult().getStorage().getDownloadUrl();
                             Toast.makeText(v.getContext(), "Upload successful!", Toast.LENGTH_SHORT).show();
 
-                            count++;
 
-                            if (count == mPhotos.size()) {
-                                uploadItem();
-                            }
                         }
                     });
 
@@ -199,7 +200,7 @@ public class SellerAddItem extends Fragment {
                     itemType.getSelectedItem().toString(),
                     itemCatgory.getSelectedItem().toString(),
                     itemYear.getSelectedItem().toString(),
-                    itemPrice.getText().toString(), linkPhotos, mAuth.getUid(), "0", buyerId, itemId);
+                    itemPrice.getText().toString(), linkPhotos, mAuth.getUid(), "0", buyerId, itemId,"لم تقيم");
 
 
             mDataRef.child("items").child(itemId).setValue(moduleItem);
