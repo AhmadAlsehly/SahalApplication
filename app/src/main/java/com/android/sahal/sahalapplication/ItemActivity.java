@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -28,6 +29,7 @@ import com.android.sahal.sahalapplication.Seller.Activity.MainSellerActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -106,15 +108,36 @@ public class ItemActivity extends AppCompatActivity {
         prepareComment();
 //---------------------------------Prepare Comments
          databaseReference  = firebaseDatabase.getInstance().getReference().child("Comments").child(moduleItem.getId());
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+               databaseReference.addChildEventListener(new ChildEventListener() {
+                   @Override
+                   public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                       moduleCommentList.add(dataSnapshot.getValue(ModuleComment.class));
+                       commentAdapter.notifyDataSetChanged();
+                   }
 
-                    moduleCommentList.add(ds.getValue(ModuleComment.class));
+                   @Override
+                   public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                }
+                   }
 
+                   @Override
+                   public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                   }
+
+                   @Override
+                   public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                   }
+
+                   @Override
+                   public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                   }
+               });
             }
 
             @Override
@@ -212,7 +235,7 @@ public class ItemActivity extends AppCompatActivity {
                                                     buyer.getBuyerName()
                                                     , editTextComment.getText().toString());
                                             Log.d("test",comment.getSenderName());
-                                            mDataRef.child("Comments").child(moduleItem.getId()).child(UUID.randomUUID().toString())
+                                            mDataRef.child("Comments").child(moduleItem.getId()).push()
                                                     .setValue(comment);
                                             editTextComment.setText("");
                                             commentAdapter.notifyDataSetChanged();
