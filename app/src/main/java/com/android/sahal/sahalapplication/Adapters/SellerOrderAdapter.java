@@ -113,7 +113,7 @@ public class SellerOrderAdapter extends RecyclerView.Adapter<SellerOrderAdapter.
 
 
         final ModuleItem moduleItem = itemList.get(position);
-        holder.title.setText(moduleItem.getName());
+        holder.title.setText(moduleItem.getItemName());
         holder.desc.setText(moduleItem.getDescription());
         holder.count.setText(moduleItem.getPrice() + " SR");
 

@@ -83,7 +83,7 @@ public class SellerSoldItemsAdapter extends RecyclerView.Adapter<SellerSoldItems
     @Override
     public void onBindViewHolder(final SellerSoldItemsAdapter.MyViewHolder holder, final int position) {
         ModuleItem item = itemList.get(position);
-        holder.title.setText(item.getName());
+        holder.title.setText(item.getItemName());
         holder.desc.setText(item.getDescription());
         holder.count.setText(item.getPrice() + " SR");
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();

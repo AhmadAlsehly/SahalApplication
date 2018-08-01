@@ -81,7 +81,7 @@ public class BuyerCartAdapter  extends RecyclerView.Adapter<BuyerCartAdapter.MyV
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final ModuleItem item = itemList.get(position);
-        holder.title.setText(item.getName());
+        holder.title.setText(item.getItemName());
         holder.desc.setText(item.getDescription());
         holder.count.setText(item.getPrice() + " SR");
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();

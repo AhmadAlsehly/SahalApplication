@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,24 +34,23 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
     private Context mContext;
     private List<ModuleItem> itemList;
-FirebaseStorage firebaseStorage;
-
-
-
+    FirebaseStorage firebaseStorage;
+    ModuleItem moduleItem;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count,desc;
+        public TextView title, count, desc;
         public ImageView thumbnail, overflow;
         public CardView cardView;
+
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             count = (TextView) view.findViewById(R.id.count);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             overflow = (ImageView) view.findViewById(R.id.overflow);
-            desc= (TextView) view.findViewById(R.id.desc);
-            cardView=(CardView) view.findViewById(R.id.card_view);
+            desc = (TextView) view.findViewById(R.id.desc);
+            cardView = (CardView) view.findViewById(R.id.card_view);
         }
     }
 
@@ -59,8 +59,6 @@ FirebaseStorage firebaseStorage;
         this.mContext = mContext;
         this.itemList = itemsList;
     }
-
-
 
 
     @Override
@@ -72,21 +70,18 @@ FirebaseStorage firebaseStorage;
     }
 
 
-
-
-
-
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         firebaseStorage = FirebaseStorage.getInstance();
         ModuleItem moduleItem = itemList.get(position);
-        holder.title.setText(moduleItem.getName());
+        holder.title.setText(moduleItem.getItemName());
         holder.desc.setText(moduleItem.getDescription());
         holder.count.setText(moduleItem.getPrice() + " SR");
-       // holder.thumbnail.setImageBitmap();
+
+        // holder.thumbnail.setImageBitmap();
         StorageReference storageReference = firebaseStorage.getReference();
 
-        Picasso.get().load( "https://firebasestorage.googleapis.com/v0/b/sahalapp-25947.appspot.com/o?name=items%2F389&uploadType=resumable&upload_id=AEnB2UqNhZFY-0_HZHxG0gddiucr0Y3_tPzd-2V_PoaiV0LS6Rh8nFquTUfh4FYNJAIb-baCiqa2TYKpcutX1ytMsv82pi-H-w&upload_protocol=resumable").fit().centerCrop().into(holder.thumbnail);
+        Picasso.get().load(moduleItem.getItemImages().get(0)).fit().centerCrop().into(holder.thumbnail);
 
 //        storageReference.child("items").child(moduleItem.getItemImages().get(0)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //            @Override
@@ -109,13 +104,12 @@ FirebaseStorage firebaseStorage;
 
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(view.getContext(),SellerItemActivity.class);
+                Intent intent = new Intent(view.getContext(), SellerItemActivity.class);
 
-              intent.putExtra("ModuleItem",itemList.get(position));
+                intent.putExtra("ModuleItem", itemList.get(position));
 
 //                 intent.putExtra("Name",itemList.get(position).getName());
 //                                intent.putExtra("Category",itemList.get(position).getCategory());
-
 
 
                 view.getContext().startActivity(intent);
@@ -130,13 +124,12 @@ FirebaseStorage firebaseStorage;
 
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(view.getContext(),ItemActivity.class);
+                Intent intent = new Intent(view.getContext(), ItemActivity.class);
 
-                intent.putExtra("ModuleItem",itemList.get(position));
+                intent.putExtra("ModuleItem", itemList.get(position));
 
 //                 intent.putExtra("Name",itemList.get(position).getName());
 //                                intent.putExtra("Category",itemList.get(position).getCategory());
-
 
 
                 view.getContext().startActivity(intent);
@@ -149,7 +142,6 @@ FirebaseStorage firebaseStorage;
 
 
     }
-
 
 
     private void showPopupMenu(View view) {
@@ -173,10 +165,11 @@ FirebaseStorage firebaseStorage;
                 case R.id.action_edit:
 
 
+                    Intent i = new Intent(mContext, SellerEditItem.class);
+                    i.putExtra("ModuleItem", moduleItem);
 
-                    Toast.makeText(mContext, "تعديل", Toast.LENGTH_SHORT).show();
+                    mContext.startActivity(i);
                     return true;
-
 
 
                 case R.id.action_remove:
@@ -199,19 +192,11 @@ FirebaseStorage firebaseStorage;
     }
 
 
-
-
-
-
-    public interface onItemClickListener{
+    public interface onItemClickListener {
         public void itemDetailClick(ModuleItem item);
 
 
-
     }
-
-
-
 
 
 }
