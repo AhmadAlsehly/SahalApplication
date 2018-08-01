@@ -365,7 +365,7 @@ public class SellerAddItem extends Fragment {
 
         itemCatgory = view.findViewById(R.id.itemCatg_input);
         String[] catgs =
-                {"", "هيكل", "كهرباء", "محركات", "قطع خارجية"};
+                {"أي", "بودي", "كهرباء", "محركات - وقود", "جير - شاسيه"};
         ArrayAdapter<String> adapterCatg = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, catgs);
         adapterCatg.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemCatgory.setAdapter(adapterCatg);
@@ -373,7 +373,7 @@ public class SellerAddItem extends Fragment {
         itemType = view.findViewById(R.id.itemType_input);
 
         String[] type =
-                {"", "اضاءة", "ابواب", "مقاعد", "مضخة "};
+                {"أي", "اضاءة", "ابواب", "مقاعد", "مضخة "};
         ArrayAdapter<String> adapterType = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, type);
         adapterType.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemType.setAdapter(adapterType);
