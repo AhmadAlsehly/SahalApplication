@@ -34,11 +34,12 @@ public class SellerProfile extends Fragment {
 
     TextView name = null;
     Button pDButton = null;
-    Button BtnLogOut ;
+    Button BtnLogOut;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_seller_profile , container,false);
+        return inflater.inflate(R.layout.fragment_seller_profile, container, false);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class SellerProfile extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             mDatabase = FirebaseDatabase.getInstance().getReference().child("seller").child(currentUser.getUid());
 
             //+++++++++++عرض البيانات +++++++++++++++++++++++++++++++++++++
@@ -74,16 +75,6 @@ public class SellerProfile extends Fragment {
         }
 
 
-
-
-
-
-
-
-
-
-
-
         super.onViewCreated(view, savedInstanceState);
 
         // Do log out
@@ -102,7 +93,7 @@ public class SellerProfile extends Fragment {
                                 // continue with delete
                                 FirebaseAuth.getInstance().signOut();
                                 MainBuyerActivity.cartList.clear();
-                                Intent intent = new Intent(v.getContext(),MainFirstActivity.class);
+                                Intent intent = new Intent(v.getContext(), MainFirstActivity.class);
                                 startActivity(intent);
                                 getActivity().finish();
                             }
@@ -116,17 +107,16 @@ public class SellerProfile extends Fragment {
                         .show();
 
 
+            }
+        });
+        pDButton = view.findViewById(R.id.prsonalData);
+        pDButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent((Activity) v.getContext(), SellerPersonalData.class);
+                startActivity(i);
 
             }
         });
-       pDButton = view.findViewById(R.id.prsonalData);
-       pDButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent i = new Intent((Activity)v.getContext(),SellerPersonalData.class);
-               startActivity(i);
-
-           }
-       });
     }
 }

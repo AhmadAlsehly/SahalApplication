@@ -315,7 +315,7 @@ public class SellerAddItem extends Fragment {
     private void carsSpinner() {
         if (selectedItem != null) {
             carsName.clear();
-                                    carsName.add(0, "اختر سيارة");
+            carsName.add(0, "اختر سيارة");
 
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             DatabaseReference carsReferenc = firebaseDatabase.getInstance().getReference().child("cars").child(selectedItem);
@@ -330,7 +330,6 @@ public class SellerAddItem extends Fragment {
                         }
                     }
                 }
-
 
 
                 @Override

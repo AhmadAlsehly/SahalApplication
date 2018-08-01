@@ -181,7 +181,6 @@ public class SellerHome extends Fragment implements SellerHomeAdapter.onItemClic
         databaseReference.addListenerForSingleValueEvent(valueEventListener);
 
 
-
     }
 
 //____________________________________________________________
