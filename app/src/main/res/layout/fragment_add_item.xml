@@ -242,7 +242,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:onClick="btnImage4"
-                    android:text="+"
+                    android:text=""
                     tools:layout_editor_absoluteX="217dp"
                     tools:layout_editor_absoluteY="444dp" />
 
@@ -254,7 +254,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:onClick="btnImage3"
-                    android:text="+"
+                    android:text=""
                     tools:layout_editor_absoluteX="284dp"
                     tools:layout_editor_absoluteY="444dp" />
 
@@ -266,7 +266,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:onClick="btnImage2"
-                    android:text="+"
+                    android:text=""
                     tools:layout_editor_absoluteX="342dp"
                     tools:layout_editor_absoluteY="444dp" />
 
@@ -277,7 +277,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:onClick="btnImage1"
-                    android:text="+"
+                    android:text=""
                     tools:layout_editor_absoluteX="148dp"
                     tools:layout_editor_absoluteY="444dp" />
 
@@ -311,6 +311,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="14dp"
+            android:src="@drawable/camera"
             app:layout_constraintEnd_toEndOf="@+id/relativeAdd"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/relativeAdd"
@@ -323,6 +324,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="14dp"
+            android:src="@drawable/camera"
             app:layout_constraintEnd_toEndOf="@+id/relativeAdd"
             app:layout_constraintHorizontal_bias="0.66"
             app:layout_constraintStart_toStartOf="@+id/relativeAdd"
@@ -335,6 +337,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="14dp"
+            android:src="@drawable/camera"
             app:layout_constraintEnd_toEndOf="@+id/relativeAdd"
             app:layout_constraintHorizontal_bias="0.318"
             app:layout_constraintStart_toStartOf="@+id/relativeAdd"
@@ -347,6 +350,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="14dp"
+            android:src="@drawable/camera"
             app:layout_constraintEnd_toEndOf="@+id/relativeAdd"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/relativeAdd"

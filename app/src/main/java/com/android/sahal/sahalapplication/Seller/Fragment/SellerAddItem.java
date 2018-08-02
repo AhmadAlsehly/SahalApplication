@@ -1,5 +1,6 @@
 package com.android.sahal.sahalapplication.Seller.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.android.sahal.sahalapplication.Model.Item;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
+import com.android.sahal.sahalapplication.Seller.Activity.MainSellerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -138,6 +140,11 @@ public class SellerAddItem extends Fragment {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+                        "جاري رفع القطعة....", true);
+                if (!itemName.getText().toString().isEmpty()&&!itemDescr.getText().toString().isEmpty()
+                        && !itemPrice.getText().toString().isEmpty()&&!itemCompan.getSelectedItem().equals("اختر شركة")
+                && !itemCarName.getSelectedItem().equals("اختر سيارة")){
 
                 for (int i = 0; i < mPhotos.size(); i++) {
                     Log.d("photoname", mPhotos.get(i));
@@ -169,7 +176,7 @@ public class SellerAddItem extends Fragment {
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                             //linkPhotos.add(task.getResult().getUploadSessionUri().toString());
                             task.getResult().getStorage().getDownloadUrl();
-                            Toast.makeText(v.getContext(), "Upload successful!", Toast.LENGTH_SHORT).show();
+                           
 
 
                         }
@@ -177,6 +184,10 @@ public class SellerAddItem extends Fragment {
 
 
                 }
+            }else {
+                    Toast.makeText(view.getContext(),"جميع الحقول مطلوبة",Toast.LENGTH_SHORT).show();
+                }
+
             }
 
         });
@@ -188,9 +199,7 @@ public class SellerAddItem extends Fragment {
     }
 
     void uploadItem() {
-        if (!itemName.getText().toString().isEmpty()
-                || !itemPrice.getText().toString().isEmpty()
-                || !itemDescr.getText().toString().isEmpty()) {
+
 
             String itemId = "item" + UUID.randomUUID();
             ModuleItem moduleItem = new ModuleItem(itemName.getText().toString(),
@@ -206,11 +215,9 @@ public class SellerAddItem extends Fragment {
             mDataRef.child("items").child(itemId).setValue(moduleItem);
 
             Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getContext(), "complete all fields pleas", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(getContext(), MainSellerActivity.class);
+        startActivity(i);
 
-
-        }
 
 
     }
@@ -357,7 +364,7 @@ public class SellerAddItem extends Fragment {
 
         itemYear = view.findViewById(R.id.itemYear_input);
         String[] years =
-                {"", "2011", "2012", "2013"};
+                { "2011", "2012", "2013"};
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, years);
         adapterYear.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemYear.setAdapter(adapterYear);
@@ -365,7 +372,7 @@ public class SellerAddItem extends Fragment {
 
         itemCatgory = view.findViewById(R.id.itemCatg_input);
         String[] catgs =
-                {"أي", "بودي", "كهرباء", "محركات - وقود", "جير - شاسيه"};
+                { "بودي", "كهرباء", "محركات - وقود", "جير - شاسيه"};
         ArrayAdapter<String> adapterCatg = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, catgs);
         adapterCatg.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemCatgory.setAdapter(adapterCatg);
@@ -373,7 +380,7 @@ public class SellerAddItem extends Fragment {
         itemType = view.findViewById(R.id.itemType_input);
 
         String[] type =
-                {"أي", "اضاءة", "ابواب", "مقاعد", "مضخة "};
+                { "اضاءة", "ابواب", "مقاعد", "مضخة "};
         ArrayAdapter<String> adapterType = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, type);
         adapterType.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemType.setAdapter(adapterType);
