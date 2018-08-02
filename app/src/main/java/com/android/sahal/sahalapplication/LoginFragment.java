@@ -1,5 +1,6 @@
 package com.android.sahal.sahalapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -102,6 +103,8 @@ public class LoginFragment extends Fragment {
         doLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+                        "جاري تسجيل الدخول....", true);
                 if(!(email.getText().toString().isEmpty())&&!(password.getText().toString().isEmpty())){
                 mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -118,13 +121,11 @@ public class LoginFragment extends Fragment {
                                            if (dataSnapshot.child("buyer").child(user.getUid()).exists()) {
 
                                                Intent i = new Intent(getContext(),MainBuyerActivity.class);
-                                               Toast.makeText(getContext(),"Welcome",Toast.LENGTH_SHORT).show();
                                                startActivity(i);
                                                getActivity().finish();
 
                                            } else {
                                                Intent i = new Intent(getContext(),MainSellerActivity.class);
-                                               Toast.makeText(getContext(),"Welcome",Toast.LENGTH_SHORT).show();
                                                MainBuyerActivity.cartList.clear();
                                                startActivity(i);
                                                getActivity().finish();
