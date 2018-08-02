@@ -34,6 +34,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -51,7 +52,7 @@ public class ItemActivity extends AppCompatActivity {
     private TextView name, desc, price, category, nameOfFactory, yearOfCreat, carName , sellerName;
     // private Button ;
     private CarouselView carouselview;
-    Button btnCart = null;
+    Button btnCart ,review;
     String itemId;
     private FirebaseAuth mAuth;
 
@@ -61,15 +62,16 @@ public class ItemActivity extends AppCompatActivity {
     DatabaseReference mDataRef;
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabaseCheck;
+    private DatabaseReference mDatabaseRate;
     private FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference ;
     public boolean isSeller = true;
-
+    public  int sum;
+    public int count;
     EditText editTextComment ;
     ImageView send ;
-
     ModuleItem item;
-
+    ModuleItem item2;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
@@ -100,7 +102,6 @@ public class ItemActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.comment_recyclerView);
         moduleCommentList = new ArrayList<>();
         commentAdapter = new CommentAdapter(this, moduleCommentList);
-
         LinearLayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mLayoutManager);
        // recyclerView.addItemDecoration(new FragmentBody.GridSpacingItemDecoration(2, dpToPx(10), true));
@@ -108,10 +109,42 @@ public class ItemActivity extends AppCompatActivity {
         recyclerView.setAdapter(commentAdapter);
         editTextComment = findViewById(R.id.editTextComment);
         send = findViewById(R.id.imageSend);
+        Query query;
         prepareComment();
+ //++++++++++++++++++++++++++++++++++++++rating faild+++++++++++++++++++++++++++++++++++++++++++++++
+        sum = 0;
+        count = 0;
+        query = mDataRef.child("items").orderByChild("sellerId")
+                .equalTo(moduleItem.getSellerId());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if (!(ds.child("review").getValue().equals("لم تقيم"))) {
+                      sum +=Integer.parseInt(ds.child("review").getValue().toString());
+                        count++;
+                       // Toast.makeText(getBaseContext(),ds.child("review").getValue().toString(),Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }
+                if(count>0){
+                    int rate = sum/count;
+                    review.setText(rate+"");}
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 //+++++++++++++++++++++++++++++++++++++++to check if buyer++++++++++++++++++++++++++++++++++++++++++
         if(currentUser!=null){
-        mDatabaseCheck=firebaseDatabase.getInstance().getReference();
+        mDatabaseCheck=FirebaseDatabase.getInstance().getReference();
         mDatabaseCheck.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -179,6 +212,7 @@ public class ItemActivity extends AppCompatActivity {
         carName = findViewById(R.id.carName);
         btnCart = findViewById(R.id.price_addToCart);
         sellerName = findViewById(R.id.sellerName);
+        review=findViewById(R.id.rateField);
         // category.findViewById(R.id.category);
         firebaseDatabase = firebaseDatabase.getInstance();
 
@@ -217,6 +251,7 @@ public class ItemActivity extends AppCompatActivity {
         nameOfFactory.setText(moduleItem.getFactoryName());
         yearOfCreat.setText(moduleItem.getYear());
         carName.setText(moduleItem.getType());
+
 
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override

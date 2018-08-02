@@ -118,7 +118,7 @@ public class BuyerBoughtAdapter extends RecyclerView.Adapter<BuyerBoughtAdapter.
         holder.cardView.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -161,6 +161,8 @@ public class BuyerBoughtAdapter extends RecyclerView.Adapter<BuyerBoughtAdapter.
                         alertDialog1 = builder.create();
                         alertDialog1.show();
                     }
+                    else { Toast.makeText(view.getContext(), "تم تقييم القطعة مسبقا",Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
