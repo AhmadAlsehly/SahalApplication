@@ -97,7 +97,7 @@ public class SellerAddItem extends Fragment {
         itemName = view.findViewById(R.id.itemName_input);
         itemDescr = view.findViewById(R.id.itemDescr_input);
         itemPrice = view.findViewById(R.id.itemPrice_input);
-        itemType = view.findViewById(R.id.itemType_input);
+        itemType = view.findViewById(R.id.carName_input);
         itemCarName = view.findViewById(R.id.carName_input);
 
 
@@ -308,6 +308,7 @@ public class SellerAddItem extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedItem = itemCompan.getSelectedItem().toString();
+                Log.d("testtt",selectedItem.toString());
                 carsSpinner();
             }
 
@@ -378,7 +379,7 @@ public class SellerAddItem extends Fragment {
         adapterCatg.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemCatgory.setAdapter(adapterCatg);
 
-        itemType = view.findViewById(R.id.itemType_input);
+        itemType = view.findViewById(R.id.carName_input);
 
         String[] type =
                 { "اضاءة", "ابواب", "مقاعد", "مضخة "};
