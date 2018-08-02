@@ -140,12 +140,12 @@ public class SellerAddItem extends Fragment {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                ProgressDialog dialog = ProgressDialog.show(getContext(), "",
-                        "جاري رفع القطعة....", true);
+
                 if (!itemName.getText().toString().isEmpty()&&!itemDescr.getText().toString().isEmpty()
                         && !itemPrice.getText().toString().isEmpty()&&!itemCompan.getSelectedItem().equals("اختر شركة")
                 && !itemCarName.getSelectedItem().equals("اختر سيارة")){
-
+                    ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+                            "جاري رفع القطعة....", true);
                 for (int i = 0; i < mPhotos.size(); i++) {
                     Log.d("photoname", mPhotos.get(i));
                     StorageReference imageReference = storageReference.child("items").child(mPhotos.get(i));
@@ -176,7 +176,7 @@ public class SellerAddItem extends Fragment {
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                             //linkPhotos.add(task.getResult().getUploadSessionUri().toString());
                             task.getResult().getStorage().getDownloadUrl();
-                           
+
 
 
                         }
@@ -217,6 +217,7 @@ public class SellerAddItem extends Fragment {
             Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(getContext(), MainSellerActivity.class);
         startActivity(i);
+        getActivity().finish();
 
 
 
