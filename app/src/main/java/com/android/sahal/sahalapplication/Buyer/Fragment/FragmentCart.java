@@ -36,6 +36,7 @@ import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -132,13 +133,13 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 // continue with delete
-                                                for (int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
 
-                                                    mDatabase = FirebaseDatabase.getInstance().getReference().child("items").child(MainBuyerActivity.cartList.get(i));
-                                                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+                                                    /*mDatabase.addValueEventListener(new ValueEventListener() {
                                                         @Override
                                                         public void onDataChange(@NonNull DataSnapshot dataS) {
-                                                            ModuleItem item = dataS.getValue(ModuleItem.class);
+                                                            /*ModuleItem item = dataS.getValue(ModuleItem.class);
                                                             if (item.getStatus().equals("0")) {
                                                                 item.setStatus("1");
                                                                 item.setBuyerId(currentUser.getUid().toString());
@@ -146,6 +147,61 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
                                                             } else {
                                                                 sold++;
                                                             }
+                                                            for (DataSnapshot ds : dataS.getChildren()){
+                                                                if(MainBuyerActivity.cartList.size()!=0){
+                                                                for (int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
+                                                                    ModuleItem item = ds.getValue(ModuleItem.class);
+                                                                    if (item.getId().equals(MainBuyerActivity.cartList.get(i))) {
+                                                                        if (item.getStatus().equals("0")) {
+                                                                            item.setStatus("1");
+                                                                            item.setBuyerId(currentUser.getUid().toString());
+                                                                            mDatabase.child(MainBuyerActivity.cartList.get(i)).setValue(item);
+                                                                        } else {
+                                                                            sold++;
+                                                                        }
+
+                                                                    }
+                                                                }
+
+
+                                                                }
+                                                                else {
+                                                                    Toast.makeText(view.getContext(),"السلة فارغة",Toast.LENGTH_SHORT).show();
+                                                                }
+
+                                                            }
+                                                            MainBuyerActivity.cartList.clear();
+
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                        }
+                                                    }); */
+
+
+                                                    //add the buyer ID and change the status to 1
+
+                                                    mDatabase = FirebaseDatabase.getInstance().getReference().child("items");
+                                                    mDatabase.addValueEventListener(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                                                                    for(int i =0 ; i < MainBuyerActivity.cartList.size();i++) {
+                                                                        ModuleItem item = ds.getValue(ModuleItem.class);
+                                                                        if (item.getId().equals(MainBuyerActivity.cartList.get(i))){
+                                                                            if (item.getStatus().equals("0")) {
+                                                                                item.setStatus("1");
+                                                                                item.setBuyerId(currentUser.getUid().toString());
+                                                                                mDatabase.child(MainBuyerActivity.cartList.get(i)).setValue(item);
+                                                                            } else {
+                                                                                sold++;
+                                                                            }
+                                                                    }
+                                                            }
+                                                            }
+                                                            MainBuyerActivity.cartList.clear();
                                                         }
 
                                                         @Override
@@ -154,13 +210,11 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
                                                         }
                                                     });
 
-                                                    //add the buyer ID and change the status to 1
-                                                }
+
 
                                                 if (sold != 0) {
                                                     Toast.makeText(getContext(), "قطع مباعة تم ازالتها" + sold, Toast.LENGTH_SHORT).show();
                                                 }
-                                                MainBuyerActivity.cartList.clear();
 
                                                 itemList.clear();
                                                 buyerCartAdapter.notifyDataSetChanged();
@@ -271,33 +325,30 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
         sum = 0;
 //        ModuleItem a = new ModuleItem("hcd","dfv","fdv","adsfv","sdfvd","jhgfd",9,null);
 //        itemList.add(a);
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    for (int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
-                        if (MainBuyerActivity.cartList.get(i).equals(ds.child("id").getValue())) {
+      databaseReference.addValueEventListener(new ValueEventListener() {
+          @Override
+          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+              itemList.clear();
+              for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                  for (int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
+                      if (MainBuyerActivity.cartList.get(i).equals(ds.child("id").getValue())) {
 
-                            itemList.add(ds.getValue(ModuleItem.class));
-                            sum += Integer.parseInt(ds.child("price").getValue().toString());
-                            Log.d("tesst", "this is size :" + itemList.size());
-                            Log.d("tesst", "this is name :" + ds.toString());
-                        }
-                    }
+                          itemList.add(ds.getValue(ModuleItem.class));
+                          sum += Integer.parseInt(ds.child("price").getValue().toString());
+                      }
+                  }
 //                    sellerHomeAdapter.notifyDataSetChanged();
-                }
-                txtSum.setText("" + sum);
+              }
+              txtSum.setText("" + sum);
 
-                buyerCartAdapter.notifyDataSetChanged();
-            }
+              buyerCartAdapter.notifyDataSetChanged();
+          }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+          @Override
+          public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        };
-        databaseReference.addListenerForSingleValueEvent(valueEventListener);
-
+          }
+      });
 
 //
 //
