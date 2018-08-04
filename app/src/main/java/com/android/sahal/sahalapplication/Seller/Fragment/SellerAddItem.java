@@ -144,8 +144,8 @@ public class SellerAddItem extends Fragment {
                 if (!itemName.getText().toString().isEmpty()&&!itemDescr.getText().toString().isEmpty()
                         && !itemPrice.getText().toString().isEmpty()&&!itemCompan.getSelectedItem().equals("اختر شركة")
                 && !itemCarName.getSelectedItem().equals("اختر سيارة")){
-                    ProgressDialog dialog = ProgressDialog.show(getContext(), "",
-                            "جاري رفع القطعة....", true);
+//                    ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+//                            "جاري رفع القطعة....", true);
                 for (int i = 0; i < mPhotos.size(); i++) {
                     Log.d("photoname", mPhotos.get(i));
                     StorageReference imageReference = storageReference.child("items").child(mPhotos.get(i));
