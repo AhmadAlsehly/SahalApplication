@@ -23,12 +23,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import android.widget.Toast;
 
 import com.android.sahal.sahalapplication.Adapters.BuyerSearchAdapter;
-import com.android.sahal.sahalapplication.Model.Car;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.google.firebase.database.DataSnapshot;
