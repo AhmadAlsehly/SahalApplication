@@ -1,6 +1,10 @@
 package com.android.sahal.sahalapplication.Seller.Activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -89,6 +93,31 @@ SellerProfile sellerProfile = new SellerProfile();
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         navigation.setSelectedItemId(R.id.navigation_home);
-    }
+        if(isOnline()){
+        }
+        else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+            builder.setTitle("لا يوجد اتصال")
+                    .setMessage("هذا التطبيق يحتاج لإتصال دائم بالانترنت")
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+
+                        }
+                    })
+
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+    }
+    public boolean isOnline() {
+        ConnectivityManager conMgr = (ConnectivityManager) getApplicationContext().getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+
+        if(netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()){
+            return false;
+        }
+        return true;
+    }
 }
