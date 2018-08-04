@@ -55,8 +55,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
     Button count;
     //int i=0,i2=0;
 
-    boolean filter = false,factory=false,category=false,model=false,year=false;
-
+    boolean filter = false, factory = false, category = false, model = false, year = false;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -81,8 +80,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
     List<String> carsName = new ArrayList<>();
 
 
-
-    Query query,carQuery;
+    Query query, carQuery;
 
     ModuleItem item;
     RecyclerView recyclerView;
@@ -92,14 +90,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-
-
-
-
-
-
-
 
 
 //    public static FragmentBuyerSearch newInstance() {
@@ -140,9 +130,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         // connect to fire base to load spinners
 
 
-
-
-
         companysReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -163,9 +150,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
             }
         });
-
-
-
 
 
         super.onViewCreated(view, savedInstanceState);
@@ -192,8 +176,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         buyerSearchAdapter.notifyDataSetChanged();
 
 
-
-
         //*****************************************************************************************************************************
         // spinner filter begin  ___________________________________________________________________________________________________________________
         itemCatgory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -205,13 +187,13 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                 String workRequestType = arg0.getItemAtPosition(pos)
                         .toString();
-               // final int[] i = {0};
+                // final int[] i = {0};
 
                 if (pos != 0) {
 
-                    if (category == false){
+                    if (category == false) {
 
-                        category=true;
+                        category = true;
                     }
 
                     query = databaseReference.orderByChild("category")
@@ -226,74 +208,163 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                     if (ds.child("status").getValue().equals("0")) {
 
+                                        if (!serchText.getText().toString().equals("")) {
+                                            carQuery = databaseReference.orderByChild("itemName")
+                                                    .startAt(serchText.getText().toString())
+                                                    .endAt(serchText.getText().toString() + "\uf8ff");
 
 
-                                        //Year
-                                        //----------------------------------------------------------
-                                        if(model==true){
-                                            if((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString()))&& ! itemCarName.getSelectedItem().equals(0)){
+                                            carQuery.addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    if (dataSnapshot.exists()) {
+                                                        itemList.clear();
+
+                                                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                                            if (ds.child("status").getValue().equals("0")) {
 
 
-                                                if(factory==true) {
-                                                    if ((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString())) && !itemCompan.getSelectedItem().equals(0)) {
+                                                                //Year
+                                                                //----------------------------------------------------------
+                                                                if (year == true) {
+                                                                    if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
 
 
-                                                        if (year == true) {
-                                                            if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
-
-                                                                itemList.add(ds.getValue(ModuleItem.class));
-                                                                //i++;
+                                                                        if (factory == true) {
+                                                                            if ((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString())) && !itemCompan.getSelectedItem().equals(0)) {
 
 
+                                                                                if (model == true) {
+                                                                                    if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                                                        itemList.add(ds.getValue(ModuleItem.class));
+                                                                                        //i++;
+
+
+                                                                                    }
+                                                                                } else {
+                                                                                    itemList.add(ds.getValue(ModuleItem.class));
+                                                                                }
+                                                                            }
+                                                                        } else {
+                                                                            itemList.add(ds.getValue(ModuleItem.class));
+                                                                        }
+                                                                    }
+                                                                } else if (factory == true) {
+                                                                    if ((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString())) && !itemCompan.getSelectedItem().equals(0)) {
+                                                                        if (model == true) {
+                                                                            if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                                                itemList.add(ds.getValue(ModuleItem.class));
+                                                                                //i++;
+
+
+                                                                            }
+                                                                        } else {
+                                                                            itemList.add(ds.getValue(ModuleItem.class));
+                                                                        }
+                                                                    }
+                                                                } else if (model == true) {
+                                                                    if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                                        itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                                                    }
+                                                                } else {
+                                                                    //----------------------------------------------------------
+
+
+                                                                    itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                                                }
+                                                            } else {
+                                                                itemList.clear();
                                                             }
-                                                        } else {
-                                                            itemList.add(ds.getValue(ModuleItem.class));
+
+                                                            buyerSearchAdapter.notifyDataSetChanged();
+
+
                                                         }
+
+                                                    } else {
+                                                        itemList.clear();
                                                     }
-                                                } else {
-                                                    itemList.add(ds.getValue(ModuleItem.class));
-                                                }
-                                            }
-                                        }else if(factory==true){
-                                            if((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString()))&& ! itemCompan.getSelectedItem().equals(0)){
-                                                if(year==true){
-                                                    if((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString()))&& !itemYear.getSelectedItem().equals(0)){
 
+                                                }
+
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
+
+
+                                        } else {
+
+                                            //Year
+                                            //----------------------------------------------------------
+                                            if (year == true) {
+                                                if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
+
+
+                                                    if (factory == true) {
+                                                        if ((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString())) && !itemCompan.getSelectedItem().equals(0)) {
+
+
+                                                            if (model == true) {
+                                                                if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                                    itemList.add(ds.getValue(ModuleItem.class));
+                                                                    //i++;
+
+
+                                                                }
+                                                            } else {
+                                                                itemList.add(ds.getValue(ModuleItem.class));
+                                                            }
+                                                        }
+                                                    } else {
                                                         itemList.add(ds.getValue(ModuleItem.class));
-                                                        //i++;
-
-
-
-                                                    }}else{
-                                                    itemList.add(ds.getValue(ModuleItem.class));
+                                                    }
                                                 }
-                                            }
-                                        }else if(year==true){
-                                            if((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString()))&& !itemYear.getSelectedItem().equals(0)){
+                                            } else if (factory == true) {
+                                                if ((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString())) && !itemCompan.getSelectedItem().equals(0)) {
+                                                    if (model == true) {
+                                                        if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                            itemList.add(ds.getValue(ModuleItem.class));
+                                                            //i++;
+
+
+                                                        }
+                                                    } else {
+                                                        itemList.add(ds.getValue(ModuleItem.class));
+                                                    }
+                                                }
+                                            } else if (model == true) {
+                                                if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                    itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                                }
+                                            } else {
+                                                //----------------------------------------------------------
+
 
                                                 itemList.add(ds.getValue(ModuleItem.class));
 
 
-
-
                                             }
                                         }
 
-
-                                        else{
-                                            //----------------------------------------------------------
-
-
-                                            itemList.add(ds.getValue(ModuleItem.class));
-
-
-                                        }
-
                                     }
+                                    buyerSearchAdapter.notifyDataSetChanged();
                                 }
-                                buyerSearchAdapter.notifyDataSetChanged();
-                            }
-                            else {
+                            } else {
                                 itemList.clear();
                             }
                         }
@@ -306,12 +377,10 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                     });
 
 
-
-
-                }else{
+                } else {
                     // itemCompan.getSelectedItem();
-                    category=false;
-                    if(model==true){
+                    category = false;
+                    if (model == true) {
                         query = databaseReference.orderByChild("carName")
                                 .equalTo(itemCarName.getSelectedItem().toString());
 
@@ -327,33 +396,28 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                                             //Year
                                             //----------------------------------------------------------
-                                            if(factory==true){
-                                                if((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString()))&& ! itemCompan.getSelectedItem().equals(0)){
-                                                    if(year==true){
-                                                        if((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString()))&& !itemYear.getSelectedItem().equals(0)){
+                                            if (factory == true) {
+                                                if ((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString())) && !itemCompan.getSelectedItem().equals(0)) {
+                                                    if (year == true) {
+                                                        if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
 
                                                             itemList.add(ds.getValue(ModuleItem.class));
                                                             //i++;
 
 
-
-                                                        }}else{
+                                                        }
+                                                    } else {
                                                         itemList.add(ds.getValue(ModuleItem.class));
                                                     }
                                                 }
-                                            }else if(year==true){
-                                                if((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString()))&& !itemYear.getSelectedItem().equals(0)){
+                                            } else if (year == true) {
+                                                if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
 
                                                     itemList.add(ds.getValue(ModuleItem.class));
 
 
-
-
                                                 }
-                                            }
-
-
-                                            else{
+                                            } else {
                                                 //----------------------------------------------------------
 
 
@@ -365,8 +429,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                         }
                                     }
                                     buyerSearchAdapter.notifyDataSetChanged();
-                                }
-                                else{
+                                } else {
 
                                     itemList.clear();
 
@@ -381,9 +444,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                         });
 
 
-
-
-                    }else if(factory==true){
+                    } else if (factory == true) {
                         query = databaseReference.orderByChild("factoryName")
                                 .equalTo(itemCompan.getSelectedItem().toString());
 
@@ -398,14 +459,14 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                                             //Category
 //                                        //---------------------------------------------------------
-                                            if(year==true){
-                                                if((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString()))&& ! itemYear.getSelectedItem().equals(0)){
+                                            if (year == true) {
+                                                if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
 
                                                     itemList.add(ds.getValue(ModuleItem.class));
 
 
                                                 }
-                                            }else{
+                                            } else {
 
                                                 itemList.add(ds.getValue(ModuleItem.class));
 
@@ -416,8 +477,8 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                         }
                                         //  year=true;
 
-                                    }}
-                                else{
+                                    }
+                                } else {
 
                                     itemList.clear();
 
@@ -432,9 +493,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                         });
 
 
-
-
-                    }else  if(year==true){
+                    } else if (year == true) {
                         query = databaseReference.orderByChild("year")
                                 .equalTo(itemYear.getSelectedItem().toString());
 
@@ -459,8 +518,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                     //  year=true;
 
 
-                                }
-                                else{
+                                } else {
 
                                     itemList.clear();
 
@@ -475,16 +533,11 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                         });
 
 
-
-
-                    }else {
+                    } else {
                         prepareAlbums();
                         buyerSearchAdapter.notifyDataSetChanged();
 
                     }
-
-
-
 
 
                 }
@@ -499,43 +552,109 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         });
         itemCarName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-        @Override
-        public void onItemSelected(AdapterView<?> arg0, View arg1,
-        int pos, long id) {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int pos, long id) {
 
 
-            String workRequestType = arg0.getItemAtPosition(pos)
-                    .toString();
-            // final int[] i = {0};
+                String workRequestType = arg0.getItemAtPosition(pos)
+                        .toString();
+                // final int[] i = {0};
 
-            if (pos != 0) {
+                if (pos != 0) {
 
-                if (model == false){
+                    if (model == false) {
 
-                    model=true;
-                }
+                        model = true;
+                    }
 
-                query = databaseReference.orderByChild("carName")
-                        .equalTo(workRequestType);
+                    query = databaseReference.orderByChild("carName")
+                            .equalTo(workRequestType);
 
-                query.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            itemList.clear();
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                itemList.clear();
 
-                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                if (ds.child("status").getValue().equals("0")) {
-
-
-
-                                    //Year
-                                    //----------------------------------------------------------
-                                    if(category==true){
-                                        if((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString()))&& ! itemCatgory.getSelectedItem().equals(0)){
+                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                    if (ds.child("status").getValue().equals("0")) {
 
 
+                                        if (!serchText.getText().toString().equals("")) {
+                                            carQuery = databaseReference.orderByChild("itemName")
+                                                    .startAt(serchText.getText().toString())
+                                                    .endAt(serchText.getText().toString() + "\uf8ff");
 
+
+                                            carQuery.addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    if (dataSnapshot.exists()) {
+                                                        itemList.clear();
+
+                                                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                                            if (ds.child("status").getValue().equals("0")) {
+
+//Year
+//                                    ----------------------------------------------------------
+                                                                if (category == true) {
+                                                                    if ((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString())) && !itemCatgory.getSelectedItem().equals(0)) {
+
+
+                                                                        if (year == true) {
+                                                                            if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
+
+                                                                                itemList.add(ds.getValue(ModuleItem.class));
+                                                                                //i++;
+
+
+                                                                            }
+                                                                        } else {
+                                                                            itemList.add(ds.getValue(ModuleItem.class));
+                                                                        }
+
+                                                                    }
+                                                                } else if (year == true) {
+                                                                    if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
+
+                                                                        itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                                                    }
+                                                                } else {
+                                                                    //----------------------------------------------------------
+
+
+                                                                    itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                                                }
+
+                                                            }
+
+                                                        }
+                                                        buyerSearchAdapter.notifyDataSetChanged();
+
+                                                    } else {
+                                                        itemList.clear();
+                                                    }
+
+                                                }
+
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
+
+
+                                        } else {
+                                            //Year
+                                            //----------------------------------------------------------
+                                            if (category == true) {
+                                                if ((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString())) && !itemCatgory.getSelectedItem().equals(0)) {
 
 
                                                     if (year == true) {
@@ -550,263 +669,29 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                                         itemList.add(ds.getValue(ModuleItem.class));
                                                     }
 
-                                        }
-                                    }else if(year==true){
-                                        if((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString()))&& !itemYear.getSelectedItem().equals(0)){
-
-                                            itemList.add(ds.getValue(ModuleItem.class));
-
-
-
-
-                                        }
-                                    }
-
-
-                                    else{
-                                        //----------------------------------------------------------
-
-
-                                        itemList.add(ds.getValue(ModuleItem.class));
-
-
-                                    }
-
-                                }
-                            }
-                            buyerSearchAdapter.notifyDataSetChanged();
-                        }
-                        else {
-                            itemList.clear();
-                        }
-                    }
-
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-
-
-
-            }else{
-                // itemCompan.getSelectedItem();
-                model=false;
-                if(category==true){
-                    query = databaseReference.orderByChild("category")
-                            .equalTo(itemCatgory.getSelectedItem().toString());
-
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                itemList.clear();
-
-                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                    if (ds.child("status").getValue().equals("0")) {
-
-
-                                        //Year
-                                        //----------------------------------------------------------
-
-                                                if(year==true){
-                                                    if((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString()))&& !itemYear.getSelectedItem().equals(0)){
-
-                                                        itemList.add(ds.getValue(ModuleItem.class));
-                                                        //i++;
-
-
-
-                                                    }}else{
-                                                    itemList.add(ds.getValue(ModuleItem.class));
                                                 }
+                                            } else if (year == true) {
+                                                if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
 
-
-
-
-
-                                    }
-                                }
-                                buyerSearchAdapter.notifyDataSetChanged();
-                            }
-                            else{
-
-                                itemList.clear();
-
-                            }
-                        }
-
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-
-
-                }else  if(year==true){
-                    query = databaseReference.orderByChild("year")
-                            .equalTo(itemYear.getSelectedItem().toString());
-
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                itemList.clear();
-
-                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                    if (ds.child("status").getValue().equals("0")) {
-
-                                        //Category
-//                                        //---------------------------------------------------------
-
-                                        itemList.add(ds.getValue(ModuleItem.class));
-
-
-                                    }
-                                    buyerSearchAdapter.notifyDataSetChanged();
-                                }
-                                //  year=true;
-
-
-                            }
-                            else{
-
-                                itemList.clear();
-
-                            }
-                        }
-
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-
-
-                }else {
-                    prepareAlbums();
-                    buyerSearchAdapter.notifyDataSetChanged();
-
-                }
-
-
-
-            }
-
-
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    });
-        itemYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int pos, long id) {
-
-                final String workRequestType = arg0.getItemAtPosition(pos)
-                        .toString();
-                //final int[] i = {0};
-
-                if (pos != 0) {
-                    if (year == false){
-
-                       // itemList.clear();
-                        year=true;
-                       // Log.d(workRequestType, "onItemSelected: "+year);
-
-                    }
-                    query = databaseReference.orderByChild("year")
-                            .equalTo(workRequestType);
-
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                itemList.clear();
-
-                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                    if (ds.child("status").getValue().equals("0")) {
-
-
-
-                                        //Year
-                                        //----------------------------------------------------------
-                                        if(category==true){
-                                            if((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString()))&& ! itemCatgory.getSelectedItem().equals(0)){
-
-
-                                                if(factory==true) {
-                                                    if ((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString())) && !itemCompan.getSelectedItem().equals(0)) {
-
-
-                                                        if (model == true) {
-                                                            if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
-
-                                                                itemList.add(ds.getValue(ModuleItem.class));
-                                                                //i++;
-
-
-                                                            }
-                                                        } else {
-                                                            itemList.add(ds.getValue(ModuleItem.class));
-                                                        }
-                                                    }
-                                                } else {
                                                     itemList.add(ds.getValue(ModuleItem.class));
+
+
                                                 }
-                                            }
-                                        }else if(factory==true){
-                                            if((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString()))&& ! itemCompan.getSelectedItem().equals(0)){
-                                                if(model==true){
-                                                    if((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString()))&& !itemCarName.getSelectedItem().equals(0)){
+                                            } else {
+                                                //----------------------------------------------------------
 
-                                                        itemList.add(ds.getValue(ModuleItem.class));
-                                                        //i++;
-
-
-
-                                                    }}else{
-                                                    itemList.add(ds.getValue(ModuleItem.class));
-                                                }
-                                            }
-                                        }else if(model==true){
-                                            if((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString()))&& !itemCarName.getSelectedItem().equals(0)){
 
                                                 itemList.add(ds.getValue(ModuleItem.class));
 
 
-
-
                                             }
-                                        }
-
-
-                                        else{
-                                            //----------------------------------------------------------
-
-
-                                            itemList.add(ds.getValue(ModuleItem.class));
-
 
                                         }
 
                                     }
                                 }
                                 buyerSearchAdapter.notifyDataSetChanged();
-                            }
-                            else {
+                            } else {
                                 itemList.clear();
                             }
                         }
@@ -819,12 +704,10 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                     });
 
 
-
-
-                }else{
+                } else {
                     // itemCompan.getSelectedItem();
-                    year=false;
-                    if(category==true){
+                    model = false;
+                    if (category == true) {
                         query = databaseReference.orderByChild("category")
                                 .equalTo(itemCatgory.getSelectedItem().toString());
 
@@ -840,46 +723,24 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                                             //Year
                                             //----------------------------------------------------------
-                                            if(factory==true){
-                                                if((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString()))&& ! itemCompan.getSelectedItem().equals(0)){
-                                                    if(model==true){
-                                                        if((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString()))&& !itemCarName.getSelectedItem().equals(0)){
 
-                                                            itemList.add(ds.getValue(ModuleItem.class));
-                                                            //i++;
-
-
-
-                                                        }}else{
-                                                        itemList.add(ds.getValue(ModuleItem.class));
-                                                    }
-                                                }
-                                            }else if(model==true){
-                                                if((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString()))&& !itemCarName.getSelectedItem().equals(0)){
+                                            if (year == true) {
+                                                if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
 
                                                     itemList.add(ds.getValue(ModuleItem.class));
-
-
+                                                    //i++;
 
 
                                                 }
-                                            }
-
-
-                                            else{
-                                                //----------------------------------------------------------
-
-
+                                            } else {
                                                 itemList.add(ds.getValue(ModuleItem.class));
-
-
                                             }
+
 
                                         }
                                     }
                                     buyerSearchAdapter.notifyDataSetChanged();
-                                }
-                                else{
+                                } else {
 
                                     itemList.clear();
 
@@ -894,9 +755,326 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                         });
 
 
+                    } else if (year == true) {
+                        query = databaseReference.orderByChild("year")
+                                .equalTo(itemYear.getSelectedItem().toString());
+
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    itemList.clear();
+
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                        if (ds.child("status").getValue().equals("0")) {
+
+                                            //Category
+//                                        //---------------------------------------------------------
+
+                                            itemList.add(ds.getValue(ModuleItem.class));
 
 
-                    }else if(factory==true){
+                                        }
+                                        buyerSearchAdapter.notifyDataSetChanged();
+                                    }
+                                    //  year=true;
+
+
+                                } else {
+
+                                    itemList.clear();
+
+                                }
+                            }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+                    } else {
+                        prepareAlbums();
+                        buyerSearchAdapter.notifyDataSetChanged();
+
+                    }
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        itemYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int pos, long id) {
+
+                final String workRequestType = arg0.getItemAtPosition(pos)
+                        .toString();
+                //final int[] i = {0};
+
+                if (pos != 0) {
+                    if (year == false) {
+
+                        // itemList.clear();
+                        year = true;
+                        // Log.d(workRequestType, "onItemSelected: "+year);
+
+                    }
+                    query = databaseReference.orderByChild("year")
+                            .equalTo(workRequestType);
+
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                itemList.clear();
+
+                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                    if (ds.child("status").getValue().equals("0")) {
+
+                                        if (!serchText.getText().toString().equals("")) {
+                                            carQuery = databaseReference.orderByChild("itemName")
+                                                    .startAt(serchText.getText().toString())
+                                                    .endAt(serchText.getText().toString() + "\uf8ff");
+
+
+                                            carQuery.addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    if (dataSnapshot.exists()) {
+                                                        itemList.clear();
+
+                                                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+
+                                                            //Year
+                                                            //----------------------------------------------------------
+                                                            if (category == true) {
+                                                                if ((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString())) && !itemCatgory.getSelectedItem().equals(0)) {
+
+
+                                                                    if (factory == true) {
+                                                                        if ((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString())) && !itemCompan.getSelectedItem().equals(0)) {
+
+
+                                                                            if (model == true) {
+                                                                                if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                                                    itemList.add(ds.getValue(ModuleItem.class));
+                                                                                    //i++;
+
+
+                                                                                }
+                                                                            } else {
+                                                                                itemList.add(ds.getValue(ModuleItem.class));
+                                                                            }
+                                                                        }
+                                                                    } else {
+                                                                        itemList.add(ds.getValue(ModuleItem.class));
+                                                                    }
+                                                                }
+                                                            } else if (factory == true) {
+                                                                if ((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString())) && !itemCompan.getSelectedItem().equals(0)) {
+                                                                    if (model == true) {
+                                                                        if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                                            itemList.add(ds.getValue(ModuleItem.class));
+                                                                            //i++;
+
+
+                                                                        }
+                                                                    } else {
+                                                                        itemList.add(ds.getValue(ModuleItem.class));
+                                                                    }
+                                                                }
+                                                            } else if (model == true) {
+                                                                if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                                    itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                                                }
+                                                            } else {
+                                                                //----------------------------------------------------------
+
+
+                                                                itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                                            }
+
+                                                            buyerSearchAdapter.notifyDataSetChanged();
+
+
+                                                        }
+
+                                                    } else {
+                                                        itemList.clear();
+                                                    }
+
+                                                }
+
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
+
+
+                                        } else {
+
+                                            //Year
+                                            //----------------------------------------------------------
+                                            if (category == true) {
+                                                if ((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString())) && !itemCatgory.getSelectedItem().equals(0)) {
+
+
+                                                    if (factory == true) {
+                                                        if ((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString())) && !itemCompan.getSelectedItem().equals(0)) {
+
+
+                                                            if (model == true) {
+                                                                if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                                    itemList.add(ds.getValue(ModuleItem.class));
+                                                                    //i++;
+
+
+                                                                }
+                                                            } else {
+                                                                itemList.add(ds.getValue(ModuleItem.class));
+                                                            }
+                                                        }
+                                                    } else {
+                                                        itemList.add(ds.getValue(ModuleItem.class));
+                                                    }
+                                                }
+                                            } else if (factory == true) {
+                                                if ((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString())) && !itemCompan.getSelectedItem().equals(0)) {
+                                                    if (model == true) {
+                                                        if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                            itemList.add(ds.getValue(ModuleItem.class));
+                                                            //i++;
+
+
+                                                        }
+                                                    } else {
+                                                        itemList.add(ds.getValue(ModuleItem.class));
+                                                    }
+                                                }
+                                            } else if (model == true) {
+                                                if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                    itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                                }
+                                            } else {
+                                                //----------------------------------------------------------
+
+
+                                                itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                            }
+                                        }
+
+                                    }
+                                    buyerSearchAdapter.notifyDataSetChanged();
+                                }
+                            } else {
+                                itemList.clear();
+                            }
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                } else {
+                    // itemCompan.getSelectedItem();
+                    year = false;
+                    if (category == true) {
+                        query = databaseReference.orderByChild("category")
+                                .equalTo(itemCatgory.getSelectedItem().toString());
+
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    itemList.clear();
+
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                        if (ds.child("status").getValue().equals("0")) {
+
+
+                                            //Year
+                                            //----------------------------------------------------------
+                                            if (factory == true) {
+                                                if ((ds.child("factoryName").getValue().equals(itemCompan.getSelectedItem().toString())) && !itemCompan.getSelectedItem().equals(0)) {
+                                                    if (model == true) {
+                                                        if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                            itemList.add(ds.getValue(ModuleItem.class));
+                                                            //i++;
+
+
+                                                        }
+                                                    } else {
+                                                        itemList.add(ds.getValue(ModuleItem.class));
+                                                    }
+                                                }
+                                            } else if (model == true) {
+                                                if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+
+                                                    itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                                }
+                                            } else {
+                                                //----------------------------------------------------------
+
+
+                                                itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                            }
+
+                                        }
+                                    }
+                                    buyerSearchAdapter.notifyDataSetChanged();
+                                } else {
+
+                                    itemList.clear();
+
+                                }
+                            }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+                    } else if (factory == true) {
                         query = databaseReference.orderByChild("factoryName")
                                 .equalTo(itemCompan.getSelectedItem().toString());
 
@@ -911,14 +1089,14 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                                             //Category
 //                                        //---------------------------------------------------------
-                                            if(model==true){
-                                                if((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString()))&& ! itemCarName.getSelectedItem().equals(0)){
+                                            if (model == true) {
+                                                if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
 
                                                     itemList.add(ds.getValue(ModuleItem.class));
 
 
                                                 }
-                                            }else{
+                                            } else {
 
                                                 itemList.add(ds.getValue(ModuleItem.class));
 
@@ -929,8 +1107,8 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                         }
                                         //  year=true;
 
-                                    }}
-                                else{
+                                    }
+                                } else {
 
                                     itemList.clear();
 
@@ -945,9 +1123,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                         });
 
 
-
-
-                    }else  if(model==true){
+                    } else if (model == true) {
                         query = databaseReference.orderByChild("carName")
                                 .equalTo(itemCarName.getSelectedItem().toString());
 
@@ -972,8 +1148,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                     //  year=true;
 
 
-                                }
-                                else{
+                                } else {
 
                                     itemList.clear();
 
@@ -988,15 +1163,11 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                         });
 
 
-
-
-                    }else {
+                    } else {
                         prepareAlbums();
                         buyerSearchAdapter.notifyDataSetChanged();
 
                     }
-
-
 
 
                 }
@@ -1015,16 +1186,16 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int pos, long id) {
 
-                 selectedItem = itemCompan.getSelectedItem().toString();
+                selectedItem = itemCompan.getSelectedItem().toString();
 
                 final String workRequestType = arg0.getItemAtPosition(pos)
                         .toString();
                 //final int[] i = {0};
 
                 if (pos != 0) {
-                    if (factory == false){
+                    if (factory == false) {
 
-                        factory=true;
+                        factory = true;
 
                     }
                     query = databaseReference.orderByChild("factoryName")
@@ -1039,49 +1210,158 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                     if (ds.child("status").getValue().equals("0")) {
 
+                                        //00000000000000000000000000000000000000000000000000000
+//                                        carQuery = databaseReference.orderByChild("itemName")
+//                                                .startAt(serchText.getText().toString())
+//                                                .endAt(serchText.getText().toString() + "\uf8ff");
+
+//                                        if (!serchText.getText().toString().equals("")&& ds.child("itemName").getValue().equals(serchText.getText().toString()) ) {
+//
+//
+//                                            //Year
+//                                            //----------------------------------------------------------
+//                                            if (category == true) {
+//                                                if ((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString())) && !itemCatgory.getSelectedItem().equals(0)) {
+//
+//
+//                                                    if (year == true) {
+//                                                        if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
+//
+//                                                            itemList.add(ds.getValue(ModuleItem.class));
+//
+//
+//                                                        }
+//                                                    } else {
+//                                                        itemList.add(ds.getValue(ModuleItem.class));
+//                                                    }
+//                                                }
+//                                            } else if (year == true) {
+//                                                if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
+//                                                    itemList.add(ds.getValue(ModuleItem.class));
+//
+//                                                }
+//                                            } else {
+//                                                //----------------------------------------------------------
+//
+//
+//                                                itemList.add(ds.getValue(ModuleItem.class));
+//
+//
+//                                            }
+
+                                        if (!serchText.getText().toString().equals("")) {
+                                            carQuery = databaseReference.orderByChild("itemName")
+                                                    .startAt(serchText.getText().toString())
+                                                    .endAt(serchText.getText().toString() + "\uf8ff");
 
 
-                                        //Year
-                                        //----------------------------------------------------------
-                                        if(category==true){
-                                            if((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString()))&& ! itemCatgory.getSelectedItem().equals(0)){
+                                            carQuery.addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    if (dataSnapshot.exists()) {
+                                                        itemList.clear();
+
+                                                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                                            if (ds.child("status").getValue().equals("0")) {
+
+//Year
+//                                    ----------------------------------------------------------
+                                                                if (category == true) {
+                                                                    if ((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString())) && !itemCatgory.getSelectedItem().equals(0)) {
+
+                                                                        if (year == true) {
+                                                                            if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
 
 
-                                                if(year==true) {
-                                                    if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
-
-                                                        itemList.add(ds.getValue(ModuleItem.class));
+                                                                                itemList.add(ds.getValue(ModuleItem.class));
+                                                                                //i++;
 
 
+                                                                            }
+                                                                        } else {
+                                                                            itemList.add(ds.getValue(ModuleItem.class));
+                                                                        }
+                                                                    }
+
+
+                                                                } else if (year == true) {
+                                                                    if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
+
+                                                                        itemList.add(ds.getValue(ModuleItem.class));
+
+                                                                    }
+
+
+                                                                } else {
+                                                                    itemList.add(ds.getValue(ModuleItem.class));
+
+                                                                }
+                                                                buyerSearchAdapter.notifyDataSetChanged();
+
+
+                                                            }
+
+                                                        }
+
+
+                                                    } else {
+                                                        itemList.clear();
                                                     }
-                                                } else {
-                                                    itemList.add(ds.getValue(ModuleItem.class));
+
                                                 }
-                                            }
-                                        }else if(year==true){
-                                            if((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString()))&& ! itemYear.getSelectedItem().equals(0)){
+
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
+
+
+                                        } else {
+
+                                            //Year
+                                            //----------------------------------------------------------
+                                            if (category == true) {
+                                                if ((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString())) && !itemCatgory.getSelectedItem().equals(0)) {
+
+
+                                                    if (year == true) {
+                                                        if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
+
+                                                            itemList.add(ds.getValue(ModuleItem.class));
+
+
+                                                        }
+                                                    } else {
+                                                        itemList.add(ds.getValue(ModuleItem.class));
+                                                    }
+                                                }
+                                            } else if (year == true) {
+                                                if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
+                                                    itemList.add(ds.getValue(ModuleItem.class));
+
+                                                }
+                                            } else {
+                                                //----------------------------------------------------------
+
+
                                                 itemList.add(ds.getValue(ModuleItem.class));
 
-                                            }}
 
-
-
-                                        else{
-                                            //----------------------------------------------------------
-
-
-                                            itemList.add(ds.getValue(ModuleItem.class));
+                                            }
 
 
                                         }
+                                        //0000000000000000000000000000000000000000000000000
 
                                     }
                                 }
                                 buyerSearchAdapter.notifyDataSetChanged();
-                               // companySpinner();
+                                // companySpinner();
                                 //carsSpinner();
 
-                            }else {
+                            } else {
                                 itemList.clear();
                             }
                         }
@@ -1094,14 +1374,12 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                     });
 
 
-
-
-                }else{
+                } else {
                     // itemCompan.getSelectedItem();
-                    factory=false;
+                    factory = false;
 
 
-                    if(category==true){
+                    if (category == true) {
                         query = databaseReference.orderByChild("category")
                                 .equalTo(itemCatgory.getSelectedItem().toString());
 
@@ -1117,29 +1395,27 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                                             //Year
                                             //----------------------------------------------------------
-                                            if(year==true){
-                                                if((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString()))&& ! itemYear.getSelectedItem().equals(0)){
+                                            if (year == true) {
+                                                if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
 
 
-                                                        itemList.add(ds.getValue(ModuleItem.class));
-                                                        //i++;
+                                                    itemList.add(ds.getValue(ModuleItem.class));
+                                                    //i++;
 
 
-                                                    }}else{
-                                                        itemList.add(ds.getValue(ModuleItem.class));
-                                                    }
                                                 }
+                                            } else {
+                                                itemList.add(ds.getValue(ModuleItem.class));
+                                            }
+                                        }
 
 
                                         buyerSearchAdapter.notifyDataSetChanged();
 
 
+                                    }
 
-                                        }
-
-                                }
-
-                                else{
+                                } else {
 
                                     itemList.clear();
 
@@ -1154,9 +1430,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                         });
 
 
-
-
-                    }else if(year==true){
+                    } else if (year == true) {
                         query = databaseReference.orderByChild("year")
                                 .equalTo(itemYear.getSelectedItem().toString());
 
@@ -1173,8 +1447,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 //                                        //---------------------------------------------------------
 
 
-                                                itemList.add(ds.getValue(ModuleItem.class));
-
+                                            itemList.add(ds.getValue(ModuleItem.class));
 
 
                                             buyerSearchAdapter.notifyDataSetChanged();
@@ -1182,8 +1455,8 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                         }
                                         //  year=true;
 
-                                    }}
-                                else{
+                                    }
+                                } else {
 
                                     itemList.clear();
 
@@ -1198,15 +1471,11 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                         });
 
 
-
-
-                    }else {
+                    } else {
                         prepareAlbums();
                         buyerSearchAdapter.notifyDataSetChanged();
 
                     }
-
-
 
 
                 }
@@ -1221,7 +1490,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         });
         //spinner filter end  ___________________________________________________________________________________________________________________
         //*****************************************************************************************************************************
-
 
 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -1362,7 +1630,7 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                 } else {
                     itemList.clear();
                     query = databaseReference.orderByChild("itemName")
-                            ;
+                    ;
 
 
                     query.addValueEventListener(new ValueEventListener() {
@@ -1496,8 +1764,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-
-
         itemYear = view.findViewById(R.id.itemYear_input);
         String[] years =
                 {"أي", "2011", "2012", "2013"};
@@ -1538,22 +1804,10 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         itemCarName.setAdapter(adapterModel);
 
 
-
-
-
-
-
-
-
-
 //--------------------------------------------------------------------------------------------------
 
 
-
-
 //__________________________________________________________________________________________________
-
-
 
 
 //itemCompan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -1585,8 +1839,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         });
 
 
-
-
 //
 //        count = view.findViewById(R.id.count);
 //
@@ -1600,8 +1852,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 //
 //                }
 //            }  );
-
-
 
 
     }
@@ -1628,19 +1878,12 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
     }
 
 
+    private void init(
+
+    ) {
 
 
-
-
-
-
-
-private void  init (
-
-) {
-
-
-}
+    }
 
 
     private void prepareAlbums() {
@@ -1707,12 +1950,6 @@ private void  init (
 //
 //
 //    }
-
-
-
-
-
-
 
 
     //**************************************************************************************************
@@ -1881,4 +2118,3 @@ private void  init (
     }
 
 }
-
