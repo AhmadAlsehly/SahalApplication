@@ -163,6 +163,7 @@ public class FragmentBuyerOrders extends Fragment implements BuyerOrdersAdapter.
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                itemList.clear();
                 //final FirebaseUser user = mAuth.getCurrentUser();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     if(ds.child("buyerId").getValue().equals(user.getUid())){

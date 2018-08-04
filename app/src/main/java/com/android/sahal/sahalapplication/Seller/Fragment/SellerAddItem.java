@@ -97,7 +97,7 @@ public class SellerAddItem extends Fragment {
         itemName = view.findViewById(R.id.itemName_input);
         itemDescr = view.findViewById(R.id.itemDescr_input);
         itemPrice = view.findViewById(R.id.itemPrice_input);
-        itemType = view.findViewById(R.id.carName_input);
+        itemType = view.findViewById(R.id.itemType_input);
         itemCarName = view.findViewById(R.id.carName_input);
 
 
@@ -144,8 +144,8 @@ public class SellerAddItem extends Fragment {
                 if (!itemName.getText().toString().isEmpty()&&!itemDescr.getText().toString().isEmpty()
                         && !itemPrice.getText().toString().isEmpty()&&!itemCompan.getSelectedItem().equals("اختر شركة")
                 && !itemCarName.getSelectedItem().equals("اختر سيارة")){
-                    ProgressDialog dialog = ProgressDialog.show(getContext(), "",
-                            "جاري رفع القطعة....", true);
+//                    ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+//                            "جاري رفع القطعة....", true);
                 for (int i = 0; i < mPhotos.size(); i++) {
                     Log.d("photoname", mPhotos.get(i));
                     StorageReference imageReference = storageReference.child("items").child(mPhotos.get(i));
@@ -347,10 +347,12 @@ public class SellerAddItem extends Fragment {
                 }
             });
 
-
+            // عرف مكان السبنر
             itemCarName = this.getActivity().findViewById(R.id.carName_input);
+            // نسوي ادابتر ونحط ال List اللي منها الادابتر فالاخير
             ArrayAdapter<String> companysAdapter2 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, carsName);
             companysAdapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+            // نحط الادابتر ف السبنر
             itemCarName.setAdapter(companysAdapter2);
         }
 
@@ -379,7 +381,7 @@ public class SellerAddItem extends Fragment {
         adapterCatg.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemCatgory.setAdapter(adapterCatg);
 
-        itemType = view.findViewById(R.id.carName_input);
+        itemType = view.findViewById(R.id.itemType_input);
 
         String[] type =
                 { "اضاءة", "ابواب", "مقاعد", "مضخة "};

@@ -13,7 +13,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +23,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
+
 import android.widget.Toast;
 
 import com.android.sahal.sahalapplication.Adapters.BuyerSearchAdapter;
-import com.android.sahal.sahalapplication.Model.Car;
 import com.android.sahal.sahalapplication.Model.ModuleItem;
 import com.android.sahal.sahalapplication.R;
 import com.google.firebase.database.DataSnapshot;
@@ -136,7 +135,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         carsCompany.add(ds.getValue().toString());
-                        Log.d("comp", carsCompany.toString());
 
 
                     }

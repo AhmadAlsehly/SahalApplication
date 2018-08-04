@@ -119,8 +119,8 @@ public class BuyerCartAdapter  extends RecyclerView.Adapter<BuyerCartAdapter.MyV
                                 // continue with delete
                                 for(int i= 0 ; i< MainBuyerActivity.cartList.size();i++){
                                     if(item.getId().equals(MainBuyerActivity.cartList.get(i))){
-                                        MainBuyerActivity.cartList.remove(i);
-                                        itemList.remove(i);
+                                        MainBuyerActivity.cartList.remove(item.getId());
+                                        itemList.remove(item);
                                         notifyDataSetChanged();
 
                                     }

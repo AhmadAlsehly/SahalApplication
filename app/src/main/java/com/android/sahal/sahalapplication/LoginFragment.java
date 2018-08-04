@@ -57,53 +57,11 @@ public class LoginFragment extends Fragment {
             }
         });
 
-//        doLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
-//                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                if (task.isSuccessful()) {
-//                                    // Sign in success, update UI with the signed-in user's information
-//                                    final FirebaseUser user = mAuth.getCurrentUser();
-//                                    mDatabase.addValueEventListener(new ValueEventListener() {
-//                                        @Override
-//                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                            if (dataSnapshot.child("buyer").child("users").child(user.getUid()).exists()) {
 //
-//                                                Toast.makeText(getContext(), "done", Toast.LENGTH_SHORT).show();
-//                                            } else {
-//                                                Toast.makeText(getContext(), "dwdwdwdw", Toast.LENGTH_SHORT).show();
-//                                            }
-//                                        }
-//
-//
-//                                        @Override
-//                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                                        }
-//                                    });
-//
-//                                } else {
-//                                    // If sign in fails, display a message to the user.
-//                                    Toast.makeText(getContext(), "كلمة السر او/و الايميل غير صحيح",
-//                                            Toast.LENGTH_SHORT).show();
-//
-//                                }
-//
-//                                // ...
-//                            }
-//                        });
-//
-//
-//
-//            }
-//        });
         doLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+                final ProgressDialog dialog = ProgressDialog.show(getContext(), "",
                         "جاري تسجيل الدخول....", true);
                 if(!(email.getText().toString().isEmpty())&&!(password.getText().toString().isEmpty())){
                 mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
@@ -141,6 +99,7 @@ public class LoginFragment extends Fragment {
 
                                 } else {
                                     // If sign in fails, display a message to the user.
+                                    dialog.dismiss();
                                     Toast.makeText(getContext(), "كلمة السر او/و الايميل غير صحيح",
                                             Toast.LENGTH_SHORT).show();
 
