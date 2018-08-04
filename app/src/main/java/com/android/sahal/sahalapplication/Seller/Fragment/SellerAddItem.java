@@ -347,10 +347,12 @@ public class SellerAddItem extends Fragment {
                 }
             });
 
-
+            // عرف مكان السبنر
             itemCarName = this.getActivity().findViewById(R.id.carName_input);
+            // نسوي ادابتر ونحط ال List اللي منها الادابتر فالاخير
             ArrayAdapter<String> companysAdapter2 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, carsName);
             companysAdapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+            // نحط الادابتر ف السبنر
             itemCarName.setAdapter(companysAdapter2);
         }
 
