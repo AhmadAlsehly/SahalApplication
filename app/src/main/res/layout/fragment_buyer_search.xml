@@ -81,7 +81,6 @@
                 <!--app:layout_constraintTop_toTopOf="parent" />-->
 
                 <Spinner
-                    android:textColor="@color/white"
 
                     android:id="@+id/carName_input"
                     android:layout_width="164dp"
@@ -90,7 +89,6 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="40dp"
                     android:spinnerMode="dialog"
-                    android:theme="@style/AppTheme.AppBarOverlay"
                     app:layout_constraintEnd_toStartOf="@+id/itemComp_input"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +135,6 @@
 
                 <Spinner
 
-                    android:textColor="@color/white"
 
                     android:id="@+id/itemYear_input"
                     android:layout_width="140dp"
@@ -149,7 +146,6 @@
                     android:entries="@color/white"
                     android:popupBackground="@color/white"
                     android:spinnerMode="dialog"
-                    android:theme="@style/AppTheme.AppBarOverlay"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -159,7 +155,6 @@
 
                 <Spinner
 
-                    android:textColor="@color/white"
 
 
                     android:id="@+id/itemCatg_input"
@@ -171,7 +166,6 @@
                     android:layout_marginTop="20dp"
                     android:fadingEdge="horizontal"
                     android:spinnerMode="dialog"
-                    android:theme="@style/AppTheme.AppBarOverlay"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/itemYear_input"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -183,7 +177,6 @@
                 <Spinner
 
 
-                    android:textColor="@color/white"
 
                     android:id="@+id/itemComp_input"
                     android:layout_width="153dp"
@@ -192,7 +185,6 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="40dp"
                     android:spinnerMode="dialog"
-                    android:theme="@style/AppTheme.AppBarOverlay"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
