@@ -1,6 +1,7 @@
 package com.android.sahal.sahalapplication.Buyer.Fragment;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -132,61 +133,13 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
                                         .setMessage("هل انت متاكد من رغبتك في شراء عدد قطع ؟  " + MainBuyerActivity.cartList.size())
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
-                                                // continue with delete
-
-
-
-                                                    /*mDatabase.addValueEventListener(new ValueEventListener() {
-                                                        @Override
-                                                        public void onDataChange(@NonNull DataSnapshot dataS) {
-                                                            /*ModuleItem item = dataS.getValue(ModuleItem.class);
-                                                            if (item.getStatus().equals("0")) {
-                                                                item.setStatus("1");
-                                                                item.setBuyerId(currentUser.getUid().toString());
-                                                                mDatabase.setValue(item);
-                                                            } else {
-                                                                sold++;
-                                                            }
-                                                            for (DataSnapshot ds : dataS.getChildren()){
-                                                                if(MainBuyerActivity.cartList.size()!=0){
-                                                                for (int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
-                                                                    ModuleItem item = ds.getValue(ModuleItem.class);
-                                                                    if (item.getId().equals(MainBuyerActivity.cartList.get(i))) {
-                                                                        if (item.getStatus().equals("0")) {
-                                                                            item.setStatus("1");
-                                                                            item.setBuyerId(currentUser.getUid().toString());
-                                                                            mDatabase.child(MainBuyerActivity.cartList.get(i)).setValue(item);
-                                                                        } else {
-                                                                            sold++;
-                                                                        }
-
-                                                                    }
-                                                                }
-
-
-                                                                }
-                                                                else {
-                                                                    Toast.makeText(view.getContext(),"السلة فارغة",Toast.LENGTH_SHORT).show();
-                                                                }
-
-                                                            }
-                                                            MainBuyerActivity.cartList.clear();
-
-                                                        }
-
-                                                        @Override
-                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                                        }
-                                                    }); */
-
-
-                                                    //add the buyer ID and change the status to 1
 
                                                     mDatabase = FirebaseDatabase.getInstance().getReference().child("items");
                                                     mDatabase.addValueEventListener(new ValueEventListener() {
                                                         @Override
                                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                            ProgressDialog dialog01 = ProgressDialog.show(getContext(), "",
+                                                                    "جاري إتمام عملية الشراء....", true);
                                                                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                                                                     for(int i =0 ; i < MainBuyerActivity.cartList.size();i++) {
                                                                         ModuleItem item = ds.getValue(ModuleItem.class);
@@ -202,6 +155,9 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
                                                             }
                                                             }
                                                             MainBuyerActivity.cartList.clear();
+                                                            itemList.clear();
+                                                            buyerCartAdapter.notifyDataSetChanged();
+                                                            dialog01.dismiss();
                                                         }
 
                                                         @Override
@@ -216,8 +172,6 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
                                                     Toast.makeText(getContext(), "قطع مباعة تم ازالتها" + sold, Toast.LENGTH_SHORT).show();
                                                 }
 
-                                                itemList.clear();
-                                                buyerCartAdapter.notifyDataSetChanged();
                                             }
                                         })
                                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
