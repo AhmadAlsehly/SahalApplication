@@ -209,7 +209,7 @@ public class SellerAddItem extends Fragment {
                     itemType.getSelectedItem().toString(),
                     itemCatgory.getSelectedItem().toString(),
                     itemYear.getSelectedItem().toString(),
-                    itemPrice.getText().toString(), linkPhotos, mAuth.getUid(), "0", buyerId, itemId,"لم تقيم");
+                    itemPrice.getText().toString(), linkPhotos, mAuth.getUid(), "0", buyerId, itemId,"لم تقيم","makkah");
 
 
             mDataRef.child("items").child(itemId).setValue(moduleItem);
