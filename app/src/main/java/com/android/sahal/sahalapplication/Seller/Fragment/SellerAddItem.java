@@ -61,7 +61,7 @@ public class SellerAddItem extends Fragment {
     Uri imagePath;
     String itemPackage;
     TextView btnImage1, btnImage2, btnImage3, btnImage4;
-    EditText itemName, itemDescr, itemPrice;
+    EditText itemName, itemDescr, itemPrice,itemCity;
     Spinner itemCompan, itemCarName, itemYear, itemCatgory, itemType;
     ImageView image1, image2, image3, image4;
     private static int PICK_IMAGE = 100;
@@ -99,7 +99,7 @@ public class SellerAddItem extends Fragment {
         itemPrice = view.findViewById(R.id.itemPrice_input);
         itemType = view.findViewById(R.id.itemType_input);
         itemCarName = view.findViewById(R.id.carName_input);
-
+        itemCity=view.findViewById(R.id.itemCity_input);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -141,7 +141,8 @@ public class SellerAddItem extends Fragment {
             @Override
             public void onClick(final View v) {
 
-                if (!itemName.getText().toString().isEmpty()&&!itemDescr.getText().toString().isEmpty()
+                if (!itemName.getText().toString().isEmpty()&&!itemDescr.getText().toString().isEmpty()&&
+                        !itemCity.getText().toString().isEmpty()
                         && !itemPrice.getText().toString().isEmpty()&&!itemCompan.getSelectedItem().equals("اختر شركة")
                 && !itemCarName.getSelectedItem().equals("اختر سيارة")){
 //                    ProgressDialog dialog = ProgressDialog.show(getContext(), "",
@@ -209,7 +210,8 @@ public class SellerAddItem extends Fragment {
                     itemType.getSelectedItem().toString(),
                     itemCatgory.getSelectedItem().toString(),
                     itemYear.getSelectedItem().toString(),
-                    itemPrice.getText().toString(), linkPhotos, mAuth.getUid(), "0", buyerId, itemId,"لم تقيم");
+                    itemPrice.getText().toString(), linkPhotos, mAuth.getUid(), "0", buyerId, itemId,"لم تقيم",
+                    itemCity.getText().toString());
 
 
             mDataRef.child("items").child(itemId).setValue(moduleItem);

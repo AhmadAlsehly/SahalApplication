@@ -79,12 +79,14 @@ public class LoginFragment extends Fragment {
                                            if (dataSnapshot.child("buyer").child(user.getUid()).exists()) {
 
                                                Intent i = new Intent(getContext(),MainBuyerActivity.class);
+                                               dialog.dismiss();
                                                startActivity(i);
                                                getActivity().finish();
 
                                            } else {
                                                Intent i = new Intent(getContext(),MainSellerActivity.class);
                                                MainBuyerActivity.cartList.clear();
+                                               dialog.dismiss();
                                                startActivity(i);
                                                getActivity().finish();
                                            }

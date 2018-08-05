@@ -112,6 +112,7 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
         prepareAlbums();
 
 
+
         btnPurchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,16 +125,15 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
                     mDatabaseB.addListenerForSingleValueEvent(new ValueEventListener() {
 
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSBuyer) {
+                        public void onDataChange(@NonNull final DataSnapshot dataSBuyer) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                            Buyer buyer = dataSBuyer.getValue(Buyer.class);
+                            final Buyer buyer = dataSBuyer.getValue(Buyer.class);
                             // TODO chake if buyer has location
                             if (!buyer.getCity().isEmpty()){
                                 builder.setTitle("عملية شراء")
                                         .setMessage("هل انت متاكد من رغبتك في شراء عدد قطع ؟  " + MainBuyerActivity.cartList.size())
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
-
                                                     mDatabase = FirebaseDatabase.getInstance().getReference().child("items");
                                                     mDatabase.addValueEventListener(new ValueEventListener() {
                                                         @Override
@@ -148,6 +148,7 @@ public class FragmentCart extends Fragment implements BuyerCartAdapter.onItemCli
                                                                                 item.setStatus("1");
                                                                                 item.setBuyerId(currentUser.getUid().toString());
                                                                                 mDatabase.child(MainBuyerActivity.cartList.get(i)).setValue(item);
+                                                                                mDatabaseB.child("order").child(item.getId()).setValue(item.getId());
                                                                             } else {
                                                                                 sold++;
                                                                             }

@@ -15,12 +15,13 @@ public class ModuleItem implements Serializable {
     String buyerId;
     String id ;
     String review;
+    String city ;
 
 
 
     public ModuleItem(String itemName,String carName ,String desc, String factoryName, String type
             , String category, String year, String price, List<String> itemImages, String sellerId, String status , String buyerId
-                      ,String id ,String review
+                      ,String id ,String review,String city
     ) {
 
         this.itemName = itemName;
@@ -37,6 +38,7 @@ public class ModuleItem implements Serializable {
         this.buyerId=buyerId;
         this.id=id;
         this.review=review;
+        this.city=city;
     }
 
     public ModuleItem() {
@@ -155,5 +157,13 @@ public class ModuleItem implements Serializable {
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

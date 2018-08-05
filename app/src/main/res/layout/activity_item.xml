@@ -46,11 +46,14 @@
         android:id="@+id/price_addToCart"
         android:layout_width="123dp"
         android:layout_height="36dp"
+        android:layout_marginEnd="11dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/rounded_button"
         android:text="200 S.R"
         android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/desc"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rateField" />
 
@@ -83,12 +86,14 @@
         android:layout_width="wrap_content"
         android:layout_height="33dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_button"
         android:gravity="center"
         android:text="2012"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/factoryName"
+        app:layout_constraintStart_toEndOf="@+id/category"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <Button
@@ -97,7 +102,7 @@
         android:layout_width="104dp"
         android:layout_height="33dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_button"
         android:gravity="center"
@@ -112,15 +117,15 @@
         android:id="@+id/carName"
         android:layout_width="69dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_button"
         android:gravity="center"
         android:text="ازيرا"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/factoryName"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <Button
@@ -143,17 +148,37 @@
         app:layout_constraintTop_toBottomOf="@+id/name"
         app:layout_constraintVertical_bias="0.416" />
 
+    <TextView
+        android:id="@+id/cityField"
+        android:layout_width="112dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="84dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
+        android:drawableLeft="@drawable/location"
+        android:gravity="center"
+        android:text="المدينة"
+        android:textColor="@color/cardview_dark_background"
+        app:layout_constraintBottom_toTopOf="@+id/module"
+        app:layout_constraintEnd_toStartOf="@+id/desc"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price_addToCart" />
+
     <Button
         android:id="@+id/factoryName"
         android:layout_width="wrap_content"
         android:layout_height="33dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_button"
         android:gravity="center"
         android:text="هيونداي"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/carName"
+        app:layout_constraintStart_toEndOf="@+id/module"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <TextView

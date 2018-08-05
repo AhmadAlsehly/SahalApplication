@@ -49,12 +49,14 @@ import java.util.UUID;
 
 public class ItemActivity extends AppCompatActivity {
 
-    private TextView name, desc, price, category, nameOfFactory, yearOfCreat, carName , sellerName;
+    private TextView name, desc, price, category, nameOfFactory, yearOfCreat, carName , sellerName,city;
     // private Button ;
     private CarouselView carouselview;
     Button btnCart ,review;
     String itemId;
     private FirebaseAuth mAuth;
+
+
 
     RecyclerView recyclerView;
     private List<ModuleComment> moduleCommentList ;
@@ -110,6 +112,7 @@ public class ItemActivity extends AppCompatActivity {
         editTextComment = findViewById(R.id.editTextComment);
         send = findViewById(R.id.imageSend);
         Query query;
+
         prepareComment();
  //++++++++++++++++++++++++++++++++++++++rating faild+++++++++++++++++++++++++++++++++++++++++++++++
         sum = 0;
@@ -206,6 +209,7 @@ public class ItemActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         desc = findViewById(R.id.desc);
         price = findViewById(R.id.price_addToCart);
+        city=findViewById(R.id.cityField);
         carouselview = findViewById(R.id.imageView);
         nameOfFactory = findViewById(R.id.factoryName);
         yearOfCreat = findViewById(R.id.module);
@@ -251,6 +255,7 @@ public class ItemActivity extends AppCompatActivity {
         nameOfFactory.setText(moduleItem.getFactoryName());
         yearOfCreat.setText(moduleItem.getYear());
         carName.setText(moduleItem.getType());
+        city.setText(moduleItem.getCity());
 
 
         btnCart.setOnClickListener(new View.OnClickListener() {
