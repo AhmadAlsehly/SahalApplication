@@ -14,23 +14,51 @@
             android:id="@+id/textView21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="166dp"
-            android:layout_marginTop="12dp"
-            android:text="السيارة"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="المدينة"
+            app:layout_constraintBottom_toTopOf="@+id/itemCity_input"
+            app:layout_constraintEnd_toEndOf="@+id/itemCity_input"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/textView19"
-            app:layout_constraintTop_toBottomOf="@+id/itemPrice_input" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemDescr_input" />
+
+        <EditText
+
+            android:id="@+id/itemCity_input"
+            android:layout_width="0dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:hint="مكة المكرمة   . . .  "
+            android:inputType="text"
+            android:padding="10dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemDescr_input" />
 
         <Spinner
+
+
             android:id="@+id/carName_input"
-            android:layout_width="168dp"
-            android:layout_height="34dp"
+            android:layout_width="180dp"
+
+
+            android:layout_height="50dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/rounded_edittext"
             android:fadingEdge="horizontal"
+            android:gravity="center"
             android:isScrollContainer="true"
+            android:padding="5dp"
             android:spinnerMode="dialog"
             android:splitMotionEvents="true"
             android:textSize="14sp"
@@ -43,150 +71,109 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="132dp"
-            android:layout_marginTop="16dp"
             android:text="السعر"
+            app:layout_constraintBottom_toTopOf="@+id/itemPrice_input"
             app:layout_constraintEnd_toEndOf="@+id/itemPrice_input"
-            app:layout_constraintHorizontal_bias="0.963"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemDescr_input" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
             android:text="اسم القطعة"
             app:layout_constraintBottom_toTopOf="@+id/itemName_input"
             app:layout_constraintEnd_toEndOf="@+id/itemName_input"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.833" />
 
         <EditText
+
             android:id="@+id/itemName_input"
-            android:layout_width="336dp"
+            android:layout_width="0dp"
+
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/rounded_edittext"
             android:ems="10"
             android:hint="اسم القطعة المدخلة"
             android:inputType="text"
+            android:padding="10dp"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="8dp"
-            android:text="الوصف"
-            app:layout_constraintBottom_toTopOf="@+id/itemDescr_input"
-            app:layout_constraintEnd_toEndOf="@+id/itemDescr_input"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <Spinner
-            android:id="@+id/itemComp_input"
 
-            android:layout_width="151dp"
-            android:layout_height="37dp"
-            android:layout_marginEnd="8dp"
+
+            android:id="@+id/itemComp_input"
+            android:layout_width="145dp"
+
+            android:layout_height="50dp"
+
             android:layout_marginStart="24dp"
-            android:layout_marginTop="48dp"
+
+
+            android:layout_marginTop="60dp"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center"
+            android:padding="10dp"
             android:spinnerMode="dialog"
             android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/itemPrice_input"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemDescr_input" />
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="8dp"
-            android:text="الشركة"
-            app:layout_constraintBottom_toTopOf="@+id/itemComp_input"
-            app:layout_constraintEnd_toEndOf="@+id/itemComp_input"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/itemCity_input" />
 
         <Spinner
+
             android:id="@+id/itemType_input"
-            android:layout_width="144dp"
-            android:layout_height="37dp"
+            android:layout_width="145dp"
+
+            android:layout_height="50dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center"
+            android:padding="5dp"
             android:spinnerMode="dialog"
+            android:textAlignment="gravity"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/relativeAdd"
             app:layout_constraintEnd_toStartOf="@+id/itemCatg_input"
-            app:layout_constraintHorizontal_bias="0.457"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/itemYear_input"
-            app:layout_constraintVertical_bias="0.708" />
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="125dp"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="12dp"
-            android:text="الصنف"
-            app:layout_constraintBottom_toTopOf="@+id/itemType_input"
-            app:layout_constraintEnd_toStartOf="@+id/textView20"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemYear_input"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <TextView
-            android:id="@+id/textView19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="8dp"
-            android:text="الموديل"
-            app:layout_constraintBottom_toTopOf="@+id/itemYear_input"
-            app:layout_constraintEnd_toEndOf="@+id/itemYear_input"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="نوع القطعة"
-            app:layout_constraintBottom_toTopOf="@+id/itemCatg_input"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.946"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Spinner
-            android:id="@+id/itemYear_input"
 
+            android:id="@+id/itemYear_input"
             android:layout_width="145dp"
-            android:layout_height="34dp"
+            android:layout_height="50dp"
+
             android:layout_marginEnd="8dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="42dp"
+
+
+            android:layout_marginTop="60dp"
+            android:background="@drawable/rounded_edittext"
+            android:gravity="center"
+            android:padding="10dp"
             android:spinnerMode="dialog"
+            android:textAlignment="gravity"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/carName_input"
             app:layout_constraintHorizontal_bias="0.0"
@@ -194,37 +181,44 @@
             app:layout_constraintTop_toBottomOf="@+id/itemComp_input" />
 
         <Spinner
+
             android:id="@+id/itemCatg_input"
-            android:layout_width="173dp"
-            android:layout_height="34dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="180dp"
+
+            android:layout_height="50dp"
+            android:layout_marginEnd="24dp"
+
             android:layout_marginStart="8dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/rounded_edittext"
             android:fadingEdge="horizontal"
+            android:gravity="center"
             android:isScrollContainer="true"
+            android:padding="10dp"
             android:spinnerMode="dialog"
             android:splitMotionEvents="true"
+            android:textAlignment="gravity"
             android:textSize="13sp"
-            app:layout_constraintBottom_toTopOf="@+id/relativeAdd"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.921"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/carName_input"
-            app:layout_constraintVertical_bias="0.706" />
+            app:layout_constraintTop_toBottomOf="@+id/carName_input" />
 
         <LinearLayout
-
+android:background="@drawable/rounded_edittext"
+            android:padding="10dp"
             android:id="@+id/relativeAdd"
-            android:layout_width="257dp"
+            android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="80dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.576"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/carName_input">
+            app:layout_constraintTop_toBottomOf="@+id/itemCatg_input">
 
             <LinearLayout
 
@@ -291,14 +285,14 @@
 
         <Button
             android:id="@+id/butnDone"
-            android:layout_width="211dp"
-            android:layout_height="43dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="45dp"
             android:background="@drawable/rounded_button"
             android:text="اضف القطعة"
             android:textColor="#ffffff"
@@ -361,11 +355,28 @@
             app:layout_constraintStart_toStartOf="@+id/relativeAdd"
             app:layout_constraintTop_toTopOf="@+id/relativeAdd" />
 
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:text="الوصف"
+            app:layout_constraintBottom_toTopOf="@+id/itemDescr_input"
+            app:layout_constraintEnd_toEndOf="@+id/itemDescr_input"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <EditText
             android:id="@+id/itemDescr_input"
 
-            android:layout_width="336dp"
+            android:background="@drawable/rounded_edittext"
+            android:padding="10dp"
+
+
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="48dp"
             android:ems="10"
@@ -378,31 +389,36 @@
 
         <EditText
             android:id="@+id/itemPrice_input"
-            android:layout_width="176dp"
+            android:layout_width="180dp"
 
             android:layout_height="50dp"
+
             android:layout_marginEnd="24dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/rounded_edittext"
             android:ems="10"
             android:gravity="center"
             android:inputType="number"
+            android:padding="10dp"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemDescr_input" />
+            app:layout_constraintTop_toBottomOf="@+id/itemCity_input" />
 
         <TextView
             android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="2dp"
             android:text="S.R"
             app:layout_constraintBottom_toBottomOf="@+id/itemPrice_input"
             app:layout_constraintEnd_toEndOf="@+id/itemPrice_input"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintVertical_bias="0.7" />
     </android.support.constraint.ConstraintLayout>
 
 
