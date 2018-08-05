@@ -144,6 +144,24 @@
         app:layout_constraintVertical_bias="0.416" />
 
     <Button
+        android:id="@+id/cityField"
+        android:layout_width="123dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="84dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/rounded_button_stroke"
+        android:gravity="center"
+        android:text="المدينة"
+        android:drawableLeft="@drawable/location"
+        android:textColor="@color/cardview_dark_background"
+        app:layout_constraintBottom_toTopOf="@+id/module"
+        app:layout_constraintEnd_toStartOf="@+id/desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price_addToCart" />
+
+    <Button
         android:id="@+id/factoryName"
         android:layout_width="wrap_content"
         android:layout_height="33dp"
