@@ -56,6 +56,8 @@ public class ItemActivity extends AppCompatActivity {
     String itemId;
     private FirebaseAuth mAuth;
 
+
+
     RecyclerView recyclerView;
     private List<ModuleComment> moduleCommentList ;
     private CommentAdapter commentAdapter;
@@ -110,6 +112,7 @@ public class ItemActivity extends AppCompatActivity {
         editTextComment = findViewById(R.id.editTextComment);
         send = findViewById(R.id.imageSend);
         Query query;
+
         prepareComment();
  //++++++++++++++++++++++++++++++++++++++rating faild+++++++++++++++++++++++++++++++++++++++++++++++
         sum = 0;
