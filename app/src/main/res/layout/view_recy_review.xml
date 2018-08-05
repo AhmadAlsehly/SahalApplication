@@ -26,6 +26,7 @@
                 android:layout_width="195dp"
                 android:layout_height="56dp"
                 android:layout_below="@+id/title"
+                android:layout_marginBottom="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_toLeftOf="@+id/thumbnail"
                 android:layout_toStartOf="@+id/thumbnail"
@@ -33,10 +34,10 @@
                 android:paddingLeft="@dimen/album_title_padding"
                 android:paddingRight="@dimen/album_title_padding"
                 android:textSize="@dimen/songs_count"
+                card_view:layout_constraintBottom_toTopOf="@+id/count"
                 card_view:layout_constraintEnd_toStartOf="@+id/thumbnail"
                 card_view:layout_constraintHorizontal_bias="1.0"
-                card_view:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="46dp" />
+                card_view:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/thumbnail"
@@ -90,20 +91,6 @@
             </TextView>
 
 
-            <ImageView
-                android:id="@+id/overflow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="4dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_dots"
-                card_view:layout_constraintBottom_toTopOf="@+id/status"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="@+id/title" />
 
             <TextView
                 android:id="@+id/status"

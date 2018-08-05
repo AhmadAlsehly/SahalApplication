@@ -96,12 +96,6 @@ public class BuyerSearchAdapter extends RecyclerView.Adapter<BuyerSearchAdapter.
         // loading album cover using Glide library
 //        Glide.with(mContext).load(item.getImages().get(0)).into(holder.thumbnail);
 
-        holder.overflow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupMenu(holder.overflow);
-            }
-        });
 
         holder.count.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,46 +150,6 @@ public class BuyerSearchAdapter extends RecyclerView.Adapter<BuyerSearchAdapter.
     }
 
 
-
-    private void showPopupMenu(View view) {
-        // inflate menu
-        PopupMenu popup = new PopupMenu(mContext, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_album, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
-        popup.show();
-    }
-
-
-    class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
-
-        public MyMenuItemClickListener() {
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-//                case R.id.action_edit:
-//
-//
-//
-//                    Toast.makeText(mContext, "تعديل", Toast.LENGTH_SHORT).show();
-//                    return true;
-//
-//
-//
-//                case R.id.action_remove:
-//
-//
-//                    Toast.makeText(mContext, "تمت الإزالة", Toast.LENGTH_SHORT).show();
-//                    return true;
-//                default:
-
-
-            }
-            return false;
-        }
-    }
 
 
     @Override

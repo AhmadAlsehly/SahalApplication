@@ -256,22 +256,24 @@ public class ItemActivity extends AppCompatActivity {
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isSeller){
-                Boolean added = true;
+                if(moduleItem.getStatus().equals("0")){
+                if (isSeller) {
+                    Boolean added = true;
 
 // to add id
-                for (int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
+                    for (int i = 0; i < MainBuyerActivity.cartList.size(); i++) {
 
-                    if (MainBuyerActivity.cartList.get(i).equals(moduleItem.getId())) {
-                        added = false;
-                        Toast.makeText(getBaseContext(), "القطعة مضافة مسبقا", Toast.LENGTH_SHORT).show();
-                        break;
+                        if (MainBuyerActivity.cartList.get(i).equals(moduleItem.getId())) {
+                            added = false;
+                            Toast.makeText(getBaseContext(), "القطعة مضافة مسبقا", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
                     }
-                }
-                if (added) {
-                    MainBuyerActivity.cartList.add(moduleItem.getId());
-                    Toast.makeText(getBaseContext(), "تمت الاضافة للسلة", Toast.LENGTH_SHORT).show();
+                    if (added) {
+                        MainBuyerActivity.cartList.add(moduleItem.getId());
+                        Toast.makeText(getBaseContext(), "تمت الاضافة للسلة", Toast.LENGTH_SHORT).show();
 
+                    }
                 }
             }
             }

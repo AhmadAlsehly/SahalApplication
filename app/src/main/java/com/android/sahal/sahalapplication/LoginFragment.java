@@ -61,9 +61,9 @@ public class LoginFragment extends Fragment {
         doLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ProgressDialog dialog = ProgressDialog.show(getContext(), "",
-                        "جاري تسجيل الدخول....", true);
                 if(!(email.getText().toString().isEmpty())&&!(password.getText().toString().isEmpty())){
+                    final ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+                            "جاري تسجيل الدخول....", true);
                 mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                             @Override
@@ -112,7 +112,7 @@ public class LoginFragment extends Fragment {
 
 
             }else {
-                    Toast.makeText(v.getContext(), "All field are required",
+                    Toast.makeText(v.getContext(), "جميع الحقول مطلوبة",
                             Toast.LENGTH_SHORT).show();
                 }
         }});
