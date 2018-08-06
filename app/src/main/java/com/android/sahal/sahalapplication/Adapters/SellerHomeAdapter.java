@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,8 +48,12 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
     private List<ModuleItem> itemList;
     FirebaseStorage firebaseStorage;
     private FirebaseDatabase firebaseDatabase;
-    DatabaseReference mDataRef ;
+    DatabaseReference mDataRef;
     ModuleItem moduleItem;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
+
+    private StorageReference storageRef = storage.getReference();
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -86,7 +91,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         firebaseStorage = FirebaseStorage.getInstance();
-          moduleItem = itemList.get(position);
+        moduleItem = itemList.get(position);
         holder.title.setText(moduleItem.getItemName());
         holder.desc.setText(moduleItem.getDescription());
         holder.count.setText(moduleItem.getPrice() + " SR");
@@ -99,7 +104,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                moduleItem=itemList.get(position);
+                moduleItem = itemList.get(position);
                 showPopupMenu(holder.overflow);
             }
         });
@@ -108,7 +113,7 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
             @Override
             public void onClick(View view) {
-               Intent intent = new Intent(view.getContext(), ItemActivity.class);
+                Intent intent = new Intent(view.getContext(), ItemActivity.class);
 
                 intent.putExtra("ModuleItem", itemList.get(position));
                 view.getContext().startActivity(intent);
@@ -119,7 +124,6 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
                 view.getContext().startActivity(intent);*/
 //                 intent.putExtra("Name",itemList.get(position).getName());
 //                                intent.putExtra("Category",itemList.get(position).getCategory());
-
 
 
 //                Intent toItem=new Intent(view.getContext(),ItemActivity.class);
@@ -181,41 +185,51 @@ public class SellerHomeAdapter extends RecyclerView.Adapter<SellerHomeAdapter.My
 
 
                 case R.id.action_remove:
-                    mDataRef =  firebaseDatabase.getInstance().getReference().child("items").child(moduleItem.getId());
-                 mDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                     @Override
-                     public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    mDataRef = firebaseDatabase.getInstance().getReference().child("items").child(moduleItem.getId());
+                    mDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-                             builder.setTitle("هل تريد حذف هذه القطعة")
-                                     .setMessage("لا يمكنك استعادة هذه البيانات بعد حذفها")
-                                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                         public void onClick(DialogInterface dialog, int which) {
-                                             // continue with delete
-
-
-                                             dataSnapshot.getRef().removeValue();
-                                             itemList.remove(moduleItem);
-                                             notifyDataSetChanged();
+                            builder.setTitle("هل تريد حذف هذه القطعة")
+                                    .setMessage("لا يمكنك استعادة هذه البيانات بعد حذفها")
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // continue with delete
 
 
-                                         }
-                                     })
-                                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                         public void onClick(DialogInterface dialog, int which) {
-                                             // do nothing
-                                         }
-                                     })
-                                     .setIcon(android.R.drawable.ic_dialog_alert)
-                                     .show();
+                                            dataSnapshot.getRef().removeValue();
+                                            for (int i = 0; moduleItem.getItemImages().size() > i; i++) {
+                                                storageRef = storage.getReferenceFromUrl(moduleItem.getItemImages().get(i));
+                                                storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
 
-                         }
+                                                    }
+                                                });
+                                            }
 
-                     @Override
-                     public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            itemList.remove(moduleItem);
+                                            notifyDataSetChanged();
 
-                     }
-                 });
+
+                                        }
+                                    })
+                                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // do nothing
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
                     return true;
                 default:

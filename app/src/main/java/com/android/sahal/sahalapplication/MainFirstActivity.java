@@ -47,12 +47,6 @@ public class MainFirstActivity extends AppCompatActivity {
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         final FirebaseUser currentUser = mAuth.getCurrentUser();
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -79,6 +73,38 @@ public class MainFirstActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+//        final FirebaseUser currentUser = mAuth.getCurrentUser();
+//        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (currentUser!=null) {
+//                    if (dataSnapshot.child("buyer").child(currentUser.getUid()).exists()) {
+//                        Intent i = new Intent(MainFirstActivity.this, MainBuyerActivity.class);
+//                        startActivity(i);
+//                        finish();
+//                    } else if (dataSnapshot.child("seller").child(currentUser.getUid()).exists()) {
+//                        Intent i = new Intent(MainFirstActivity.this, MainSellerActivity.class);
+//                        startActivity(i);
+//                        finish();
+//                    }
+//                } else {
+//                    Intent i = new Intent(MainFirstActivity.this,MainBuyerActivity.class);
+//                    startActivity(i);
+//                    finish();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
     }
     public boolean isOnline() {
         ConnectivityManager conMgr = (ConnectivityManager) getApplicationContext().getSystemService(this.CONNECTIVITY_SERVICE);

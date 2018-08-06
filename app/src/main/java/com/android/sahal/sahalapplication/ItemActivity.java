@@ -81,7 +81,7 @@ public class ItemActivity extends AppCompatActivity {
 
 
     // Create a storage reference from our app
-    private StorageReference storageRef = storage.getReference();
+    private StorageReference storageRef;
 
     // Create a reference with an initial file path and name
 
@@ -101,6 +101,7 @@ public class ItemActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         final ModuleItem moduleItem = (ModuleItem) intent.getSerializableExtra("ModuleItem");
         //to add comments
+
         recyclerView = findViewById(R.id.comment_recyclerView);
         moduleCommentList = new ArrayList<>();
         commentAdapter = new CommentAdapter(this, moduleCommentList);
