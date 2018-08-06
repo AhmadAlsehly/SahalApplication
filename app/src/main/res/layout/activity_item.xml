@@ -1,264 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <com.synnapps.carouselview.CarouselView
-        android:id="@+id/imageView"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:autoPlay="false"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:slideInterval="300" />
+        android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:text="عكس أمامي يسار ازيرا 2012"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        <com.synnapps.carouselview.CarouselView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            app:autoPlay="false"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:slideInterval="300" />
 
 
-    <Button
-        android:id="@+id/price_addToCart"
-        android:layout_width="123dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/rounded_button"
-        android:text="200 S.R"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/desc"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rateField" />
-
-    <TextView
-        android:id="@+id/desc"
-        android:layout_width="214dp"
-        android:layout_height="109dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
-        android:text="لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا يوت انيم"
-        app:layout_constraintEnd_toEndOf="@+id/sellerName"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
-
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="73dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="التصنيفات "
-        app:layout_constraintEnd_toEndOf="@+id/desc"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/desc" />
-
-    <Button
-        android:id="@+id/module"
-        android:layout_width="wrap_content"
-        android:layout_height="33dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_button"
-        android:gravity="center"
-        android:text="2012"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/factoryName"
-        app:layout_constraintStart_toEndOf="@+id/category"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
-    <Button
-
-        android:id="@+id/category"
-        android:layout_width="104dp"
-        android:layout_height="33dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_button"
-        android:gravity="center"
-        android:text="هيكل وجسم خارجي"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/module"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
-    <Button
-        android:id="@+id/carName"
-        android:layout_width="69dp"
-        android:layout_height="33dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_button"
-        android:gravity="center"
-        android:text="ازيرا"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/factoryName"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
-    <Button
-        android:id="@+id/rateField"
-        android:layout_width="123dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/rounded_button_stroke"
-        android:drawableLeft="@drawable/star"
-        android:gravity="center"
-        android:text="البائع لم يقيم"
-        android:textColor="@color/cardview_dark_background"
-        app:layout_constraintBottom_toTopOf="@+id/desc"
-        app:layout_constraintEnd_toStartOf="@+id/sellerName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        app:layout_constraintVertical_bias="0.416" />
-
-    <TextView
-        android:id="@+id/cityField"
-        android:layout_width="112dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="84dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="19dp"
-        android:drawableLeft="@drawable/location"
-        android:gravity="center"
-        android:text="المدينة"
-        android:textColor="@color/cardview_dark_background"
-        app:layout_constraintBottom_toTopOf="@+id/module"
-        app:layout_constraintEnd_toStartOf="@+id/desc"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/price_addToCart" />
-
-    <Button
-        android:id="@+id/factoryName"
-        android:layout_width="wrap_content"
-        android:layout_height="33dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_button"
-        android:gravity="center"
-        android:text="هيونداي"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/carName"
-        app:layout_constraintStart_toEndOf="@+id/module"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
-    <TextView
-        android:id="@+id/sellerName"
-        android:layout_width="118dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="اسم البائع"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/desc"
-        app:layout_constraintEnd_toEndOf="@+id/name"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        app:layout_constraintVertical_bias="0.65" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/comment_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="128dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/carName"
-        tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="عكس أمامي يسار ازيرا 2012"
+            android:textSize="26sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
-    <TextView
-        android:id="@+id/txtTheComments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="68dp"
-        android:text="التعليقات"
-        app:layout_constraintBottom_toTopOf="@+id/comment_recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carName"
-        app:layout_constraintVertical_bias="1.0" />
+        <Button
+            android:id="@+id/price_addToCart"
+            android:layout_width="123dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_button"
+            android:text="200 S.R"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/desc"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rateField" />
 
-    <EditText
-        android:id="@+id/editTextComment"
-        android:layout_width="322dp"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="أكتب تعليقك هنا"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/comment_recyclerView"
-        app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="214dp"
+            android:layout_height="109dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="56dp"
+            android:text="لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور أنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا يوت انيم"
+            app:layout_constraintEnd_toEndOf="@+id/sellerName"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
-    <ImageView
-        android:id="@+id/imageSend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextComment"
-        app:layout_constraintTop_toBottomOf="@+id/comment_recyclerView"
-        app:layout_constraintVertical_bias="0.714"
-        app:srcCompat="@drawable/send_icon" />
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="73dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="التصنيفات "
+            app:layout_constraintEnd_toEndOf="@+id/desc"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/desc" />
 
-</android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/module"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_button"
+            android:gravity="center"
+            android:text="2012"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/factoryName"
+            app:layout_constraintStart_toEndOf="@+id/category"
+            app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+        <Button
+
+            android:id="@+id/category"
+            android:layout_width="104dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_button"
+            android:gravity="center"
+            android:text="هيكل وجسم خارجي"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/module"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+        <Button
+            android:id="@+id/carName"
+            android:layout_width="69dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_button"
+            android:gravity="center"
+            android:text="ازيرا"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/factoryName"
+            app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+        <Button
+            android:id="@+id/rateField"
+            android:layout_width="123dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/rounded_button_stroke"
+            android:drawableLeft="@drawable/star"
+            android:gravity="center"
+            android:text="البائع لم يقيم"
+            android:textColor="@color/cardview_dark_background"
+            app:layout_constraintBottom_toTopOf="@+id/desc"
+            app:layout_constraintEnd_toStartOf="@+id/sellerName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintVertical_bias="0.416" />
+
+        <TextView
+            android:id="@+id/cityField"
+            android:layout_width="112dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="84dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="19dp"
+            android:drawableLeft="@drawable/location"
+            android:gravity="center"
+            android:text="المدينة"
+            android:textColor="@color/cardview_dark_background"
+            app:layout_constraintBottom_toTopOf="@+id/module"
+            app:layout_constraintEnd_toStartOf="@+id/desc"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/price_addToCart" />
+
+        <Button
+            android:id="@+id/factoryName"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_button"
+            android:gravity="center"
+            android:text="هيونداي"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/carName"
+            app:layout_constraintStart_toEndOf="@+id/module"
+            app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+        <TextView
+            android:id="@+id/sellerName"
+            android:layout_width="118dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:text="اسم البائع"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/desc"
+            app:layout_constraintEnd_toEndOf="@+id/name"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintVertical_bias="0.65" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/comment_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="136dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/carName"
+            tools:ignore="MissingConstraints" />
 
 
-    </ScrollView>
+        <TextView
+            android:id="@+id/txtTheComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="التعليقات"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/carName" />
+
+        <EditText
+            android:id="@+id/editTextComment"
+            android:layout_width="322dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:hint="أكتب تعليقك هنا"
+            android:inputType="textMultiLine"
+            app:layout_constraintBottom_toTopOf="@+id/comment_recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.173"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/comment_recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/editTextComment"
+            app:srcCompat="@drawable/sending_arrow" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>
