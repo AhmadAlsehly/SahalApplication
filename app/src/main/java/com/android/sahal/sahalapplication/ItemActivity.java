@@ -294,6 +294,8 @@ public class ItemActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!(currentUser==null)){
                     if(!editTextComment.getText().toString().isEmpty()) {
+                        final String msg=editTextComment.getText().toString();
+                        editTextComment.setText("");
                         mDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
 
@@ -307,11 +309,10 @@ public class ItemActivity extends AppCompatActivity {
                                             Buyer buyer =  dataS.getValue(Buyer.class);
                                             ModuleComment comment = new ModuleComment(currentUser.getUid(),
                                                     buyer.getBuyerName()
-                                                    , editTextComment.getText().toString());
+                                                    , msg);
                                             Log.d("test",comment.getSenderName());
                                             mDataRef.child("Comments").child(moduleItem.getId()).push()
                                                     .setValue(comment);
-                                            editTextComment.setText("");
                                             commentAdapter.notifyDataSetChanged();
 
                                         }
@@ -326,11 +327,10 @@ public class ItemActivity extends AppCompatActivity {
                                 } else {
                                     ModuleComment comment = new ModuleComment(currentUser.getUid(),
                                             sellerName.getText().toString()
-                                            , editTextComment.getText().toString());
+                                            , msg);
                                     Log.d("test",comment.getSenderName());
                                     mDataRef.child("Comments").child(moduleItem.getId()).child(UUID.randomUUID().toString())
                                             .setValue(comment);
-                                    editTextComment.setText("");
                                     commentAdapter.notifyDataSetChanged();
 
 
