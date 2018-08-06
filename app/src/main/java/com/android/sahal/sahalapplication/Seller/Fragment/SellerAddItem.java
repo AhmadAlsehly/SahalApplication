@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -81,7 +82,7 @@ public class SellerAddItem extends Fragment {
     DatabaseReference mDataRef;
     StorageReference mStorageRef;
     int count = 0;
-
+    FirebaseUser currentUser;
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         init(view);
@@ -89,6 +90,7 @@ public class SellerAddItem extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
         btnDone = view.findViewById(R.id.butnDone);
         image1 = view.findViewById(R.id.image1);
         image2 = view.findViewById(R.id.image2);
@@ -215,7 +217,7 @@ public class SellerAddItem extends Fragment {
 
 
             mDataRef.child("items").child(itemId).setValue(moduleItem);
-
+            mDataRef.child("seller").child(currentUser.getUid()).child("order").child(moduleItem.getId()).setValue(moduleItem.getId());
             Toast.makeText(getContext(), "تم اضافة القطعة ", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(getContext(), MainSellerActivity.class);
         startActivity(i);
