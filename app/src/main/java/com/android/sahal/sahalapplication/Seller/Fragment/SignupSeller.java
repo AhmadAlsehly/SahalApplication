@@ -1,6 +1,7 @@
 package com.android.sahal.sahalapplication.Seller.Fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -94,7 +95,8 @@ public class SignupSeller extends Fragment {
                           !name.getText().toString().isEmpty()&&!
                           number.getText().toString().isEmpty()
                           &&!bR.getText().toString().isEmpty()){
-
+                      final ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+                              "جاري تسجيل الدخول....", true);
                       String e = email.getText().toString().trim();
                       String p = pass.getText().toString().trim();
                       mAuth.createUserWithEmailAndPassword(e, p)
@@ -107,6 +109,7 @@ public class SignupSeller extends Fragment {
                                           FirebaseUser user = mAuth.getCurrentUser();
                                           mDatabase.child("seller").child(mAuth.getUid()).setValue(seller);
                                           Intent i = new Intent(getContext(),MainSellerActivity.class);
+                                          dialog.dismiss();
                                           startActivity(i);
                                           Toast.makeText(getContext(),"Welcome",Toast.LENGTH_SHORT).show();
                                           MainBuyerActivity.cartList.clear();
@@ -116,6 +119,7 @@ public class SignupSeller extends Fragment {
                                       } else {
                                           // If sign in fails, display a message to the user.
                                           Log.w("test", "createUserWithEmail:failure", task.getException());
+                                          dialog.dismiss();
                                           Toast.makeText(v.getContext(), "Authentication failed.",
                                                   Toast.LENGTH_SHORT).show();
                                       }

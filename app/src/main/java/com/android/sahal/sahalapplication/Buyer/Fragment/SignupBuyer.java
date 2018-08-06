@@ -1,6 +1,7 @@
 package com.android.sahal.sahalapplication.Buyer.Fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -84,6 +85,8 @@ public class SignupBuyer extends Fragment {
                         !pass.getText().toString().isEmpty()&&
                         !name.getText().toString().isEmpty()&&!
                         number.getText().toString().isEmpty()){
+                    final ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+                            "جاري تسجيل الدخول....", true);
 
                     final String e = email.getText().toString().trim();
                     String p = pass.getText().toString().trim();
@@ -98,6 +101,7 @@ public class SignupBuyer extends Fragment {
 
                                         mDatabase.child("buyer").child(mAuth.getUid()).setValue(buyer);
                                         Intent i = new Intent(getContext(),MainBuyerActivity.class);
+                                        dialog.dismiss();
                                         startActivity(i);
                                         Toast.makeText(getContext(),"Welcome",Toast.LENGTH_SHORT).show();
                                         getActivity().finish();
@@ -105,6 +109,7 @@ public class SignupBuyer extends Fragment {
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("test", "createUserWithEmail:failure", task.getException());
+                                        dialog.dismiss();
                                         Toast.makeText(v.getContext(), "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();
                                     }
