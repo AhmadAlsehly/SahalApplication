@@ -120,6 +120,8 @@
                     android:layout_height="37dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="16dp"
+                    android:background="@drawable/rounded_edittext"
+
                     android:layout_marginTop="40dp"
                     android:spinnerMode="dialog"
                     app:layout_constraintEnd_toStartOf="@+id/itemComp_input"
@@ -176,6 +178,8 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_edittext"
+
                     android:entries="@color/white"
                     android:popupBackground="@color/white"
                     android:spinnerMode="dialog"
@@ -190,11 +194,13 @@
 
 
                     android:id="@+id/itemCatg_input"
-                    android:layout_width="200dp"
+                    android:layout_width="170dp"
                     android:layout_height="33dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginStart="16dp"
+                    android:background="@drawable/rounded_edittext"
+
                     android:layout_marginTop="20dp"
                     android:fadingEdge="horizontal"
                     android:spinnerMode="dialog"
@@ -215,6 +221,8 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="40dp"
+                    android:background="@drawable/rounded_edittext"
+
                     android:spinnerMode="dialog"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"

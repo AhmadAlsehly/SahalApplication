@@ -16,7 +16,7 @@
         android:layout_height="41dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/rounded_button_orange"
         android:text="تأكيد عملية الشراء"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

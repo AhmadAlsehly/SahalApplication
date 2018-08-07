@@ -114,7 +114,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/orange"
             android:onClick="onClick"
             android:text="إنشاء حساب"
             android:textColor="@color/white"

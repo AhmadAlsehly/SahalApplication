@@ -89,7 +89,7 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/orange"
 
                 android:gravity="center"
                 android:textColor="@color/white"

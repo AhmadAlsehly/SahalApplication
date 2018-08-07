@@ -23,6 +23,8 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="wrap_content"
+        app:itemTextColor="@color/orange"
+
         android:layout_height="56dp"
         android:layout_marginTop="492dp"
         android:background="?android:attr/windowBackground"
