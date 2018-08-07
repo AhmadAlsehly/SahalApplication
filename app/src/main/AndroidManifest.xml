@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.android.sahal.sahalapplication">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -18,56 +19,69 @@
 
     <application
         android:allowBackup="true"
+        android:configChanges="keyboardHidden|orientation|layoutDirection"
+        android:gravity="end"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="false"
-        android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-        android:theme="@style/AppTheme"
-        android:configChanges="keyboardHidden|orientation|layoutDirection"
-        android:gravity="end"
         android:screenOrientation="portrait"
+        android:supportsRtl="false"
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
         tools:replace="android:supportsRtl">
         <uses-library android:name="com.google.android.maps" />
+
         <activity
             android:name=".MainFirstActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Seller.Fragment.SellerPersonalData"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            />
+        <activity
+            android:name=".Seller.Fragment.SellerPersonalData"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".MainSignUpActivity"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Seller.Activity.MainSellerActivity"
+            android:label="@string/title_activity_main_buyer"
+            android:screenOrientation="portrait"
+
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Buyer.Activity.BuyerPersonalActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ItemActivity" />
+        <activity
+            android:name=".Buyer.Activity.MainBuyerActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
 
-            android:label="@string/title_activity_main_buyer"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".Buyer.Activity.BuyerPersonalActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            />
-        <activity android:name=".ItemActivity" />
-        <activity android:name=".Buyer.Activity.MainBuyerActivity"
-            android:windowSoftInputMode="adjustPan"
 
             ></activity>
-        <activity android:name=".Buyer.Activity.BuyerPersonalData"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            />
-        <activity android:name=".SellerItemActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            />
-        <activity android:name=".Seller.Activity.SellerEditItem"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            >
+        <activity
+            android:name=".Buyer.Activity.BuyerPersonalData"
+            android:screenOrientation="portrait"
+
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".SellerItemActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".Seller.Activity.SellerEditItem"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden">
 
         </activity>
     </application>

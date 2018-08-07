@@ -831,7 +831,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                         // itemList.clear();
                         year = true;
-                        // Log.d(workRequestType, "onItemSelected: "+year);
 
                     }
                     query = databaseReference.orderByChild("year")
@@ -1200,6 +1199,17 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                         .toString();
                 //final int[] i = {0};
 
+                if (itemCompan.getSelectedItemPosition() == 0 ) {
+                    carsName.clear();
+                    carsName.add(0, "اختر سيارة");
+
+                    itemCarName = getView().findViewById(R.id.carName_input);
+                    final ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, carsName);
+                    adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                    itemCarName.setAdapter(adapterModel);
+
+                }
+
                 if (pos != 0) {
                     if (factory == false) {
 
@@ -1219,43 +1229,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                     if (ds.child("status").getValue().equals("0")) {
 
                                         //00000000000000000000000000000000000000000000000000000
-//                                        carQuery = databaseReference.orderByChild("itemName")
-//                                                .startAt(serchText.getText().toString())
-//                                                .endAt(serchText.getText().toString() + "\uf8ff");
-
-//                                        if (!serchText.getText().toString().equals("")&& ds.child("itemName").getValue().equals(serchText.getText().toString()) ) {
-//
-//
-//                                            //Year
-//                                            //----------------------------------------------------------
-//                                            if (category == true) {
-//                                                if ((ds.child("category").getValue().equals(itemCatgory.getSelectedItem().toString())) && !itemCatgory.getSelectedItem().equals(0)) {
-//
-//
-//                                                    if (year == true) {
-//                                                        if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
-//
-//                                                            itemList.add(ds.getValue(ModuleItem.class));
-//
-//
-//                                                        }
-//                                                    } else {
-//                                                        itemList.add(ds.getValue(ModuleItem.class));
-//                                                    }
-//                                                }
-//                                            } else if (year == true) {
-//                                                if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
-//                                                    itemList.add(ds.getValue(ModuleItem.class));
-//
-//                                                }
-//                                            } else {
-//                                                //----------------------------------------------------------
-//
-//
-//                                                itemList.add(ds.getValue(ModuleItem.class));
-//
-//
-//                                            }
 
                                         if (!serchText.getText().toString().equals("")) {
                                             carQuery = databaseReference.orderByChild("itemName")
@@ -1305,7 +1278,10 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                                                                 }
                                                                 buyerSearchAdapter.notifyDataSetChanged();
+                                                                // hashim
 
+
+                                                                // end hashim
 
                                                             }
 
@@ -1365,6 +1341,8 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                                     }
                                 }
+                                selectedItem = itemCompan.getSelectedItem().toString();
+                                loadCarsSpinners();
                                 buyerSearchAdapter.notifyDataSetChanged();
                                 // companySpinner();
                                 //carsSpinner();
@@ -1417,9 +1395,11 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                                 itemList.add(ds.getValue(ModuleItem.class));
                                             }
                                         }
-
+                                        selectedItem = itemCompan.getSelectedItem().toString();
+                                        loadCarsSpinners();
 
                                         buyerSearchAdapter.notifyDataSetChanged();
+
 
 
                                     }
@@ -1457,6 +1437,8 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
 
                                             itemList.add(ds.getValue(ModuleItem.class));
+                                            selectedItem = itemCompan.getSelectedItem().toString();
+                                            loadCarsSpinners();
 
 
                                             buyerSearchAdapter.notifyDataSetChanged();
@@ -1482,6 +1464,8 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
                     } else {
                         prepareAlbums();
+                        selectedItem = itemCompan.getSelectedItem().toString();
+loadCarsSpinners();
                         buyerSearchAdapter.notifyDataSetChanged();
 
                     }
@@ -1709,24 +1693,26 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
                                                 }
                                             }
                                         } else if (model == true) {
-                                            if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
+                                            if (itemCompan.getSelectedItemPosition()!=0) {
+                                                if ((ds.child("carName").getValue().equals(itemCarName.getSelectedItem().toString())) && !itemCarName.getSelectedItem().equals(0)) {
 
-                                                if (year == true) {
-                                                    if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
+                                                    if (year == true) {
+                                                        if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
+
+                                                            itemList.add(ds.getValue(ModuleItem.class));
+
+                                                        }
+                                                    } else {
+                                                        //----------------------------------------------------------
+
 
                                                         itemList.add(ds.getValue(ModuleItem.class));
 
+
                                                     }
-                                                } else {
-                                                    //----------------------------------------------------------
-
-
-                                                    itemList.add(ds.getValue(ModuleItem.class));
 
 
                                                 }
-
-
                                             }
                                         } else if (year == true) {
                                             if ((ds.child("year").getValue().equals(itemYear.getSelectedItem().toString())) && !itemYear.getSelectedItem().equals(0)) {
@@ -1805,10 +1791,12 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         carsName = new ArrayList<>();
         carsName.add(0, "اختر سيارة");
         // Initializing an ArrayAdapter
-        String[] carat =
-                {"أي", "Accent", "Elentra", "Sonata"};
+//        String[] carat =
+//                {"أي", "Accent", "Elentra", "Sonata"};
+
+
         itemCarName = view.findViewById(R.id.carName_input);
-        final ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, carat);
+        final ArrayAdapter<String> adapterModel = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, carsName);
         adapterModel.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         itemCarName.setAdapter(adapterModel);
 
@@ -1817,7 +1805,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 
 
 //__________________________________________________________________________________________________
-
 
 
 //--------------------------------------------------------------------------------------------------
@@ -1919,6 +1906,34 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
 //
     }
 
+    private  void loadCarsSpinners () {
+        if (selectedItem != null) {
+            carsName.clear();
+            carsName.add(0, "اختر سيارة");
+
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference carsReferenc = firebaseDatabase.getInstance().getReference().child("cars").child(selectedItem);
+            carsReferenc.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+
+                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                            carsName.add(ds.getValue().toString());
+                        }
+                    }
+                }
+
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
 //    private void companySpinner() {
 //        itemCompan = getView().findViewById(R.id.itemComp_input);
 //        carsCompany = new ArrayList<>();
@@ -2002,106 +2017,6 @@ public class FragmentBuyerSearch extends Fragment implements BuyerSearchAdapter.
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
-
-  //    private  void carName () {
-//
-//        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//        Log.d("test", "this is ayman Selected : " + selectedItem);
-//
-//        DatabaseReference carsReferenc = firebaseDatabase.getInstance().getReference().child("cars").child(selectedItem);
-//        carsReferenc.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//
-//                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                        Log.d("test", "this is ayman : " + ds.getValue().toString());
-//
-//
-//                        carsName.add(ds.getValue().toString());
-//                    }
-//                }
-//            }
-//
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//        itemCarName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-////                carsName.clear();
-////                carsName.add(0, "اختر سيارة");
-//
-//
-//                Toast.makeText(getContext(), selectedItem, Toast.LENGTH_LONG).show();
-//                //  carsSpinner();
-//
-//
-//                /*
-//                 */
-//                Log.d("test", "this is ayman : " + "oldfjod");
-//
-//                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//                Log.d("test", "this is ayman Selected : " + selectedItem);
-//
-//                DatabaseReference carsReferenc = firebaseDatabase.getInstance().getReference().child("cars").child(selectedItem);
-//                carsReferenc.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        if (dataSnapshot.exists()) {
-//
-//                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                                Log.d("test", "this is ayman : " + ds.getValue().toString());
-//
-//
-//                                carsName.add(ds.getValue().toString());
-//                            }
-//                        }
-//                    }
-//
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-////                carQuery.addValueEventListener(new ValueEventListener() {
-////                    @Override
-////                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-////                        if (dataSnapshot.exists()) {
-////                            carsName.clear();
-////
-////                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-////                                Log.d("test","this is ayman : "+ds.getValue().toString());
-//////                                                                itemList.add(ds.getValue(ModuleItem.class));
-////                                carsName.add(ds.getValue().toString());
-////                            }
-////
-////                            adapterModel.notifyDataSetChanged();
-////
-////                        }
-////                    }
-////
-////
-////                    @Override
-////                    public void onCancelled(@NonNull DatabaseError databaseError) {
-////
-////                    }
-////                });
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-//
-//
-//
-//    }
 
 
     public interface OnFragmentInteractionListener {

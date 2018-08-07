@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,31 +12,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/card_margin"
+        android:layout_marginBottom="@dimen/card_margin"
+        android:layout_marginEnd="@dimen/card_margin"
+        android:layout_marginLeft="@dimen/card_margin"
+        android:layout_marginRight="@dimen/card_margin"
+        android:layout_marginStart="@dimen/card_margin"
+        android:layout_marginTop="@dimen/card_margin"
         android:elevation="3dp"
         card_view:cardCornerRadius="@dimen/card_album_radius">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="291dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/desc"
-                android:layout_width="195dp"
+                android:layout_width="0dp"
                 android:layout_height="75dp"
                 android:layout_below="@+id/title"
-                android:layout_marginBottom="12dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:layout_toLeftOf="@+id/thumbnail"
                 android:layout_toStartOf="@+id/thumbnail"
+                android:gravity="right"
                 android:paddingBottom="@dimen/songs_count_padding_bottom"
                 android:paddingLeft="@dimen/album_title_padding"
                 android:paddingRight="@dimen/album_title_padding"
                 android:textSize="@dimen/songs_count"
-                card_view:layout_constraintBottom_toTopOf="@+id/buyer_name"
-                card_view:layout_constraintEnd_toStartOf="@+id/thumbnail"
-                card_view:layout_constraintHorizontal_bias="1.0"
-                card_view:layout_constraintStart_toStartOf="parent" />
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="0.477" />
 
             <ImageView
                 android:id="@+id/thumbnail"
@@ -57,103 +64,103 @@
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="193dp"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:paddingLeft="@dimen/album_title_padding"
                 android:paddingRight="@dimen/album_title_padding"
                 android:paddingTop="@dimen/album_title_padding"
                 android:textColor="@color/album_title"
                 android:textSize="@dimen/album_title"
-                card_view:layout_constraintBottom_toTopOf="@+id/desc"
                 card_view:layout_constraintEnd_toStartOf="@+id/thumbnail"
-                card_view:layout_constraintHorizontal_bias="0.947"
-                card_view:layout_constraintStart_toEndOf="@+id/overflow"
-                card_view:layout_constraintTop_toTopOf="parent"
-                card_view:layout_constraintVertical_bias="0.0" />
+                card_view:layout_constraintHorizontal_bias="1.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/count"
                 android:layout_width="195dp"
                 android:layout_height="34dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/rounded_button"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimary"
+
                 android:gravity="center"
                 android:textColor="@color/white"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toStartOf="@+id/thumbnail"
-                card_view:layout_constraintHorizontal_bias="0.0"
-                card_view:layout_constraintStart_toStartOf="parent">
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/buyer_address"
+                card_view:layout_constraintVertical_bias="0.0">
 
             </TextView>
 
 
             <TextView
                 android:id="@+id/status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="124dp"
+                android:layout_height="26dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="110dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:text="dxfhggfn"
                 android:textSize="12sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="1.0"
                 card_view:layout_constraintStart_toEndOf="@+id/count"
-                card_view:layout_constraintTop_toBottomOf="@+id/buyer_address" />
+                card_view:layout_constraintTop_toBottomOf="@+id/buyer_address"
+                card_view:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/buyer_name"
-                android:layout_width="202dp"
+                android:layout_width="0dp"
                 android:layout_height="26dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="72dp"
-                card_view:layout_constraintBottom_toTopOf="@+id/buyer_number"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintHorizontal_bias="0.913"
-                card_view:layout_constraintStart_toStartOf="parent" />
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                card_view:layout_constraintBottom_toTopOf="@+id/desc"
+                card_view:layout_constraintEnd_toStartOf="@+id/thumbnail"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/title"
+                card_view:layout_constraintVertical_bias="0.333" />
 
             <TextView
                 android:id="@+id/buyer_number"
-                android:layout_width="202dp"
+                android:layout_width="0dp"
                 android:layout_height="26dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="72dp"
-                card_view:layout_constraintBottom_toTopOf="@+id/buyer_address"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintHorizontal_bias="0.913"
-                card_view:layout_constraintStart_toStartOf="parent" />
+                card_view:layout_constraintHorizontal_bias="1.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/desc" />
 
             <TextView
                 android:id="@+id/buyer_address"
-                android:layout_width="204dp"
-                android:layout_height="56dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                card_view:layout_constraintBottom_toTopOf="@+id/count"
+                android:layout_width="0dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintHorizontal_bias="0.952"
+                card_view:layout_constraintHorizontal_bias="1.0"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
-                card_view:layout_constraintVertical_bias="0.956" />
+                card_view:layout_constraintTop_toBottomOf="@+id/buyer_number" />
 
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>
-
-
 
 
     <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

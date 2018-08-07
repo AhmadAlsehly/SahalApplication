@@ -96,7 +96,6 @@ public class SignupBuyer extends Fragment {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
-                                        Log.d("test", "createUserWithEmail:success");
                                    //     FirebaseUser user = mAuth.g();
 
                                         mDatabase.child("buyer").child(mAuth.getUid()).setValue(buyer);
@@ -108,7 +107,6 @@ public class SignupBuyer extends Fragment {
                                         MainBuyerActivity.bA.finish();
                                     } else {
                                         // If sign in fails, display a message to the user.
-                                        Log.w("test", "createUserWithEmail:failure", task.getException());
                                         dialog.dismiss();
                                         Toast.makeText(v.getContext(), "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();

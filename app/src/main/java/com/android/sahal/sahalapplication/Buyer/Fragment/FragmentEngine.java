@@ -161,8 +161,7 @@ public class FragmentEngine extends Fragment implements BuyerEngineAdapter.onIte
 
                         if (ds.child("category").getValue().equals("محركات - وقود") && ds.child("status").getValue().equals("0")) {
                             itemList.add(ds.getValue(ModuleItem.class));
-                            Log.d("tesst", "this is size :" + itemList.size());
-                            Log.d("tesst", "this is name :" + ds.toString());
+
 
                         }
                     }

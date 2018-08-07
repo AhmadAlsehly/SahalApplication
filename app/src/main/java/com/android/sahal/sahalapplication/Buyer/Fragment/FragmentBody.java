@@ -149,7 +149,6 @@ Query query ;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Log.d("tesst", "this is size :" + dataSnapshot.toString());
                     if (ds.child("category").exists()){
                         if (ds.child("category").getValue().equals("بودي") && ds.child("status").getValue().equals("0")) {
                             itemList.add(ds.getValue(ModuleItem.class));
