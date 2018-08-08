@@ -25,9 +25,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="36dp"
-            android:src="@drawable/ic_profile"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="2dp"
+            android:src="@drawable/progile_pngg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,6 +39,7 @@
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:text=""
+            android:textColor="@color/white"
             android:textSize="@dimen/activity_horizontal_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
