@@ -147,8 +147,8 @@ public class SellerAddItem extends Fragment {
                         !itemCity.getText().toString().isEmpty()
                         && !itemPrice.getText().toString().isEmpty()&&!itemCompan.getSelectedItem().equals("اختر شركة")
                 && !itemCarName.getSelectedItem().equals("اختر سيارة")){
-//                    ProgressDialog dialog = ProgressDialog.show(getContext(), "",
-//                            "جاري رفع القطعة....", true);
+                   final ProgressDialog dialog = ProgressDialog.show(getContext(), "",
+                           "جاري رفع القطعة....", true);
                 for (int i = 0; i < mPhotos.size(); i++) {
                     Log.d("photoname", mPhotos.get(i));
                     StorageReference imageReference = storageReference.child("items").child(mPhotos.get(i));
@@ -163,6 +163,7 @@ public class SellerAddItem extends Fragment {
                             count++;
                             linkPhotos.add(uri.toString());
                             if (count == 4) {
+                                dialog.dismiss();
                                 uploadItem();
                             }
 
@@ -172,6 +173,7 @@ public class SellerAddItem extends Fragment {
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            dialog.dismiss();
                             Toast.makeText(v.getContext(), "Upload failed!", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
